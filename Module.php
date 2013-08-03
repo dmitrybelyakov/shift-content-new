@@ -139,6 +139,9 @@ class Module implements AutoloaderProvider
     {
         //grab module config
         $config = $moduleEvent->getConfigListener()->getMergedConfig();
+//        echo '<pre>';
+//        print_r($config);
+//        die();
         static::$config = $config->ShiftMedia;
     }
 

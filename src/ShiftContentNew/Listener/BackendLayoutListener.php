@@ -95,7 +95,7 @@ class BackendLayoutListener implements ListenerAggregateInterface
             return;
 
         $viewModel = $mvcEvent->getViewModel();
-        $viewModel->setTemplate('shiftconetnt-new.backend.layout');
+        $viewModel->setTemplate('shiftcontent-new.backend.layout');
 
         return;
     }

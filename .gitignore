@@ -19,5 +19,4 @@ dist
 .sass-cache
 libpeerconnection.log
 app/components
-public/shift-yeoman/components
-public/components
+public/shift-content-new/components
