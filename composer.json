@@ -11,5 +11,9 @@
         }
     ],
     "require": {
+      "projectshift/shift-common": "dev-master",
+      "projectshift/shift-doctrine": "dev-master",
+      "projectshift/shift-media": "dev-master",
+      "symfony/console": "*"
     }
 }

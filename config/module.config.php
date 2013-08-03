@@ -49,7 +49,7 @@ return array(
             'connections' => array(
                 'writer' => array(
                     'eventSubscribers' => array(
-                        'contentListener' => 'ShiftContent\Doctrine\DiscriminatorSubscriber',
+                        'contentNewListener' => 'ShiftContentNew\Doctrine\DiscriminatorSubscriber'
                     ),
                 ),
                 'reader' => array(
