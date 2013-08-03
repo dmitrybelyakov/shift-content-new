@@ -15,7 +15,7 @@ var yo = {
   webPath: '/modules/shift-content-new',
   routes: {
     //those are minified to correct location
-    '/js/*path': '/app/js/[path]',
+    '/scripts/*path': '/app/scripts/[path]',
     '/css/*path': '/.tmp/css/[path]',
     '/components/*path': '/app/components/[path]',
 
@@ -50,7 +50,7 @@ module.exports = function (grunt) {
           '<%= yeoman.app %>/{,*/}*.html',
           '.tmp/css/{,*/}*.css',
           '<%= yeoman.app %>/sass/{,*/}*.css',
-          '{.tmp,<%= yeoman.app %>}/js/{,*/}*.js',
+          '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
           '<%= yeoman.app %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
@@ -110,7 +110,7 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yeoman.app %>/js/{,*/}*.js'
+        '<%= yeoman.app %>/scripts/{,*/}*.js'
       ]
     },
     compass: {
@@ -119,7 +119,7 @@ module.exports = function (grunt) {
         cssDir: '.tmp/css',
         generatedImagesDir: '.tmp/img/generated',
         imagesDir: '<%= yeoman.app %>/img',
-        javascriptsDir: '<%= yeoman.app %>/js',
+        javascriptsDir: '<%= yeoman.app %>/scripts',
         fontsDir: '<%= yeoman.app %>/sass/fonts',
         importPath: '<%= yeoman.app %>/components',
         httpImagesPath: yo.webPath + '/img',
@@ -138,7 +138,7 @@ module.exports = function (grunt) {
       dist: {
         files: {
           src: [
-            '<%= yeoman.dist %>/js/{,*/}*.js',
+            '<%= yeoman.dist %>/scripts/{,*/}*.js',
             '<%= yeoman.distTemp %>/css/{,*/}*.css',
             '<%= yeoman.distTemp %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
             '<%= yeoman.distTemp %>/css/fonts/*'
@@ -223,7 +223,7 @@ module.exports = function (grunt) {
               'css/*.css',
               'css/fonts/*.*',
               'img/{,*/}*.*',
-              'js/{,*/}*.*',
+              'scripts/{,*/}*.*',
               'components/**/*'
             ]
           }, {
@@ -264,17 +264,17 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yeoman.distTemp %>/js',
+          cwd: '<%= yeoman.distTemp %>/scripts',
           src: '*.js',
-          dest: '<%= yeoman.distTemp %>/js'
+          dest: '<%= yeoman.distTemp %>/scripts'
         }]
       }
     },
     uglify: {
       dist: {
         files: {
-          '<%= yeoman.distTemp %>/js/scripts.js': [
-            '<%= yeoman.distTemp %>/js/scripts.js'
+          '<%= yeoman.distTemp %>/scripts/scripts.js': [
+            '<%= yeoman.distTemp %>/scripts/scripts.js'
           ]
         }
       }
