@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('testApp', [])
+angular.module('shiftContentApp', [])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
