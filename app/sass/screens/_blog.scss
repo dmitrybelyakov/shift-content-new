@@ -1,0 +1,62 @@
+/*
+ * Blog
+ * This holds various stylings for the blog section
+ */
+
+
+h3.year {
+
+  display: block;
+  text-align: left;
+
+
+  color: lighten($color_blue_standard, 30);
+  font-size: 16px;
+  line-height: 16px;
+
+  border: solid lighten($color_blue_standard, 20);
+  border-width: 0px 0px 1px 0px;
+  padding: 10px 15px;
+  margin: 0px 0px 10px 0px;
+
+}
+
+.text-block {
+
+  //newsblock
+  .newsblock{
+
+    h3 {
+      margin: 0px 0px 10px 0px;
+      //color: $color_blue_standard;
+      //color: lighten($color_grey_page, 25);
+      color: darken($color_grey_page, 15);
+      font-weight: normal;
+      font-size: 23px;
+      line-height: 30px;
+      letter-spacing: -1px;
+    }
+
+    .date {
+      margin: 0px 0px 0px 0px;
+      font-size: 11px;
+      color: darken($color_grey_page_lighter, 20);
+    }
+
+    .news-details {
+      display: block;
+      margin: 15px 0px;
+    }
+
+
+  }//newsblock
+
+
+  .date {
+    margin: 0px 0px 10px 0px;
+    font-size: 12px;
+    color: darken($color_grey_page_lighter, 20);
+    text-decoration: uppercase;
+  }
+
+}
