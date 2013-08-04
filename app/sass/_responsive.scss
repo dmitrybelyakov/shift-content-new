@@ -1,0 +1,16 @@
+/**
+ * Responsiveness
+ * this holds various style adjustments for media queries.
+ */
+
+
+// REPEAT VARIABLES & MIXINS
+@import "bootstrap-sass/lib/variables";
+@import "bootstrap-sass/lib/mixins";
+@import "bootstrap-sass/lib/responsive-utilities";
+//
+//// tablets to regular desktops
+@import "bootstrap-sass/lib/responsive-767px-max.scss";
+@import "bootstrap-sass/lib/responsive-768px-979px";
+@import "bootstrap-sass/lib/responsive-1200px-min";
+

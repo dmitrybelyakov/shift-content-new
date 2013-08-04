@@ -1,0 +1,79 @@
+/**
+ * Font family declarations
+ */
+
+
+@mixin font_regular {
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-weight: normal;
+}
+
+@mixin font_headers {
+  font-family: 'Ubuntu', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 800;
+}
+
+@mixin font_buttons {
+  font-family: 'Ubuntu', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-weight: normal;
+}
+
+@mixin font_light {
+  font-family: 'HelveticaNeue-Light', 'Helvetica Neue Light','Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-weight: 100;
+}
+
+@mixin font_condensed {
+  font-family: 'Arial Narrow' 'Ubuntu Condensed', sans-serif;
+  font-weight: normal;
+}
+
+@mixin font_mono {
+  font-family: 'Ubuntu Mono', 'Courier New', 'Courier', monospace;
+  font-weight: normal;
+}
+
+
+/**
+ * Fonts
+ * This holds webfonts configuration.
+ */
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Ubuntu'), url(//themes.googleusercontent.com/static/fonts/ubuntu/v4/AUCtrbkQaDYHKI8RVX5mW-vvDin1pK8aKteLpeZ5c0A.woff) format('woff');
+}
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Ubuntu Bold'), local('Ubuntu-Bold'), url(//themes.googleusercontent.com/static/fonts/ubuntu/v4/oxrPYIm05JrY_0rFIEQ_obO3LdcAZYWl9Si6vvxL-qU.woff) format('woff');
+}
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: italic;
+  font-weight: 400;
+  src: local('Ubuntu Italic'), local('Ubuntu-Italic'), url(//themes.googleusercontent.com/static/fonts/ubuntu/v4/7S57xBS8jz6huXwu1u5x8HYhjbSpvc47ee6xR_80Hnw.woff) format('woff');
+}
+@font-face {
+  font-family: 'Ubuntu';
+  font-style: italic;
+  font-weight: 700;
+  src: local('Ubuntu Bold Italic'), local('Ubuntu-BoldItalic'), url(//themes.googleusercontent.com/static/fonts/ubuntu/v4/OMD20Sg9RTs7sUORCEN-7RsKoB_2lT5BZsH32Y4e7So.woff) format('woff');
+}
+@font-face {
+  font-family: 'Ubuntu Condensed';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Ubuntu Condensed'), local('UbuntuCondensed-Regular'), url(//themes.googleusercontent.com/static/fonts/ubuntucondensed/v3/DBCt-NXN57MTAFjitYxdrJNKnRC5qTlVbCtBB9vf3jc.woff) format('woff');
+}
+@font-face {
+  font-family: 'Ubuntu Mono';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Ubuntu Mono'), local('UbuntuMono-Regular'), url(//themes.googleusercontent.com/static/fonts/ubuntumono/v3/ViZhet7Ak-LRXZMXzuAfkRsKoB_2lT5BZsH32Y4e7So.woff) format('woff');
+}
+
+
+

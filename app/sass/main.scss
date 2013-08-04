@@ -1,31 +1,1025 @@
-//$iconSpritePath: "/modules/shift-content-new/img/glyphicons-halflings.png";
-//$iconWhiteSpritePath: "/modules/shift-content-new/img/glyphicons-halflings-white.png";
-//@import "bootstrap-sass/lib/bootstrap";
-//
-///* Put your CSS here */
-//html, body {
-//  margin: 20px;
-//}
-//
-//body {
-//    background: #fafafa;
-//    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-//    color: #333;
-//}
-//
-//.hero-unit {
-//    margin: 50px auto 0 auto;
-//    width: 300px;
-//    font-size: 18px;
-//    font-weight: 200;
-//    line-height: 30px;
-//    background-color: #eee;
-//    border-radius: 6px;
-//    padding: 60px;
-//}
-//
-//.hero-unit h1 {
-//    font-size: 60px;
-//    line-height: 1;
-//    letter-spacing: -1px;
-//}
+@import "bootstrap-config";
+//@import "bootstrap/compass_twitter_bootstrap_awesome";
+@import "bootstrap-sass/lib/bootstrap";
+@import "respondto";
+@import "fonts";
+@import "colors";
+@import "buttons"; //imports compass
+@import "forms";
+@import "locales";
+@import "notifications";
+@import "photoset";
+@import "datepicker";
+@import "animate-css";
+
+@import "screens/home";
+@import "screens/blog";
+@import "screens/get";
+@import "screens/send";
+@import "screens/profile";
+@import "screens/register";
+@import "responsive"; //enables responsiveness
+//@import "grid-highlight";
+
+
+/**
+ * Basic values
+ * Sets some basic variables.
+ */
+$logo_bar_height: 70px;
+
+
+
+/**
+ * General
+ * Basic elements styling.
+ */
+body {
+  background: red;
+  @include font_regular;
+  -webkit-font-smoothing: antialiased;
+  font-size: 13px;
+  @include media(phone) {padding: 0px;}
+}
+
+h1, h2, h3, h4, h5, h6, h7, h8{
+  @include font_headers;
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 35px;
+  font-weight: normal;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: normal;
+}
+
+
+.btn, .nav {
+  @include font_buttons;
+}
+
+fieldset legend {
+  @include font_buttons;
+}
+
+/**
+ * Locale & Login
+ * Universal block for login/registration and locale changer functionality.
+ */
+.locale-login {
+
+
+  height: $logo_bar_height;
+  vertical-align: middle;
+  text-align: right;
+
+  .locale-button {
+    display: inline-block;
+    border: 1px solid lighten($color_grey_page, 35);
+    @include border-radius(5px);
+    margin: 10px 0px 5px 0px;
+  }
+
+  .locale {
+    padding: 0px 10px;
+    color: lighten($color_grey_page, 10);
+
+    border: solid #fff;
+    border-width: 1px 0px 0px 1px;
+    @include border-radius(5px);
+
+    &:hover {
+      background: lighten($color_grey_page, 57);
+      cursor: pointer;
+    }
+
+    img {
+      vertical-align: middle;
+      margin: 0px 0px 3px 0px;
+    }
+
+    .country {
+      vertical-align: middle;
+      font-size: 11px;
+    }
+  }
+
+  .authentication {
+    font-size: 12px;
+
+    //tablet
+    @include media(tablet) {
+      font-size: 11px;
+    }
+
+
+    a {
+      display: inline-block;
+      padding-bottom:1px;
+      margin: 0px 0px 0px 10px;
+      color: $color_grey_page;
+      border-color: $color_grey_page;
+      border-bottom:1px dotted $color_grey_page;
+      line-height: 14px;
+
+      &:hover {
+        text-decoration: none;
+        border-bottom-color: #fff;
+        color: lighten($color_grey_page, 10);
+      }
+
+    } //href
+
+
+  }
+
+}
+
+
+/**
+ * Logo bar
+ * Logo and navigational bar.
+ */
+.logo-bar {
+  display: block;
+  vertical-align: middle;
+
+
+
+  .logo {
+    display: inline-block;
+    vertical-align: middle;
+    margin: 10px 0px;
+    height: auto;
+    width: 137px;
+    @include media(tablet) {width: 110px;}
+    @include media(phone) {
+      display: block;
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  ul.nav {
+
+    display: inline-block;
+    margin-left: 30px;
+
+    //tablet
+    @include media(tablet) {
+      margin-left: 10px;
+    }
+
+    li {
+      display: inline-block;
+    }
+
+    a {
+      @include border-radius(10px);
+
+      display: inline-block;
+      padding: 2px 15px;
+      margin: 4px 6px;
+      font-size: 11px;
+      text-transform: uppercase;
+      color: #747474;
+
+      &:hover {background: #f5f5f5;}
+      &.send {background: $color_blue_standard; color: #fff}
+      &.get {background: $color_green_standard; color: #fff}
+
+      @include media(phone) {
+        background: #f5f5f5;
+      }
+
+      @include media(tablet) {
+        padding: 2px 10px;
+        margin: 4px;
+      }
+
+
+    }
+
+  }
+
+
+
+
+
+} //logo bar
+
+
+/**
+ * Stripe
+ * 100% width stripes.
+ */
+
+.stripe {
+  background: $color_stripe;
+  &.stripe-pageheader {color: $color_blue_standard;}
+
+  &.stripe-centered {
+    text-align: center;
+  }
+
+  &.stripe-patterned {
+    background-image: url('/modules/EgratFrontend/img/stripe/background-grey.png');
+  }
+
+  &.stripe-lightgrey {
+    &.stripe-pageheader {color: $color_grey_page;}
+    background: $color_stripe_lightgrey;
+  }
+
+  &.stripe-lightblue {
+    &.stripe-pageheader {color: $color_grey_page;}
+    background: $color_stripe_lightblue;
+  }
+
+  &.stripe-blue {
+    &.stripe-pageheader {color: #fff;}
+    background: $color_stripe_blue;
+  }
+  &.stripe-blue-patterned {
+    &.stripe-pageheader {color: #fff;}
+    background: $color_stripe_blue;
+    background-image: url('/modules/EgratFrontend/img/stripe/background-blue.png');
+  }
+
+  &.stripe-green {
+    &.stripe-pageheader {color: #fff;}
+    background: $color_green_standard;
+  }
+
+  &.stripe-green-patterned {
+    &.stripe-pageheader {color: #fff;}
+    background: $color_green_standard;
+    background-image: url('/modules/EgratFrontend/img/stripe/background-green.png');
+  }
+
+}
+
+
+/**
+ * Footer contacts stripe
+ */
+.stripe.stripe-footer-contacts {
+
+  padding: 30px 0px;
+  color: #fff;
+
+
+  h1 {
+    color: #fff;
+    font-weight: normal;
+  }
+
+  h2 {
+    font-weight: bold;
+    color: darken($color_blue_footer_contacts, 30);
+    font-size: 16px;
+    margin: 0px;
+    margin-bottom: 15px;
+    line-height: 15px;
+  }
+
+  .contacts {
+
+    padding-top: 0px;
+    vertical-align: top;
+
+    //left
+    &.left {
+      text-align: left;
+      font-size: 11px;
+
+      .btn {
+        margin-top: 15px;
+      }
+
+      a.contacts {
+        text-decoration: underline;
+        color: lighten($color_blue_footer_contacts, 30);
+
+        &:hover {
+          text-decoration: none;
+          color: lighten($color_blue_footer_contacts, 40);
+        }
+      }
+
+      ul {
+        margin: 0px;
+        list-style: none;
+        margin-left: 20px;
+
+        li {
+
+          margin-bottom: 5px;
+          vertical-align: top;
+          line-height: 15px;
+
+          span {
+            display: inline-block;
+            position: relative;
+            margin-left: 5px;
+            vertical-align: top;
+          }
+
+
+          &.globe:before {
+            content: '\f0ac';
+            font-family: 'FontAwesome';
+            font-size: 15px;
+            display: inline-block;
+            margin-left: -20px;
+            width: 20px;
+          }
+
+          &.envelope:before {
+            content: '\f0e0';
+            font-family: 'FontAwesome';
+            font-size: 15px;
+            display: inline-block;
+            margin-left: -20px;
+            width: 20px;
+          }
+
+          &.phone:before {
+            content: '\f095';
+            font-family: 'FontAwesome';
+            font-size: 15px;
+            display: inline-block;
+            margin-left: -20px;
+            width: 20px;
+          }
+        }
+      }//ul
+
+    }
+
+    //center
+    &.center {
+      text-align: center;
+
+      h1 {
+        margin: 0px 0px 0px 0px;
+        font-size: 22px;
+        line-height: 25px;
+        color: #fff;
+      }
+
+      //counter
+      .counter {
+
+        margin: 30px 0px;
+        font-weight: bold;
+        color: darken($color_blue_footer_contacts, 20);
+        font-size: 35px;
+
+        span {
+          text-shadow: 0px -1px 0px lighten($color_blue_footer_contacts, 50);
+        }
+
+        .separator {
+
+          color: darken($color_blue_footer_contacts, 25);
+          font-size: 40px;
+          display: inline-block;
+          margin: 0px 0px 10px 0px;
+        }
+
+        .digit {
+
+          @include border-radius(5px);
+          @include background-image(
+              linear-gradient(
+                  top,
+                  lighten($color_blue_footer_contacts, 20),
+                  lighten($color_blue_footer_contacts, 45)
+              )
+          );
+          @include box-shadow(
+              2px 2px 0px darken($color_blue_footer_contacts, 8)
+          );
+
+
+
+          border: 1px solid;
+          border-top-color: lighten($color_blue_footer_contacts, 30);
+          border-right-color: darken($color_blue_footer_contacts, 15);
+          border-bottom-color: darken($color_blue_footer_contacts, 15);
+          border-left-color: lighten($color_blue_footer_contacts, 30);
+
+          padding: 15px 8px;
+          display: inline-block;
+        }
+
+      } //counter
+
+      //infoblock
+      .infoblock {
+        @include border-radius(10px);
+        display: inline-block;
+        max-width: 400px;
+        margin: 20px 0px;
+        padding: 15px;
+        background: lighten($color_blue_footer_contacts, 10);
+
+      } //infoblock
+
+    }
+
+    //right
+    &.right {
+      text-align: right;
+
+      .support {
+        display: inline-block;
+        margin-top: 0px;
+        height: 56px;
+        min-height: 56px;
+        max-width: 200px;
+        padding-left: 30px;
+
+        background-image: url('/modules/EgratFrontend/img/footer-contacts-support-icon.png');
+        background-position: left center;
+        background-repeat: no-repeat;
+
+        h2 {
+          display: inline-block;
+          margin: 0px 0px 10px 0px;
+          padding: 0px;
+          font-weight: bold;
+          font-size: 16px;
+          line-height: 16px;
+          color: darken($color_blue_footer_contacts, 30);
+        }
+
+        span {
+          display: inline-block;
+
+          &.phone {
+            margin-top: 0px;
+            font-weight: bold;
+            font-size: 16px;
+            color: #fff;
+          }
+
+        }
+
+      } //support
+
+
+      .social {
+        margin-top: 40px;
+        color: #fff;
+        font-size: 11px;
+
+        ul {
+          margin-top: 10px;
+          list-style: none;
+
+          li {
+            display: inline-block;
+
+            a {
+              font-size: 15px;
+              border: none;
+              background: lighten($color_blue_footer_contacts, 10);
+
+              //.icon-vk:before {
+              //  content: "VK";
+              //  font-weight: bold;
+              //  font-size: 14px;
+              //}
+            }
+
+          } //li
+
+        }//ul
+
+
+      } //social
+
+    } //right column
+  }
+} //footer contacts stripe
+
+
+/**
+ * Footer navigation stripe
+ */
+.stripe.stripe-footer-navigation {
+
+  padding: 20px 0px;
+  background-color: $color_blue_footer_navigation;
+
+  h5 {
+    @include font_regular;
+    margin-left: 10px;
+    color: #000;
+    text-transform: uppercase;
+  }
+
+  .nav {
+
+    a {
+
+      display: inline-block;
+      padding: 3px 10px;
+      color: $color_grey_page;
+      font-size: 12px;
+      @include border-radius(6px);
+
+      &:hover {
+        background: lighten($color_blue_footer_navigation, 5);
+      }
+
+      &.send {
+
+        &:hover {
+          background: lighten($color_blue_standard, 5)
+        }
+
+        background: $color_blue_standard;
+        color: #fff;
+        margin: 0px 0px 10px 5px;
+      }
+
+      &.get {
+
+        &:hover {
+          background: lighten($color_green_standard, 5)
+        }
+
+        background: $color_green_standard;
+        color: #fff;
+        margin: 0px 0px 10px 5px;
+      }
+
+
+    }
+  }
+
+
+
+
+} //footer navigation stripe
+
+
+/**
+ * Footer payment stripe
+ */
+.stripe.stripe-footer-payments {
+
+  padding: 20px 0px;
+  background-color: #fff;
+  text-align: center;
+  vertical-align: middle;
+
+  @include media(phone) {display: none}
+
+
+  img {
+    margin: 0px 10px;
+    vertical-align: middle;
+    width: 66px;
+    height: 30px;
+  }
+
+} //footer payment stripe
+
+
+/**
+ * Footer copyright stripe
+ */
+.stripe.stripe-footer-copyright {
+
+  padding: 20px 0px;
+  background-color: $color_grey_footer_copyright;
+  background-image: url('/modules/EgratFrontend/img/footer-copyright-background.png');
+
+  color: $color_grey_footer_copyright_text;
+  text-align: center;
+  vertical-align: middle;
+
+  img {
+
+    vertical-align: middle;
+    margin-right: 15px;
+
+    width: 20px;
+    height: 20px;
+  }
+
+} //footer copyright stripe
+
+
+
+/**
+ * Stripe header
+ * Page header on top of stripe block with crumbs navigation
+ */
+.stripe-pageheader {
+
+  padding: 0px;
+  overflow: hidden;
+  vertical-align: middle;
+  height: 170px;
+  max-height: 170px;
+  @include media(phone) {height: auto;}
+
+  .container {
+    padding: 30px 0px;
+    @include media(phone) {padding: 20px;}
+  }
+
+  h1 {
+    font-size: 40px;
+    font-weight: normal;
+    margin: 0px;
+  }
+
+  h2 {
+    font-size: 30px;
+    font-weight: normal;
+  }
+
+  //textpage stripe header
+  .textpage-header {
+    padding-left: 20px;
+    @include media(phone){padding-left: 0px;};
+  }
+
+  //page header crumbs
+  .breadcrumb {
+    background: none;
+    padding: 0px 0px 0px 4px;
+    margin: 0px 0px 10px 0px;
+    font-size: 11px;
+
+    a {
+      color: $color_grey_page;
+      text-decoration: none;
+      text-shadow: none;
+    }
+
+    .divider {
+      color: $color_grey_page;
+    }
+
+    .active {
+      color: $color_grey_page;
+      text-shadow: none;
+      text-decoration: underline;
+    }
+
+  }
+
+
+  &.stripe-green {
+    h1, h2 {
+      color: #fff;
+    }
+
+    .breadcrumb {
+      a, .divider, .active {
+        color: #fff;
+      }
+    }
+
+  } //green
+
+  //lightblue
+  &.stripe-lightblue {
+    h1, h2 {
+      color: darken($color_grey_page, 10);
+    }
+
+    .breadcrumb {
+      a, .divider, .active {
+        color: $color_grey_page;
+      }
+    }
+  } //lightblue
+
+  //blue
+  &.stripe-blue-patterned {
+    h1, h2 {
+      color: #fff;
+    }
+
+    .breadcrumb {
+      a, .divider {
+        color: #fff;
+      }
+
+      .active {
+        color: lighten($color_blue_standard, 30);
+      }
+    }
+
+  } //blue
+
+}
+
+
+/**
+ * Sidebar
+ * A grid-based sidebar of variable width. May hold sub navigations
+ * and other usefull stuff.
+ */
+.sidebar {
+
+
+  .sidebar-section {
+    background: $color_blue_standard;
+    padding: 20px;
+    @include media(phone) {
+      padding: 10px;
+    }
+  }
+
+
+
+  ul.nav {
+    color: #fff;
+    font-size: 12px;
+
+    @include media(phone) {
+      margin-bottom: 0px;
+    }
+
+    li {
+      @include media(phone) {
+        display: inline-block;
+      }
+    }
+
+    a {
+
+      @include border-radius(10px);
+      display: inline-block;
+      padding: 3px 15px;
+      margin: 3px 0px;
+      color: #fff;
+
+      &:hover, {
+        background: lighten($color_blue_standard, 10);
+      }
+
+      &.active {
+        background: #fff;
+        color: $color_blue_standard;
+      }
+
+    } //href
+  }
+
+}
+
+/**
+ * Text page container
+ * Layers content and sidebar over header and navigation.
+ */
+.textpage-container {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  margin-top: 170px;
+
+  @include media(phone) {
+    position: relative;
+    top: 0px;
+    left: 0px;
+    margin-top: 0px;
+  }
+
+}
+
+/**
+ * Text page block
+ */
+.text-block {
+  min-height: 500px;
+  padding-bottom: 60px;
+  padding-top: 100px;
+  font-size: 14px;
+  text-align: justify;
+
+  @include media(phone) {
+    padding: 20px 20px 20px 20px;
+  }
+
+  .content {
+    padding-left: 20px;
+    @include media(phone){padding-left: 0px;};
+  }
+
+}
+
+
+.textpage-header {
+
+   margin-bottom: 30px;
+
+   h1 {
+     font-size: 35px;
+     color: darken($color_grey_page, 20);
+     margin: 5px 0px;
+     letter-spacing: -1px;
+     text-align: left;
+   }
+
+   h2 {
+     color: lighten($color_grey_page, 5);
+     margin: 0px;
+     line-height: 22px;
+     margin: 5px 0px;
+     letter-spacing: -1px;
+     text-align: left;
+   }
+
+ }
+
+
+
+/**
+ * Modal styles
+ * This holds styles for general and specific modal dialogs.
+ */
+.modal-header {
+  @include border-top-radius(6px);
+  color: $color_grey_page;
+
+  h4 {
+    font-weight: normal;
+    font-size: 22px;
+    letter-spacing: -1px;
+  }
+}
+
+/**
+ * Locales modal
+ */
+.modal-locale {
+
+  .modal-body-locales {
+    padding: 20px;
+
+    .span3 {
+      width: 220px;
+      @include media(tablet) {width: 220px;}
+
+    }
+
+    ul {
+      list-style: none;
+      padding: 0px;
+      margin: 0px;
+
+      li {
+        @include border-radius(10px);
+        border: solid #fff;
+        border-width: 0px 1px 1px 0px;
+        cursor: pointer;
+        display: block;
+        margin: 2px 0px;
+        padding: 3px 10px 5px 35px;
+        background-position: 10px center;
+
+        &:hover {
+          border: solid lighten($color_grey_page, 50);
+          border-width: 0px 1px 1px 0px;
+          background-color: lighten($color_grey_page_lighter, 18);
+        }
+
+        &.active {
+          border: solid lighten($color_grey_page, 50);
+          border-width: 0px 1px 1px 0px;
+          background-color: $color_blue_standard;
+          color: #fff;
+          .language {color: lighten($color_blue_standard, 30);}
+        }
+
+        span.language {
+          font-size: 11px;
+          color: darken($color_grey_page_lighter, 20);
+        }
+      }
+
+    }
+
+  } //body
+
+} //locale modal
+
+$login_modal_width: 600px;
+.modal-login {
+
+  width: $login_modal_width;
+  margin-left: $login_modal_width / 2 * -1;
+
+  .modal-footer {
+    text-align: left;
+    padding-left: 20px;
+  }
+
+  .welcome {
+    width: 250px;
+    padding: 20px 10px;
+    background: lighten($color_grey_page_lighter, 20);
+    text-align: center;
+
+    h4 {
+      font-weight: normal;
+      font-size: 16px;
+    }
+
+    p {
+      font-size: 12px;
+      line-height: 16px;
+    }
+
+  }
+
+  .form {
+    width: 250px;
+    margin-left: 10px;
+    margin-right: 10px;
+
+    input[type="email"],input[type="password"] {
+      width: 240px;
+    }
+
+    .control-group {
+      margin: 0px;
+    }
+
+    .remember-password {
+      display: inline-block;
+      text-decoration: underline;
+      color: $color_grey_page;
+      &:hover {
+        text-decoration: none;
+        color: lighten($color_grey_page, 20);
+      }
+    }
+
+    .public-computer {
+      label.checkbox {
+        font-size: 12px;
+        color:$color_grey_page;
+      }
+    }
+
+  }
+
+
+
+} //login modal
+
+
+
+/**
+ * Datepicker styles
+ */
+.datepicker-days {
+  .table-condensed .day.active {
+    background: $color_green_standard;
+    color: #fff;
+  }
+}
+.datepicker-months {
+  .table-condensed .month.active {
+    background: $color_green_standard;
+    color: #fff;
+  }
+}
+.datepicker-years {
+  .table-condensed .year.active {
+    background: $color_green_standard;
+    color: #fff;
+  }
+}
+
+
+
+
+
+/**
+ * Google maps default styles
+ */
+.angular-google-map-container {
+	height: 400px;
+}
+
+// fix Bootstrap handling of responsive images
+.angular-google-map img {
+    max-width: inherit;
+}
