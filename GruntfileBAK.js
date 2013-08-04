@@ -13,20 +13,13 @@ var yo = {
   proxyHost: '127.0.0.1', //only localhost or ip supported
   proxyPort: 8000, //but you can use port.
   webPath: '/modules/shift-content-new',
-  sass: [
-    {
-      cssDir: '.tmp/css',
-      sassDir: '<%= yo.app %>/sass',
-      sassFiles: ['<%= yo.app %>/sass/*.scss']
-    },
-    { sassDir: '<%= yo.app %>/sass/bootstrap', cssDir: '.tmp/css' },
-    { sassDir: '<%= yo.app %>/sass/main', cssDir: '.tmp/css' },
-    { sassDir: '<%= yo.app %>/sass/screens', cssDir: '.tmp/css' }
-  ],
   routes: {
+    //those are minified to correct location
     '/scripts/*path': '/app/scripts/[path]',
     '/css/*path': '/.tmp/css/[path]',
     '/components/*path': '/app/components/[path]',
+
+    //those reflect actual path
     '/modules/shift-content-new/': '/app/index.html',
     '/modules/shift-content-new/img/*path': '/app/img/[path]',
     '/modules/shift-content-new/views/*path': '/app/views/[path]'
@@ -43,22 +36,22 @@ module.exports = function (grunt) {
   } catch (e) {}
 
   grunt.initConfig({
-    yo: yo,
+    yeoman: yo,
     watch: {
       compass: {
-        files: ['<%= yo.app %>/sass/{,*/}*.{scss,sass}'],
-        tasks: ['compassMultiple:server']
+        files: ['<%= yeoman.app %>/sass/{,*/}*.{scss,sass}'],
+        tasks: ['compass:server']
       },
       livereload: {
         options: {
           livereload: LIVERELOAD_PORT
         },
         files: [
-          '<%= yo.app %>/{,*/}*.html',
+          '<%= yeoman.app %>/{,*/}*.html',
           '.tmp/css/{,*/}*.css',
-          '<%= yo.app %>/sass/{,*/}*.css',
-          '{.tmp,<%= yo.app %>}/scripts/{,*/}*.js',
-          '<%= yo.app %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
+          '<%= yeoman.app %>/sass/{,*/}*.css',
+          '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
+          '<%= yeoman.app %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
     },
@@ -69,8 +62,8 @@ module.exports = function (grunt) {
       },
       proxies: [{
         context: '/',
-        host: '<%= yo.proxyHost %>',
-        port: '<%= yo.proxyPort %>',
+        host: '<%= yeoman.proxyHost %>',
+        port: '<%= yeoman.proxyPort %>',
         https: false,
         changeOrigin: false
       }],
@@ -99,16 +92,16 @@ module.exports = function (grunt) {
           dot: true,
           src: [
             '.tmp',
-            '<%= yo.dist %>/*',
-            '!<%= yo.dist %>/.git*'
+            '<%= yeoman.dist %>/*',
+            '!<%= yeoman.dist %>/.git*'
           ]
         }]
       },
       server: '.tmp',
       finalize: [
-        '<%= yo.dist %>/modules',
-        '<%= yo.dist %>/views',
-        '<%= yo.dist %>/*.*'
+        '<%= yeoman.dist %>/modules',
+        '<%= yeoman.dist %>/views',
+        '<%= yeoman.dist %>/*.*'
       ]
     },
     jshint: {
@@ -117,88 +110,62 @@ module.exports = function (grunt) {
       },
       all: [
         'Gruntfile.js',
-        '<%= yo.app %>/scripts/{,*/}*.js'
+        '<%= yeoman.app %>/scripts/{,*/}*.js'
       ]
     },
-    compassMultiple: {
+    compass: {
       options: {
-        environment: 'development',
-        outputStyle: 'expanded',
-        sassDir: '<%= yo.app %>/sass',
+        sassDir: '<%= yeoman.app %>/sass',
         cssDir: '.tmp/css',
         generatedImagesDir: '.tmp/img/generated',
-        imagesDir: '<%= yo.app %>/img',
-        javascriptsDir: '<%= yo.app %>/scripts',
-        fontsDir: '<%= yo.app %>/sass/fonts',
-        importPath: '<%= yo.app %>/components',
+        imagesDir: '<%= yeoman.app %>/img',
+        javascriptsDir: '<%= yeoman.app %>/scripts',
+        fontsDir: '<%= yeoman.app %>/sass/fonts',
+        importPath: '<%= yeoman.app %>/components',
         httpImagesPath: yo.webPath + '/img',
         httpGeneratedImagesPath: yo.webPath + '/img/generated',
         httpFontsPath: yo.webPath + '/css/fonts',
-        relativeAssets: false,
-        time: true,
-        multiple: yo.sass
+        relativeAssets: false
       },
-      dist:{},
-      server:{
+      dist: {},
+      server: {
         options: {
           debugInfo: true
         }
       }
     },
-//    compass: {
-//      options: {
-//        sassDir: '<%= yo.app %>/sass',
-//        cssDir: '.tmp/css',
-//        generatedImagesDir: '.tmp/img/generated',
-//        imagesDir: '<%= yo.app %>/img',
-//        javascriptsDir: '<%= yo.app %>/scripts',
-//        fontsDir: '<%= yo.app %>/sass/fonts',
-//        importPath: '<%= yo.app %>/components',
-//        httpImagesPath: yo.webPath + '/img',
-//        httpGeneratedImagesPath: yo.webPath + '/img/generated',
-//        httpFontsPath: yo.webPath + '/css/fonts',
-//        relativeAssets: false,
-//        time: true
-//      },
-//      dist: {},
-//      server: {
-//        options: {
-//          debugInfo: true
-//        }
-//      }
-//    },
     rev: {
       dist: {
         files: {
           src: [
-            '<%= yo.dist %>/scripts/{,*/}*.js',
-            '<%= yo.distTemp %>/css/{,*/}*.css',
-            '<%= yo.distTemp %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
-            '<%= yo.distTemp %>/css/fonts/*'
+            '<%= yeoman.dist %>/scripts/{,*/}*.js',
+            '<%= yeoman.distTemp %>/css/{,*/}*.css',
+            '<%= yeoman.distTemp %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
+            '<%= yeoman.distTemp %>/css/fonts/*'
           ]
         }
       }
     },
     useminPrepare: {
-      html: ['<%= yo.app %>/*.html'],
+      html: ['<%= yeoman.app %>/*.html'],
       options: {
-        dest: '<%= yo.dist %>'
+        dest: '<%= yeoman.dist %>'
       }
     },
     usemin: {
-      html: ['<%= yo.dist %>/{,*/}*.html', '<%= yo.dist %>/{,*/}*.php'],
-      css: ['<%= yo.distTemp %>/css/{,*/}*.css'],
+      html: ['<%= yeoman.dist %>/{,*/}*.html', '<%= yeoman.dist %>/{,*/}*.php'],
+      css: ['<%= yeoman.distTemp %>/css/{,*/}*.css'],
       options: {
-        dirs: ['<%= yo.dist %>']
+        dirs: ['<%= yeoman.dist %>']
       }
     },
     imagemin: {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yo.app %>/img',
+          cwd: '<%= yeoman.app %>/img',
           src: '{,*/}*.{png,jpg,jpeg}',
-          dest: '<%= yo.distTemp %>/img'
+          dest: '<%= yeoman.distTemp %>/img'
         }]
       }
     },
@@ -206,9 +173,9 @@ module.exports = function (grunt) {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yo.app %>/img',
+          cwd: '<%= yeoman.app %>/img',
           src: '{,*/}*.svg',
-          dest: '<%= yo.distTemp %>/img'
+          dest: '<%= yeoman.distTemp %>/img'
         }]
       }
     },
@@ -218,8 +185,8 @@ module.exports = function (grunt) {
           {
             expand: true,
             dot: true,
-            cwd: '<%= yo.app %>',
-            dest: '<%= yo.distTemp %>',
+            cwd: '<%= yeoman.app %>',
+            dest: '<%= yeoman.distTemp %>',
             src: [
               '*.{ico,png,txt}',
               '.htaccess',
@@ -230,18 +197,18 @@ module.exports = function (grunt) {
           {
             expand: true,
             cwd: '.tmp/img',
-            dest: '<%= yo.distTemp %>/img',
+            dest: '<%= yeoman.distTemp %>/img',
             src: ['generated/*']
           },
           {
             expand: true,
-            cwd: '<%= yo.app %>/sass/fonts',
-            dest: '<%= yo.distTemp %>/css/fonts',
+            cwd: '<%= yeoman.app %>/sass/fonts',
+            dest: '<%= yeoman.distTemp %>/css/fonts',
             src: ['*']
           },{
             expand: true,
-            cwd: '<%= yo.app %>',
-            dest: '<%= yo.dist %>',
+            cwd: '<%= yeoman.app %>',
+            dest: '<%= yeoman.dist %>',
             src: ['*.html', 'views/*.html', 'views/*.php']
           }
         ]
@@ -250,8 +217,8 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: '<%= yo.distTemp %>',
-            dest: '<%= yo.distFull %>',
+            cwd: '<%= yeoman.distTemp %>',
+            dest: '<%= yeoman.distFull %>',
             src: [
               'css/*.css',
               'css/fonts/*.*',
@@ -261,8 +228,8 @@ module.exports = function (grunt) {
             ]
           }, {
             expand: true,
-            cwd: '<%= yo.dist %>',
-            dest: '<%= yo.distFull %>',
+            cwd: '<%= yeoman.dist %>',
+            dest: '<%= yeoman.distFull %>',
             src: [
               '*.html',
               '*.php',
@@ -274,10 +241,10 @@ module.exports = function (grunt) {
     },
     concurrent: {
       server: [
-        'compassMultiple:server'
+        'compass:server'
       ],
       dist: [
-        'compassMultiple:dist',
+        'compass:dist',
         'imagemin',
         'svgmin'
       ]
@@ -290,24 +257,24 @@ module.exports = function (grunt) {
     },
     cdnify: {
       dist: {
-        html: ['<%= yo.dist %>/*.html']
+        html: ['<%= yeoman.dist %>/*.html']
       }
     },
     ngmin: {
       dist: {
         files: [{
           expand: true,
-          cwd: '<%= yo.distTemp %>/scripts',
+          cwd: '<%= yeoman.distTemp %>/scripts',
           src: '*.js',
-          dest: '<%= yo.distTemp %>/scripts'
+          dest: '<%= yeoman.distTemp %>/scripts'
         }]
       }
     },
     uglify: {
       dist: {
         files: {
-          '<%= yo.distTemp %>/scripts/scripts.js': [
-            '<%= yo.distTemp %>/scripts/scripts.js'
+          '<%= yeoman.distTemp %>/scripts/scripts.js': [
+            '<%= yeoman.distTemp %>/scripts/scripts.js'
           ]
         }
       }

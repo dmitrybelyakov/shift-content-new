@@ -1,20 +1,25 @@
-@import "respondto";//
+@import "respondto";
 @import "fonts";
 @import "colors";
 @import "buttons"; //imports compass
 @import "forms";
-@import "locales";
 @import "notifications";
 @import "photoset";
 @import "datepicker";
 //@import "grid-highlight";
+
+//@import "compass";
+//@import "animate-css";
+//@import "bootstrap";
+//@import "locales";
+//@import "screens";
 
 
 /**
  * Basic values
  * Sets some basic variables.
  */
-$logo_bar_height: 70px;
+$logo_bar_height: 180px;//
 
 
 
