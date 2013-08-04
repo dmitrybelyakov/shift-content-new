@@ -1,7 +1,4 @@
-@import "bootstrap-config";
-//@import "bootstrap/compass_twitter_bootstrap_awesome";
-@import "bootstrap-sass/lib/bootstrap";
-@import "respondto";
+@import "respondto";//
 @import "fonts";
 @import "colors";
 @import "buttons"; //imports compass
@@ -10,15 +7,6 @@
 @import "notifications";
 @import "photoset";
 @import "datepicker";
-@import "animate-css";
-
-@import "screens/home";
-@import "screens/blog";
-@import "screens/get";
-@import "screens/send";
-@import "screens/profile";
-@import "screens/register";
-@import "responsive"; //enables responsiveness
 //@import "grid-highlight";
 
 
@@ -35,7 +23,7 @@ $logo_bar_height: 70px;
  * Basic elements styling.
  */
 body {
-  background: red;
+  background: magenta;
   @include font_regular;
   -webkit-font-smoothing: antialiased;
   font-size: 13px;

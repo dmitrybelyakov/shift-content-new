@@ -3,7 +3,9 @@
  * This holds various styles for buttons.
  */
 
-@import "compass";
+@import "compass/css3/box-shadow";
+@import "compass/css3/border-radius";
+@import "compass/css3/opacity";
 @import "colors";
 
 
@@ -304,7 +306,7 @@ table.egrat-pagination {
     }
   } //pages
 
-} //pagination
+} //pagination //
 
 
 /**
@@ -318,32 +320,26 @@ table.egrat-pagination {
   border-color: rgba(0,0,0,.15) rgba(0,0,0,.15) rgba(0,0,0,.25);
 }
 .btn-primary {
-  @include buttonBackground($btnPrimaryBackground, $btnPrimaryBackgroundHighlight);
   text-shadow: none;
 }
 // Warning appears are orange
 .btn-warning {
-  @include buttonBackground($btnWarningBackground, $btnWarningBackgroundHighlight);
   text-shadow: none;
 }
 // Danger and error appear as red
 .btn-danger {
-  @include buttonBackground($btnDangerBackground, $btnDangerBackgroundHighlight);
   text-shadow: none;
 }
 // Success appears as green
 .btn-success {
-  @include buttonBackground($btnSuccessBackground, $btnSuccessBackgroundHighlight);
   text-shadow: none;
 }
 // Info appears as a neutral blue
 .btn-info {
-  @include buttonBackground($btnInfoBackground, $btnInfoBackgroundHighlight);
   text-shadow: none;
 }
 // Inverse appears as dark gray
 .btn-inverse {
-  @include buttonBackground($btnInverseBackground, $btnInverseBackgroundHighlight);
   text-shadow: none;
 }
 

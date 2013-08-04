@@ -1,0 +1,19 @@
+
+
+/**
+ * Framework
+ * This is used to offload heavy bootstrap compilation to dedicated
+ * build process yet allow for customisation and assembling your own builds.
+ */
+
+//import custom bootstrap build
+@import "bootstrap/my-bootstrap";
+
+//set paths to sprites
+$iconSpritePath:          "/modules/EgratFrontend/img/glyphicons-halflings.png";
+$iconWhiteSpritePath:     "/modules/EgratFrontend/img/glyphicons-halflings-white.png";
+
+//set path to FontAwesome
+$fontAwesomePath:   "/modules/EgratFrontend/fonts/FontAwesome/fontawesome-webfont";
+
+
