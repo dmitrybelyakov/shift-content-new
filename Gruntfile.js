@@ -13,16 +13,6 @@ var yo = {
   proxyHost: '127.0.0.1', //only localhost or ip supported
   proxyPort: 8000, //but you can use port.
   webPath: '/modules/shift-content-new',
-  sass: [
-    {
-      cssDir: '.tmp/css',
-      sassDir: '<%= yo.app %>/sass',
-      sassFiles: ['<%= yo.app %>/sass/*.scss']
-    },
-    { sassDir: '<%= yo.app %>/sass/bootstrap', cssDir: '.tmp/css' },
-    { sassDir: '<%= yo.app %>/sass/main', cssDir: '.tmp/css' },
-    { sassDir: '<%= yo.app %>/sass/screens', cssDir: '.tmp/css' }
-  ],
   routes: {
     '/scripts/*path': '/app/scripts/[path]',
     '/css/*path': '/.tmp/css/[path]',
@@ -35,9 +25,7 @@ var yo = {
 
 
 module.exports = function (grunt) {
-  // load all grunt tasks
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-
   try {
     yo.app = require('./bower.json').appPath || yo.app;
   } catch (e) {}
@@ -47,7 +35,7 @@ module.exports = function (grunt) {
     watch: {
       compass: {
         files: ['<%= yo.app %>/sass/{,*/}*.{scss,sass}'],
-        tasks: ['compassMultiple:server']
+        tasks: ['compass:server']
       },
       livereload: {
         options: {
@@ -120,10 +108,12 @@ module.exports = function (grunt) {
         '<%= yo.app %>/scripts/{,*/}*.js'
       ]
     },
-    compassMultiple: {
+    compass: {
       options: {
         environment: 'development',
         outputStyle: 'expanded',
+        relativeAssets: false,
+        time: true,
         sassDir: '<%= yo.app %>/sass',
         cssDir: '.tmp/css',
         generatedImagesDir: '.tmp/img/generated',
@@ -133,40 +123,15 @@ module.exports = function (grunt) {
         importPath: '<%= yo.app %>/components',
         httpImagesPath: yo.webPath + '/img',
         httpGeneratedImagesPath: yo.webPath + '/img/generated',
-        httpFontsPath: yo.webPath + '/css/fonts',
-        relativeAssets: false,
-        time: true,
-        multiple: yo.sass
+        httpFontsPath: yo.webPath + '/css/fonts'
       },
-      dist:{},
-      server:{
+      dist: {},
+      server: {
         options: {
           debugInfo: true
         }
       }
     },
-//    compass: {
-//      options: {
-//        sassDir: '<%= yo.app %>/sass',
-//        cssDir: '.tmp/css',
-//        generatedImagesDir: '.tmp/img/generated',
-//        imagesDir: '<%= yo.app %>/img',
-//        javascriptsDir: '<%= yo.app %>/scripts',
-//        fontsDir: '<%= yo.app %>/sass/fonts',
-//        importPath: '<%= yo.app %>/components',
-//        httpImagesPath: yo.webPath + '/img',
-//        httpGeneratedImagesPath: yo.webPath + '/img/generated',
-//        httpFontsPath: yo.webPath + '/css/fonts',
-//        relativeAssets: false,
-//        time: true
-//      },
-//      dist: {},
-//      server: {
-//        options: {
-//          debugInfo: true
-//        }
-//      }
-//    },
     rev: {
       dist: {
         files: {
@@ -274,10 +239,10 @@ module.exports = function (grunt) {
     },
     concurrent: {
       server: [
-        'compassMultiple:server'
+        'compass:server'
       ],
       dist: [
-        'compassMultiple:dist',
+        'compass:dist',
         'imagemin',
         'svgmin'
       ]
