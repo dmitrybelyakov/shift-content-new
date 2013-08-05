@@ -6,6 +6,7 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 //get config
 var yo = require(require('path').resolve('app/config/grunt.json'));
 yo.routes = require(require('path').resolve('app/config/routes.json'));
+yo.bake = require(require('path').resolve('app/config/bake.json'));
 
 
 module.exports = function (grunt) {
@@ -43,7 +44,7 @@ module.exports = function (grunt) {
     bake: {
       index: {
         options: {},
-        files: {'.tmp/index.html' : 'app/main.html'}
+        files: yo.bake.index
       }
     },
     connect: {
