@@ -17,38 +17,7 @@
 </head>
   <body ng-app="shiftContentApp">
 
-    <!--[if lt IE 7]>
-      <p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
-    <![endif]-->
-
-    <!--[if lt IE 9]>
-      <script src="/modules/shift-yeoman/components/es5-shim/es5-shim.js"></script>
-      <script src="/modules/shift-yeoman/components/json3/lib/json3.min.js"></script>
-    <![endif]-->
-
     <?=$this->render('shiftkernel/backend/toolbar')?>
-
-    <!-- Growl notifications -->
-    <div class="growlContainer">
-      <div id="growlContainer"></div>
-    </div>
-    <!-- /Growl notifications -->
-
-    <!-- Breadcrumbs -->
-    <div shift-breadcrumbs></div>
-    <!-- /Breadcrumbs -->
-
-    <!-- Application content -->
-    <table class="layoutHolder">
-      <tr>
-        <td class="navigation">
-            <div shift-navigation></div>
-        </td>
-        <td class="page"><div class="content" ng-view=""></div></td>
-      </tr>
-    </table>
-    <!-- /Application content -->
-
 
 
 

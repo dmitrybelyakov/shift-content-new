@@ -7,12 +7,8 @@ var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 var yo = require(require('path').resolve('app/config/grunt.json'));
 yo.routes = require(require('path').resolve('app/config/routes.json'));
 
-
 module.exports = function (grunt) {
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
-  try {
-    yo.app = require('./bower.json').appPath || yo.app;
-  } catch (e) {}
 
   grunt.initConfig({
     yo: yo,
@@ -84,17 +80,13 @@ module.exports = function (grunt) {
           src: [
             '.tmp',
             '<%= yo.dist %>/*',
-            '!<%= yo.dist %>/.git*'
+            '!<%= yo.dist %>/.git*',
+            '<%= yo.processedDist %>'
           ]
         }]
       },
       server: '.tmp',
-      finalize: [
-        '<%= yo.dist %>/modules',
-        '<%= yo.dist %>/views',
-        '<%= yo.dist %>/view-partials',
-        '<%= yo.dist %>/*.*'
-      ]
+      finalize: ['<%= yo.dist %>/modules']
     },
     jshint: {
       options: {
@@ -148,7 +140,10 @@ module.exports = function (grunt) {
       }
     },
     usemin: {
-      html: ['<%= yo.dist %>/{,*/}*.html', '<%= yo.dist %>/view-partials/{,*/}*.html'],
+      html: [
+        '<%= yo.dist %>/{,*/}*.{html,phtml}',
+        '<%= yo.dist %>/view-partials/{,*/}*.{html,phtml}'
+      ],
       css: ['<%= yo.distTemp %>/css/{,*/}*.css'],
       options: {
         dirs: ['<%= yo.dist %>']
@@ -215,37 +210,30 @@ module.exports = function (grunt) {
           },
           {
             expand: true,
-            cwd: '<%= yo.app %>',
+            cwd: '<%= yo.processedSrc %>',
             dest: '<%= yo.dist %>/view-partials',
-            src: ['index.html']
+            src: ['{,*/}*.{html,phtml}']
           }
         ]
-      },//dist
-      back: {
-        files: [
-          {
-            expand: true,
-            cwd: '<%= yo.distTemp %>',
-            dest: '<%= yo.distFull %>',
-            src: [
-              'css/*.css',
-              'css/fonts/*.*',
-              'img/{,*/}*.*',
-              'scripts/{,*/}*.*',
-              'components/**/*'
-            ]
-          }, {
-            expand: true,
-            cwd: '<%= yo.dist %>',
-            dest: '<%= yo.distFull %>',
-            src: [
-              '*.html',
-              'views/{,*/}*.html',
-              'view-partials/{,*/}*.html'
-            ]
-          }
-        ]
-      }//back
+      }//dist
+    },
+    rename: {
+      scriptsPartial: {
+        src: '<%= yo.dist %>/index.html',
+        dest: '<%= yo.dist %>/view-partials/scripts.html'
+      },
+      partials: {
+        src: '<%= yo.dist %>/view-partials',
+        dest: '<%= yo.processedDist %>'
+      },
+      dist: {
+        src: '<%= yo.distTemp %>',
+        dest: '<%= yo.distFull %>'
+      },
+      views: {
+        src: '<%= yo.dist %>/views',
+        dest: '<%= yo.distFull %>/views'
+      }
     },
     concurrent: {
       server: [
@@ -303,10 +291,19 @@ module.exports = function (grunt) {
     'karma'
   ]);
 
+  grunt.registerTask('finalize', [
+    'rename:scriptsPartial',
+    'rename:partials',
+    'rename:dist',
+    'rename:views',
+    'clean:server',
+    'clean:finalize'
+  ]);
+
 
   grunt.registerTask('build', [
-    'jshint',
-    'test',
+//    'jshint',
+//    'test',
     'clean:dist',
     'bake:index', //compose index of templates
     'concurrent:dist', //compile compass to temp and minify images to dist
@@ -320,8 +317,7 @@ module.exports = function (grunt) {
     'rev', //rev assets
     'usemin:html', //update templates with revved assets
     'usemin:css', //update css with revved assets
-    'copy:back', //copy everything back
-    'clean:finalize'
+    'finalize'
   ]);
 
   grunt.registerTask('default', 'build');

@@ -45,18 +45,8 @@ class Index extends ActionController implements BackendControllerInterface
      */
     public function indexAction()
     {
-        return $this->redirect()->toRoute('backend-module-content-new/list');
-    }
-
-
-    /**
-     * List action
-     * @return array|void
-     */
-    public function listAction()
-    {
         $vm = new ViewModel;
-        $vm->setTemplate('shiftcontent-new.backend.index');
+        $vm->setTemplate('shiftcontent-new.grunt.shell');
         return $vm;
     }
 
