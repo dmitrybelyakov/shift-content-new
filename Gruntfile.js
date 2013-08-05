@@ -14,12 +14,12 @@ var yo = {
   proxyPort: 8000, //but you can use port.
   webPath: '/modules/shift-content-new',
   routes: {
-    '/scripts/*path': '/app/scripts/[path]',
     '/css/*path': '/.tmp/css/[path]',
     '/components/*path': '/app/components/[path]',
-    '/modules/shift-content-new/': '/app/index.html',
+    '/modules/shift-content-new/': '/.tmp/index.html',
     '/modules/shift-content-new/img/*path': '/app/img/[path]',
-    '/modules/shift-content-new/views/*path': '/app/views/[path]'
+    '/modules/shift-content-new/views/*path': '/app/views/[path]',
+    '/modules/shift-content-new/scripts/*path': '/app/scripts/[path]'
   }
 };
 
@@ -37,17 +37,29 @@ module.exports = function (grunt) {
         files: ['<%= yo.app %>/sass/{,*/}*.{scss,sass}'],
         tasks: ['compass:server']
       },
+      bake: {
+        files: ['<%= yo.app %>/*.html', '<%= yo.app %>/view-partials/*.html'],
+        tasks: ['bake:index']
+      },
       livereload: {
         options: {
           livereload: LIVERELOAD_PORT
         },
         files: [
           '<%= yo.app %>/{,*/}*.html',
+          '!<%= yo.app %>/{index,main}.html', //handled by baker
+          '.tmp/{,*/}*.html',
           '.tmp/css/{,*/}*.css',
           '<%= yo.app %>/sass/{,*/}*.css',
           '{.tmp,<%= yo.app %>}/scripts/{,*/}*.js',
           '<%= yo.app %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
+      }
+    },
+    bake: {
+      index: {
+        options: {},
+        files: {'.tmp/index.html' : 'app/main.html'}
       }
     },
     connect: {
@@ -96,6 +108,7 @@ module.exports = function (grunt) {
       finalize: [
         '<%= yo.dist %>/modules',
         '<%= yo.dist %>/views',
+        '<%= yo.dist %>/view-partials',
         '<%= yo.dist %>/*.*'
       ]
     },
@@ -145,13 +158,13 @@ module.exports = function (grunt) {
       }
     },
     useminPrepare: {
-      html: ['<%= yo.app %>/*.html'],
+      html: ['<%= yo.dist %>/*.html', '<%= yo.dist %>/view-partials/*.html'],
       options: {
         dest: '<%= yo.dist %>'
       }
     },
     usemin: {
-      html: ['<%= yo.dist %>/{,*/}*.html', '<%= yo.dist %>/{,*/}*.php'],
+      html: ['<%= yo.dist %>/{,*/}*.html', '<%= yo.dist %>/view-partials/{,*/}*.html'],
       css: ['<%= yo.distTemp %>/css/{,*/}*.css'],
       options: {
         dirs: ['<%= yo.dist %>']
@@ -194,20 +207,33 @@ module.exports = function (grunt) {
           },
           {
             expand: true,
-            cwd: '.tmp/img',
-            dest: '<%= yo.distTemp %>/img',
-            src: ['generated/*']
+            cwd: '.tmp',
+            dest: '<%= yo.distTemp %>',
+            src: ['img/generated/*']
           },
           {
             expand: true,
             cwd: '<%= yo.app %>/sass/fonts',
             dest: '<%= yo.distTemp %>/css/fonts',
             src: ['*']
-          },{
+          },
+          {
+            expand: true,
+            cwd: '.tmp',
+            dest: '<%= yo.dist %>',
+            src: ['*.html']
+          },
+          {
             expand: true,
             cwd: '<%= yo.app %>',
             dest: '<%= yo.dist %>',
-            src: ['*.html', 'views/*.html', 'views/*.php']
+            src: ['views/{,*/}*.html', 'view-partials/{,*/}*.html']
+          },
+          {
+            expand: true,
+            cwd: '<%= yo.app %>',
+            dest: '<%= yo.dist %>/view-partials',
+            src: ['index.html']
           }
         ]
       },//dist
@@ -230,8 +256,8 @@ module.exports = function (grunt) {
             dest: '<%= yo.distFull %>',
             src: [
               '*.html',
-              '*.php',
-              'views/{,*/}*.{html,php,phtml}'
+              'views/{,*/}*.html',
+              'view-partials/{,*/}*.html'
             ]
           }
         ]
@@ -255,7 +281,7 @@ module.exports = function (grunt) {
     },
     cdnify: {
       dist: {
-        html: ['<%= yo.dist %>/*.html']
+        html: ['<%= yo.dist %>/*.html', '<%= yo.dist %>/view-partials/*.html']
       }
     },
     ngmin: {
@@ -281,6 +307,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('server', [
     'clean:server',
+    'bake:index',
     'concurrent:server',
     'configureProxies',
     'connect:livereload',
@@ -292,14 +319,16 @@ module.exports = function (grunt) {
     'karma'
   ]);
 
+
   grunt.registerTask('build', [
     'jshint',
     'test',
     'clean:dist',
-    'useminPrepare', //parse index to find minification instruction for js/css
+    'bake:index', //compose index of templates
     'concurrent:dist', //compile compass to temp and minify images to dist
-    'concat', //from usemin
     'copy:dist', //copy temp images, app scripts & templates to dist
+    'useminPrepare', //parse index to find minification instruction for js/css
+    'concat', //from usemin
     'cdnify', //replace local scripts with cdn
     'ngmin', //prepare scripts in dist
     'cssmin', //copy minified css from temp to dist

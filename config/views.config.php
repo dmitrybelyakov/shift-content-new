@@ -14,6 +14,6 @@ return array(
      * Grunt-processed parts
      */
 
-    'shiftcontent-new.grunt.styles' => __DIR__ . '/../public/shift-content-new/styles.html',
-    'shiftcontent-new.grunt.scripts' => __DIR__ . '/../public/shift-content-new/scripts.html',
+    'shiftcontent-new.grunt.styles' => __DIR__ . '/../public/shift-content-new/view-partials/styles.html',
+    'shiftcontent-new.grunt.scripts' => __DIR__ . '/../public/shift-content-new/view-partials/index.html',
 );
