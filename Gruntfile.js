@@ -4,8 +4,9 @@ var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
 var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 
 //get config
-var yo = require(require('path').resolve('app/config/grunt.json'));
-yo.routes = require(require('path').resolve('app/config/routes.json'));
+var yo = require(require('path').resolve('webapp/config/grunt.json'));
+yo.routes = require(require('path').resolve('webapp/config/routes.json'));
+yo.bake = require(require('path').resolve('webapp/config/bake.json'));
 
 module.exports = function (grunt) {
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -39,7 +40,7 @@ module.exports = function (grunt) {
     bake: {
       index: {
         options: {},
-        files: {'.tmp/index.html' : 'app/main.html'}
+        files: yo.bake.index
       }
     },
     connect: {

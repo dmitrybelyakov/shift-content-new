@@ -8,6 +8,12 @@ return array(
 
 
     /*
+     * Views
+     */
+    'shiftcontent-new.view.empty' => __DIR__ . '/../views-processed/empty.html',
+
+
+    /*
      * Grunt-processed parts
      */
 

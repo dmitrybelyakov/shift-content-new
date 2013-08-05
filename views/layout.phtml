@@ -15,14 +15,14 @@
     <?php echo $this->render('shiftcontent-new.grunt.styles');?>
 
 </head>
-  <body ng-app="shiftContentApp">
+<body ng-app="shiftContentApp">
 
-    <?=$this->render('shiftkernel/backend/toolbar')?>
+  <?=$this->render('shiftkernel/backend/toolbar')?>
+
+  <?php echo $this->render('shiftcontent-new.grunt.scripts');?>
 
 
-
-    <?php echo $this->render('shiftcontent-new.grunt.scripts');?>
-    <script type="text/javascript" src="/modules/shift-kernel/js/backend.min.js"></script>
-    <?=$this->headScript() . PHP_EOL?>
+  <script type="text/javascript" src="/modules/shift-kernel/js/backend.min.js"></script>
+  <?=$this->headScript() . PHP_EOL?>
 </body>
 </html>

@@ -46,7 +46,7 @@ class Index extends ActionController implements BackendControllerInterface
     public function indexAction()
     {
         $vm = new ViewModel;
-        $vm->setTemplate('shiftcontent-new.grunt.shell');
+        $vm->setTemplate('shiftcontent-new.view.empty');
         return $vm;
     }
 
