@@ -126,7 +126,7 @@ module.exports = function (grunt) {
       dist: {
         files: {
           src: [
-            '<%= yo.dist %>/scripts/{,*/}*.js',
+            '<%= yo.distTemp %>/scripts/{,*/}*.js',
             '<%= yo.distTemp %>/css/{,*/}*.css',
             '<%= yo.distTemp %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}',
             '<%= yo.distTemp %>/css/fonts/*'
