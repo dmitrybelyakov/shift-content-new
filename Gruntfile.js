@@ -39,7 +39,7 @@ module.exports = function (grunt) {
       },
       bake: {
         files: ['<%= yo.app %>/*.html', '<%= yo.app %>/view-partials/*.html'],
-        tasks: ['bakeIndex']
+        tasks: ['bake:index']
       },
       livereload: {
         options: {
@@ -108,6 +108,7 @@ module.exports = function (grunt) {
       finalize: [
         '<%= yo.dist %>/modules',
         '<%= yo.dist %>/views',
+        '<%= yo.dist %>/view-partials',
         '<%= yo.dist %>/*.*'
       ]
     },
@@ -157,13 +158,13 @@ module.exports = function (grunt) {
       }
     },
     useminPrepare: {
-      html: ['<%= yo.dist %>/*.html'],
+      html: ['<%= yo.dist %>/*.html', '<%= yo.dist %>/view-partials/*.html'],
       options: {
         dest: '<%= yo.dist %>'
       }
     },
     usemin: {
-      html: ['<%= yo.dist %>/{,*/}*.html', '<%= yo.dist %>/{,*/}*.php'],
+      html: ['<%= yo.dist %>/{,*/}*.html', '<%= yo.dist %>/view-partials/{,*/}*.html'],
       css: ['<%= yo.distTemp %>/css/{,*/}*.css'],
       options: {
         dirs: ['<%= yo.dist %>']
@@ -226,7 +227,13 @@ module.exports = function (grunt) {
             expand: true,
             cwd: '<%= yo.app %>',
             dest: '<%= yo.dist %>',
-            src: ['views/*.html', 'views/*.php']
+            src: ['views/{,*/}*.html', 'view-partials/{,*/}*.html']
+          },
+          {
+            expand: true,
+            cwd: '<%= yo.app %>',
+            dest: '<%= yo.dist %>/view-partials',
+            src: ['index.html']
           }
         ]
       },//dist
@@ -249,8 +256,8 @@ module.exports = function (grunt) {
             dest: '<%= yo.distFull %>',
             src: [
               '*.html',
-              '*.php',
-              'views/{,*/}*.{html,php,phtml}'
+              'views/{,*/}*.html',
+              'view-partials/{,*/}*.html'
             ]
           }
         ]
@@ -274,7 +281,7 @@ module.exports = function (grunt) {
     },
     cdnify: {
       dist: {
-        html: ['<%= yo.dist %>/*.html']
+        html: ['<%= yo.dist %>/*.html', '<%= yo.dist %>/view-partials/*.html']
       }
     },
     ngmin: {
