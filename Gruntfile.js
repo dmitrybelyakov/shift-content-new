@@ -71,7 +71,7 @@ module.exports = function (grunt) {
     },
     open: {
       server: {
-        url: 'http://localhost:<%= connect.options.port %>' + yo.webPath
+        url: 'http://localhost:<%= connect.options.port %>' + yo.webPath + '/'
       }
     },
     clean: {
