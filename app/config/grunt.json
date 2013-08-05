@@ -1,0 +1,10 @@
+{
+  "app": "app",
+  "appFull": "app",
+  "dist": "public",
+  "distFull": "public/shift-content-new",
+  "distTemp": "public/modules/shift-content-new",
+  "proxyHost": "127.0.0.1",
+  "proxyPort": 8000,
+  "webPath": "/modules/shift-content-new"
+}

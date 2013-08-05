@@ -3,18 +3,9 @@ var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
 var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 
-// configurable paths
-var yo = {
-  app: 'app',
-  appFull: 'app',
-  dist: 'public',
-  distFull: 'public/shift-content-new',
-  distTemp: 'public/modules/shift-content-new', //for revving
-  proxyHost: '127.0.0.1', //only localhost or ip supported
-  proxyPort: 8000, //but you can use port.
-  webPath: '/modules/shift-content-new',
-  routes: require(require('path').resolve('app/config/routes.json'))
-};
+//get config
+var yo = require(require('path').resolve('app/config/grunt.json'));
+yo.routes = require(require('path').resolve('app/config/routes.json'));
 
 
 module.exports = function (grunt) {
