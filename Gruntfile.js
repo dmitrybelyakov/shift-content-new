@@ -17,7 +17,7 @@ var yo = {
     '/scripts/*path': '/app/scripts/[path]',
     '/css/*path': '/.tmp/css/[path]',
     '/components/*path': '/app/components/[path]',
-    '/modules/shift-content-new/': '/app/index.html',
+    '/modules/shift-content-new/': '/.tmp/main.html',
     '/modules/shift-content-new/img/*path': '/app/img/[path]',
     '/modules/shift-content-new/views/*path': '/app/views/[path]'
   }
@@ -37,12 +37,17 @@ module.exports = function (grunt) {
         files: ['<%= yo.app %>/sass/{,*/}*.{scss,sass}'],
         tasks: ['compass:server']
       },
+      bake: {
+        files: ['<%= yo.app %>/*.html'],
+        tasks: ['bakeIndex']
+      },
       livereload: {
         options: {
           livereload: LIVERELOAD_PORT
         },
         files: [
-          '<%= yo.app %>/{,*/}*.html',
+//          '<%= yo.app %>/{,*/}*.html',
+          '.tmp/{,*/}*.html',
           '.tmp/css/{,*/}*.css',
           '<%= yo.app %>/sass/{,*/}*.css',
           '{.tmp,<%= yo.app %>}/scripts/{,*/}*.js',
@@ -178,6 +183,14 @@ module.exports = function (grunt) {
       }
     },
     copy: {
+      server: {
+        files: [{
+          expand: true,
+          cwd: '<%= yo.app %>',
+          dest: '.tmp',
+          src: ['*.html']
+        }]
+      },
       dist: {
         files: [
           {
@@ -279,8 +292,13 @@ module.exports = function (grunt) {
     }
   });
 
+  grunt.registerTask('bakeIndex', [
+    'copy:server'
+  ]);
+
   grunt.registerTask('server', [
     'clean:server',
+    'bakeIndex',
     'concurrent:server',
     'configureProxies',
     'connect:livereload',
@@ -291,6 +309,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'karma'
   ]);
+
 
   grunt.registerTask('build', [
     'jshint',
