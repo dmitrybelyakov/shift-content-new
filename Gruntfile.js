@@ -13,14 +13,7 @@ var yo = {
   proxyHost: '127.0.0.1', //only localhost or ip supported
   proxyPort: 8000, //but you can use port.
   webPath: '/modules/shift-content-new',
-  routes: {
-    '/css/*path': '/.tmp/css/[path]',
-    '/components/*path': '/app/components/[path]',
-    '/modules/shift-content-new/': '/.tmp/index.html',
-    '/modules/shift-content-new/img/*path': '/app/img/[path]',
-    '/modules/shift-content-new/views/*path': '/app/views/[path]',
-    '/modules/shift-content-new/scripts/*path': '/app/scripts/[path]'
-  }
+  routes: require(require('path').resolve('app/config/routes.json'))
 };
 
 
@@ -90,7 +83,7 @@ module.exports = function (grunt) {
     },
     open: {
       server: {
-        url: 'http://localhost:<%= connect.options.port %>/modules/shift-content-new/'
+        url: 'http://localhost:<%= connect.options.port %>' + yo.webPath
       }
     },
     clean: {
@@ -114,7 +107,7 @@ module.exports = function (grunt) {
     },
     jshint: {
       options: {
-        jshintrc: 'app/.jshintrc'
+        jshintrc: 'app/config/.jshintrc'
       },
       all: [
         'Gruntfile.js',
