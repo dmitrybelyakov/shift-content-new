@@ -14,12 +14,12 @@ var yo = {
   proxyPort: 8000, //but you can use port.
   webPath: '/modules/shift-content-new',
   routes: {
-    '/scripts/*path': '/app/scripts/[path]',
     '/css/*path': '/.tmp/css/[path]',
     '/components/*path': '/app/components/[path]',
     '/modules/shift-content-new/': '/.tmp/index.html',
     '/modules/shift-content-new/img/*path': '/app/img/[path]',
-    '/modules/shift-content-new/views/*path': '/app/views/[path]'
+    '/modules/shift-content-new/views/*path': '/app/views/[path]',
+    '/modules/shift-content-new/scripts/*path': '/app/scripts/[path]'
   }
 };
 
@@ -57,9 +57,9 @@ module.exports = function (grunt) {
       }
     },
     bake: {
-      server: {
+      index: {
         options: {},
-        files: {".tmp/index.html" : "app/main.html"}
+        files: {'.tmp/index.html' : 'app/main.html'}
       }
     },
     connect: {
@@ -157,7 +157,7 @@ module.exports = function (grunt) {
       }
     },
     useminPrepare: {
-      html: ['<%= yo.app %>/*.html'],
+      html: ['<%= yo.dist %>/*.html'],
       options: {
         dest: '<%= yo.dist %>'
       }
@@ -208,14 +208,21 @@ module.exports = function (grunt) {
             expand: true,
             cwd: '.tmp',
             dest: '<%= yo.distTemp %>',
-            src: ['img/generated/*', '*.html']
+            src: ['img/generated/*']
           },
           {
             expand: true,
             cwd: '<%= yo.app %>/sass/fonts',
             dest: '<%= yo.distTemp %>/css/fonts',
             src: ['*']
-          },{
+          },
+          {
+            expand: true,
+            cwd: '.tmp',
+            dest: '<%= yo.dist %>',
+            src: ['*.html']
+          },
+          {
             expand: true,
             cwd: '<%= yo.app %>',
             dest: '<%= yo.dist %>',
@@ -291,13 +298,9 @@ module.exports = function (grunt) {
     }
   });
 
-  grunt.registerTask('bakeIndex', [
-    'bake:server'
-  ]);
-
   grunt.registerTask('server', [
     'clean:server',
-    'bakeIndex',
+    'bake:index',
     'concurrent:server',
     'configureProxies',
     'connect:livereload',
@@ -314,10 +317,11 @@ module.exports = function (grunt) {
     'jshint',
     'test',
     'clean:dist',
-    'useminPrepare', //parse index to find minification instruction for js/css
+    'bake:index', //compose index of templates
     'concurrent:dist', //compile compass to temp and minify images to dist
-    'concat', //from usemin
     'copy:dist', //copy temp images, app scripts & templates to dist
+    'useminPrepare', //parse index to find minification instruction for js/css
+    'concat', //from usemin
     'cdnify', //replace local scripts with cdn
     'ngmin', //prepare scripts in dist
     'cssmin', //copy minified css from temp to dist
