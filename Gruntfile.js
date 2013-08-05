@@ -135,7 +135,10 @@ module.exports = function (grunt) {
       }
     },
     useminPrepare: {
-      html: ['<%= yo.dist %>/*.html', '<%= yo.dist %>/view-partials/*.html'],
+      html: [
+        '<%= yo.dist %>/*.html',
+        '<%= yo.dist %>/view-partials/*.html'
+      ],
       options: {
         dest: '<%= yo.dist %>'
       }
@@ -199,15 +202,13 @@ module.exports = function (grunt) {
           },
           {
             expand: true,
-            cwd: '.tmp',
-            dest: '<%= yo.dist %>',
-            src: ['*.html']
-          },
-          {
-            expand: true,
             cwd: '<%= yo.app %>',
             dest: '<%= yo.dist %>',
-            src: ['views/{,*/}*.html', 'view-partials/{,*/}*.html']
+            src: [
+              'index.html',
+              'views/{,*/}*.html',
+              'view-partials/{,*/}*.html'
+            ]
           },
           {
             expand: true,
