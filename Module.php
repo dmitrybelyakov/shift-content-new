@@ -61,12 +61,6 @@ class Module implements AutoloaderProvider
         $namespace = __NAMESPACE__;
         $config = array();
 
-        //class map loader config
-        $config['Zend\Loader\ClassMapAutoloader'] = array(
-            $dir . '/autoload_classmap.php'
-        );
-
-        //fallback to standard autoloader
         $config['Zend\Loader\StandardAutoloader'] = array(
             'namespaces' => array($namespace => $dir . '/src/' .$namespace)
         );
