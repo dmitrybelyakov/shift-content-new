@@ -91,7 +91,7 @@ module.exports = function (grunt) {
     },
     jshint: {
       options: {
-        jshintrc: 'app/config/.jshintrc'
+        jshintrc: '<%= yo.app %>/config/.jshintrc'
       },
       all: [
         'Gruntfile.js',
@@ -248,7 +248,7 @@ module.exports = function (grunt) {
     },
     karma: {
       unit: {
-        configFile: 'app/test/karma.conf.js',
+        configFile: '<%= yo.app %>/test/karma.conf.js',
         singleRun: true
       }
     },
@@ -303,8 +303,8 @@ module.exports = function (grunt) {
 
 
   grunt.registerTask('build', [
-//    'jshint',
-//    'test',
+    'jshint',
+    'test',
     'clean:dist',
     'bake:index', //compose index of templates
     'concurrent:dist', //compile compass to temp and minify images to dist
