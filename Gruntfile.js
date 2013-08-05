@@ -17,7 +17,7 @@ var yo = {
     '/scripts/*path': '/app/scripts/[path]',
     '/css/*path': '/.tmp/css/[path]',
     '/components/*path': '/app/components/[path]',
-    '/modules/shift-content-new/': '/.tmp/main.html',
+    '/modules/shift-content-new/': '/.tmp/index.html',
     '/modules/shift-content-new/img/*path': '/app/img/[path]',
     '/modules/shift-content-new/views/*path': '/app/views/[path]'
   }
@@ -38,7 +38,7 @@ module.exports = function (grunt) {
         tasks: ['compass:server']
       },
       bake: {
-        files: ['<%= yo.app %>/*.html'],
+        files: ['<%= yo.app %>/*.html', '<%= yo.app %>/view-partials/*.html'],
         tasks: ['bakeIndex']
       },
       livereload: {
@@ -46,13 +46,20 @@ module.exports = function (grunt) {
           livereload: LIVERELOAD_PORT
         },
         files: [
-//          '<%= yo.app %>/{,*/}*.html',
+          '<%= yo.app %>/{,*/}*.html',
+          '!<%= yo.app %>/{index,main}.html', //handled by baker
           '.tmp/{,*/}*.html',
           '.tmp/css/{,*/}*.css',
           '<%= yo.app %>/sass/{,*/}*.css',
           '{.tmp,<%= yo.app %>}/scripts/{,*/}*.js',
           '<%= yo.app %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
+      }
+    },
+    bake: {
+      server: {
+        options: {},
+        files: {".tmp/index.html" : "app/main.html"}
       }
     },
     connect: {
@@ -183,14 +190,6 @@ module.exports = function (grunt) {
       }
     },
     copy: {
-      server: {
-        files: [{
-          expand: true,
-          cwd: '<%= yo.app %>',
-          dest: '.tmp',
-          src: ['*.html']
-        }]
-      },
       dist: {
         files: [
           {
@@ -207,9 +206,9 @@ module.exports = function (grunt) {
           },
           {
             expand: true,
-            cwd: '.tmp/img',
-            dest: '<%= yo.distTemp %>/img',
-            src: ['generated/*']
+            cwd: '.tmp',
+            dest: '<%= yo.distTemp %>',
+            src: ['img/generated/*', '*.html']
           },
           {
             expand: true,
@@ -220,7 +219,7 @@ module.exports = function (grunt) {
             expand: true,
             cwd: '<%= yo.app %>',
             dest: '<%= yo.dist %>',
-            src: ['*.html', 'views/*.html', 'views/*.php']
+            src: ['views/*.html', 'views/*.php']
           }
         ]
       },//dist
@@ -293,7 +292,7 @@ module.exports = function (grunt) {
   });
 
   grunt.registerTask('bakeIndex', [
-    'copy:server'
+    'bake:server'
   ]);
 
   grunt.registerTask('server', [
