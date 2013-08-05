@@ -1,8 +1,0 @@
-{
-  "/css/*path": "/.tmp/css/[path]",
-  "/components/*path": "/app/components/[path]",
-  "/modules/shift-content-new/": "/.tmp/index.html",
-  "/modules/shift-content-new/img/*path": "/app/img/[path]",
-  "/modules/shift-content-new/views/*path": "/app/views/[path]",
-  "/modules/shift-content-new/scripts/*path": "/app/scripts/[path]"
-}
