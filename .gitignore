@@ -18,4 +18,4 @@ dist
 .tmp
 .sass-cache
 libpeerconnection.log
-app/components
+webapp/components
