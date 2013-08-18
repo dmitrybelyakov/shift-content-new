@@ -12,6 +12,5 @@
     "commit": "3cbf677c97644a2d9dad4cdf5b8347467fa35565"
   },
   "_source": "git://github.com/angular/bower-angular-scenario.git",
-  "_target": "1.2.0rc1",
-  "_direct": true
+  "_target": "1.2.0rc1"
 }

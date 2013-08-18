@@ -57,8 +57,8 @@ function $RouteProvider(){
    *      * `path` can contain named groups starting with a colon (`:name`). All characters up
    *        to the next slash are matched and stored in `$routeParams` under the given `name`
    *        when the route matches.
-   *      * `path` can contain named groups starting with a colon and ending with a star (`:name*`).
-   *        All characters are eagerly stored in `$routeParams` under the given `name`
+   *      * `path` can contain named groups starting with a colon and ending with a star (`:name*`). 
+   *        All characters are eagerly stored in `$routeParams` under the given `name` 
    *        when the route matches.
    *      * `path` can contain optional named groups with a question mark (`:name?`).
    *
@@ -80,6 +80,7 @@ function $RouteProvider(){
    *    - `controllerAs` – `{string=}` – A controller alias name. If present the controller will be
    *      published to scope under the `controllerAs` name.
    *    - `template` – `{string=|function()=}` – html template as a string or a function that
+   *      returns an html template as a string which should be used by {@link
    *      ngRoute.directive:ngView ngView} or {@link ng.directive:ngInclude ngInclude} directives.
    *      This property takes precedence over `templateUrl`.
    *
@@ -780,7 +781,7 @@ function $RouteParamsProvider() {
  * Emitted every time the ngView content is reloaded.
  */
 var NG_VIEW_PRIORITY = 500;
-var ngViewDirective = ['$route', '$anchorScroll', '$compile', '$controller', '$animate',
+var ngViewDirective = ['$route', '$anchorScroll', '$compile', '$controller', '$animate', 
                function($route,   $anchorScroll,   $compile,   $controller,   $animate) {
   return {
     restrict: 'ECA',

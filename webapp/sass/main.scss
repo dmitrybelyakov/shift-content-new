@@ -1,0 +1,15 @@
+
+@import "animate";
+
+//Leave first
+.transition.ng-leave {
+  display: none;
+}
+.transition.ng-leave.ng-leave-active {}
+
+
+//Then enter
+.transition.ng-enter {}
+.transition.ng-enter.ng-enter-active {
+  @include animateHelper(0, 0.2s, 'fadeIn');
+}

@@ -20,7 +20,7 @@ module.exports = function (grunt) {
       },
       bake: {
         files: ['<%= yo.app %>/*.html', '<%= yo.app %>/view-partials/*.html'],
-        tasks: ['bake:index']
+        tasks: ['bake']
       },
       livereload: {
         options: {
@@ -29,6 +29,7 @@ module.exports = function (grunt) {
         files: [
           '<%= yo.app %>/{,*/}*.html',
           '!<%= yo.app %>/{index,main}.html', //handled by baker
+          '!<%= yo.app %>/view-partials/*.html', //handled by baker
           '.tmp/{,*/}*.html',
           '.tmp/css/{,*/}*.css',
           '<%= yo.app %>/sass/{,*/}*.css',
