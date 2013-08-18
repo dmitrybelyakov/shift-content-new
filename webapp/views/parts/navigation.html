@@ -1,29 +1,48 @@
 <!-- Sub navigation -->
+
+<div class="menu" ng-repeat="section in navigation">
+  <div class="itemSection"><span><a>{{section.title}}</a></span></div>
+
+  <div ng-repeat="item in section.items">
+    <div class="item" ng-class="{active: item.active}">
+      <div class="button">
+        <a ng-href="{{item.href}}">{{item.label}}</a>
+      </div>
+    </div>
+  </div>
+  </div>
+
+
+  <!--
 <div class="menu">
-<div class="itemSection"><span><a>Manage content</a></span></div>
-<div class="item">
-<div class="button">
-<a href="/backend/modules/content/manage/11/">Static page</a>
+  <div class="itemSection"><span><a>Manage content</a></span></div>
+
+
+
+  <div class="item">
+    <div class="button">
+      <a href="/backend/modules/content/manage/12/">Attachment</a>
+    </div>
+  </div>
+
+  <div class="item">
+    <div class="button">
+      <a href="/backend/modules/content/manage/13/">ShopItem</a>
+    </div>
+  </div>
+
 </div>
-</div>
-<div class="item">
-<div class="button">
-<a href="/backend/modules/content/manage/12/">Attachment</a>
-</div>
-</div>
-<div class="item">
-<div class="button">
-<a href="/backend/modules/content/manage/13/">ShopItem</a>
-</div>
-</div>
-</div><div class="menu">
+
+<div class="menu">
 <div class="itemSection"><span><a>Manage collections</a></span></div>
 <div class="item">
 <div class="button">
 <a href="/backend/modules/content/feeds/">Feed collections</a>
 </div>
 </div>
-</div><div class="menu">
+</div>
+
+<div class="menu">
 <div class="itemSection"><span><a>Content settings</a></span></div>
 <div class="item">
 <div class="button">
@@ -46,4 +65,5 @@
 </div>
 </div>
 </div>
+-->
 <!-- /Sub navigation -->

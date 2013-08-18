@@ -1,15 +1,60 @@
 
 @import "animate";
+@import "compass/css3/border-radius";
 
-//Leave first
-.transition.ng-leave {
-  display: none;
-}
+//Scrren trsansition
+.transition.ng-leave {display: none;}
 .transition.ng-leave.ng-leave-active {}
-
-
-//Then enter
 .transition.ng-enter {}
 .transition.ng-enter.ng-enter-active {
+  @include animateHelper(0, 0.2s, 'fadeIn');
+}
+
+.header {
+  min-height: 35px;
+}
+
+td.navigation div.item {
+  background: red;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+
+
+
+table.layoutHolder td.navigation div.item div.button {
+  border: solid #cdd1d8;
+  border-width: 0px 0px 1px 0px;
+  text-align: left;
+  margin-right: 25px;
+}
+
+table.layoutHolder td.navigation div.item a {
+    font-size: 11px;
+    text-decoration: none;
+    text-shadow: #fff 0px 1px 0px;
+    font-weight: normal;
+
+    @include border-radius(8px);
+    display: block;
+    margin: 7px 0px 5px 0px;
+    padding: 5px 15px 7px 15px;
+    white-space: nowrap;
+}
+table.layoutHolder td.navigation div.item.active a {
+  color: #fff;
+  background: #2C8ED3;
+  text-shadow: none;
+
+
+  padding: 4px 15px 6px 15px;
+  border: solid;
+  border-width: 1px 0px;
+  border-bottom-color: #dbebfb;
+  border-top-color: #2c8ed3;
+}
+
+td.navigation .menu .item.active .button a{
+  background: #4D9AE9;
   @include animateHelper(0, 0.2s, 'fadeIn');
 }

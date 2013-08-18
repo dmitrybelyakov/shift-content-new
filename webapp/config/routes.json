@@ -1,6 +1,7 @@
 {
   "/backend/modules/content-new/": "/.tmp/index.html",
   "/backend/modules/content-new/*path": "/.tmp/index.html",
+  "/backend/modules/content-new/css/*path": "/.tmp/css/[path]",
   "/backend/modules/content-new/components/*path": "/webapp/components/[path]",
   "/backend/modules/content-new/scripts/*path": "/webapp/scripts/[path]",
   "/modules/shift-content-new/views/*path": "/webapp/views/[path]",
