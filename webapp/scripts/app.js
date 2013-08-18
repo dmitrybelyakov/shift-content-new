@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('shiftContentApp', [])
+angular.module('shiftContentApp', ['ngRoute'])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
