@@ -1,7 +1,7 @@
 'use strict';
 var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
-//var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
+var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 
 //get config
 var yo = require(require('path').resolve('webapp/config/grunt.json'));
@@ -64,7 +64,7 @@ module.exports = function (grunt) {
               lrSnippet,
               require('connect-conductor').route(options),
               connect.static(options.base),
-//              proxySnippet
+              proxySnippet
             ];
           }
         }
@@ -284,7 +284,7 @@ module.exports = function (grunt) {
     'clean:server',
     'bake:index',
     'concurrent:server',
-//    'configureProxies',
+    'configureProxies',
     'connect:livereload',
     'open',
     'watch'

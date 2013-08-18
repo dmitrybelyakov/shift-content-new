@@ -1,8 +1,8 @@
 {
-  "/css/*path": "/.tmp/css/[path]",
-  "/components/*path": "/webapp/components/[path]",
-  "/modules/shift-content-new/": "/.tmp/index.html",
-  "/modules/shift-content-new/img/*path": "/webapp/img/[path]",
+  "/backend/modules/content-new/": "/.tmp/index.html",
+  "/backend/modules/content-new/*path": "/.tmp/index.html",
+  "/backend/modules/content-new/components/*path": "/webapp/components/[path]",
+  "/backend/modules/content-new/scripts/*path": "/webapp/scripts/[path]",
   "/modules/shift-content-new/views/*path": "/webapp/views/[path]",
-  "/modules/shift-content-new/scripts/*path": "/webapp/scripts/[path]"
+  "/backend/modules/content-new/img/*path": "/webapp/img/[path]"
 }

@@ -6,7 +6,7 @@
   "distTemp": "public/modules/shift-content-new",
   "proxyHost": "127.0.0.1",
   "proxyPort": 8000,
-  "webPath": "/modules/shift-content-new",
+  "webPath": "/backend/modules/content-new",
   "processedSrc": "views/_process",
   "processedDist": "views-processed"
 }
