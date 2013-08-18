@@ -56,5 +56,5 @@ table.layoutHolder td.navigation div.item.active a {
 
 td.navigation .menu .item.active .button a{
   background: #4D9AE9;
-  @include animateHelper(0, 0.2s, 'fadeIn');
+  @include animateHelper(0, 0.4s, 'fadeIn');
 }
