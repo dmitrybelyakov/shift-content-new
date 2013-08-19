@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('shiftContentApp', ['ngRoute', 'ngAnimate'])
+angular.module('shiftContentApp', ['ngRoute', 'ngAnimate', 'ngResource'])
   .config(function ($provide, $routeProvider, $locationProvider) {
 
     var base = '/';
@@ -28,7 +28,7 @@ angular.module('shiftContentApp', ['ngRoute', 'ngAnimate'])
       })
       .when('/types/', {
         templateUrl: '/modules/shift-content-new/views/content-types.html',
-        controller: 'MainCtrl'
+        controller: 'ContentTypes'
       })
       .when('/field-types/', {
         templateUrl: '/modules/shift-content-new/views/field-types.html',

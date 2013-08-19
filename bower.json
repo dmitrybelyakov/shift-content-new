@@ -1,7 +1,7 @@
 {
-  "name": "ShiftContent",
+  "name": "shiftContent",
   "version": "0.0.0",
-  "appPath": "app",
+  "appPath": "webapp",
   "testPath": "app/test/spec",
   "dependencies": {
     "json3": "~3.2.4",
