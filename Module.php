@@ -81,7 +81,8 @@ class Module implements AutoloaderProvider
         //add routes
         $routes = require_once __DIR__ . '/config/routes.config.php';
         $backendRoutes = require_once __DIR__ . '/config/backend.routes.php';
-        $routes = array_merge_recursive($routes, $backendRoutes);
+        $apiRoutes = require_once __DIR__ . '/config/api.routes.php';
+        $routes = array_merge_recursive($routes, $backendRoutes, $apiRoutes);
 
         $router = 'Zend\Mvc\Router\RouteStack';
         $routerParams = array('parameters' => array('routes' => $routes));
@@ -133,9 +134,6 @@ class Module implements AutoloaderProvider
     {
         //grab module config
         $config = $moduleEvent->getConfigListener()->getMergedConfig();
-//        echo '<pre>';
-//        print_r($config);
-//        die();
         static::$config = $config->ShiftMedia;
     }
 
