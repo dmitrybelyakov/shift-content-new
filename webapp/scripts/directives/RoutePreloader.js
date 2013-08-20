@@ -39,11 +39,34 @@ app.directive('routePreloader', function($rootScope, $timeout, $location) {
 
         });
 
+        //hide on success
         $rootScope.$on('$routeChangeSuccess', function(){
           shouldBeVisible = false;
           element.hide();
         });
 
+        //interpolate url (this is from route provider)
+        var interpolate = function (string, params) {
+          var result = [];
+          var split = (string || '').split(':');
+          for(var s in split) {
+            var segment = split[s];
+            if(0 === parseInt(s, 10)) {
+              result.push(segment);
+            } else {
+              var segmentMatch = segment.match(/(\w+)(.*)/);
+              var key = segmentMatch[1];
+              result.push(params[key]);
+              result.push(segmentMatch[2] || '');
+              delete params[key];
+            }
+          }
+
+          return result.join('');
+        };
+
+
+        //resolve error
         var loading = scope.message;
         $rootScope.$on('$routeChangeError', function(
           event, current, previous, error){
@@ -66,14 +89,19 @@ app.directive('routePreloader', function($rootScope, $timeout, $location) {
             element.removeClass('error');
             scope.message = loading;
 
+            //redirect back
+            var back = '/';
             if(previous) {
-              $location.path(previous.originalPath);
+
+              back = interpolate(previous.originalPath, previous.params);
             }
+            $location.path(back);
           }, 4000);
 
 
-        });
+        }); //resolve error
 
-      }
+      } //link
+
     };
   });
