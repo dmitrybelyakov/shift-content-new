@@ -1,7 +1,7 @@
 'use strict';
 
 var app = angular.module('shiftContentApp');
-app.directive('viewPreloader', function($rootScope, $timeout, $location) {
+app.directive('routePreloader', function($rootScope, $timeout, $location) {
     return {
       templateUrl: '/modules/shift-content-new/views' +
         '/directives/view-preloader.html',
