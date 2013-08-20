@@ -58,8 +58,8 @@ class ApiController extends AbstractApiController
      */
     public function listAction()
     {
-
         $this->delay();
+        return $this->exceptionAction('Failed loading from backend');
 
         $item = array(
             'id' => '123',
