@@ -12,6 +12,6 @@ app.directive('shiftBreadcrumbs', function () {
   return {
     scope: {}, //isolate directive scope
     restrict: 'EA',
-    templateUrl: '/modules/shift-content-new/views/parts/breadcrumbs.html'
+    templateUrl: '/modules/shift-content-new/views/directives/breadcrumbs.html'
   };
 });

@@ -11,13 +11,30 @@ return array(
             'route' => '/api/content/',
             'defaults' => array(
                 'controller' => 'ShiftContentNew\Api\ApiController',
-                'action' => 'index'
+                'action' => 'list'
             ),
-            'restrict' => array('shiftkernel.canAccessBackend')
+            //'restrict' => array('shiftkernel.canAccessBackend')
         ),
         'may_terminate' => true,
-        'child_routes' => array()
-    ), //content backend
+        'child_routes' => array(
+
+            //Single item
+            'item' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => ':id/',
+                    'defaults' => array(
+                        'controller' => 'ShiftContentNew\Api\ApiController',
+                        'action' => 'item',
+                        'id' => false
+                    ),
+                ),
+                'may_terminate' => true,
+                'child_routes' => array()
+            ), //single item
+
+        )
+    ), //content api
 
 
 );

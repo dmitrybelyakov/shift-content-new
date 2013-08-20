@@ -1,54 +1,81 @@
 'use strict';
 
-angular.module('shiftContentApp', ['ngRoute', 'ngAnimate', 'ngResource'])
-  .config(function ($provide, $routeProvider, $locationProvider) {
+//set up app
+var app = angular.module('shiftContentApp', [
+  'ngRoute',
+  'ngAnimate',
+  'ngResource'
+]);
 
-    var base = '/';
+//configure
+app.config(function ($locationProvider, $routeProvider) {
+
+    //set to html5 mode
+    $locationProvider.html5Mode(true).hashPrefix('!');
+
+    //configure routes
+    var router = $routeProvider;
+
+    //index
+    router.otherwise({
+      redirectTo: '/'
+    });
+    router.when('/', {
+      controller: 'MainCtrl',
+      templateUrl: '/modules/shift-content-new/views/main.html'
+    });
+    router.when('/index/', {
+      redirectTo: '/'
+    });
+
+    //test
+    router.when('/another/', {
+      controller: 'MainCtrl',
+      templateUrl: '/modules/shift-content-new/views/another.html'
+    });
+
+    //manage content items
+    router.when('/manage/:contentId/', {
+      controller: 'MainCtrl',
+      templateUrl: '/modules/shift-content-new/views/another.html'
+    });
+
+    //manage feed collections
+    router.when('/feeds/', {
+      controller: 'MainCtrl',
+      templateUrl: '/modules/shift-content-new/views/manage-feeds.html'
+    });
+
+    //manage content types
+    router.when('/types/', {
+      controller: 'ContentTypes',
+      templateUrl: '/modules/shift-content-new/views/content-types.html',
+      resolve: {
+        types: ['MultiRecipeLoader', function(MultiRecipeLoader){
+          return new MultiRecipeLoader();
+        }]
+      }
+    });
+
+    //manage field types
+    router.when('/field-types/', {
+      controller: 'MainCtrl',
+      templateUrl: '/modules/shift-content-new/views/field-types.html'
+    });
+
+    //manage filter types
+    router.when('/filter-types/', {
+      controller: 'MainCtrl',
+      templateUrl: '/modules/shift-content-new/views/filter-types.html'
+    });
+
+    //manage validator types
+    router.when('/validator-types/', {
+      controller: 'MainCtrl',
+      templateUrl: '/modules/shift-content-new/views/validator-types.html'
+    });
 
 
-    $routeProvider
-      .when('/', {
-        templateUrl: '/modules/shift-content-new/views/main.html',
-        controller: 'MainCtrl'
-      })
-      .when('/index/', {
-        redirectTo: base
-      })
-      .when('/another/', {
-        templateUrl: '/modules/shift-content-new/views/another.html',
-        controller: 'MainCtrl'
-      })
-      .when('/manage/:contentId/', {
-        templateUrl: '/modules/shift-content-new/views/manage-content.html',
-        controller: 'MainCtrl'
-      })
-      .when('/feeds/', {
-        templateUrl: '/modules/shift-content-new/views/manage-feeds.html',
-        controller: 'MainCtrl'
-      })
-      .when('/types/', {
-        templateUrl: '/modules/shift-content-new/views/content-types.html',
-        controller: 'ContentTypes'
-      })
-      .when('/field-types/', {
-        templateUrl: '/modules/shift-content-new/views/field-types.html',
-        controller: 'MainCtrl'
-      })
-      .when('/filter-types/', {
-        templateUrl: '/modules/shift-content-new/views/filter-types.html',
-        controller: 'MainCtrl'
-      })
-      .when('/validator-types/', {
-        templateUrl: '/modules/shift-content-new/views/validator-types.html',
-        controller: 'MainCtrl'
-      })
-      .otherwise({
-        redirectTo: '/'
-      });
-
-    $locationProvider
-      .html5Mode(true)
-      .hashPrefix('!');
-
-  });
+  }
+); //config ends here
 

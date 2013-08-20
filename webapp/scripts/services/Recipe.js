@@ -13,7 +13,11 @@ app.factory('Recipe', function ($resource) {
     id: '@id'
   };
 
-  return $resource(url, defaults);
+  var methods = {
+    get: {method: 'GET', isArray: false}
+  };
+
+  return $resource(url, defaults, methods);
 });
 
 /**
@@ -24,21 +28,18 @@ app.factory('MultiRecipeLoader', function(Recipe, $q){
 
     var delay = $q.defer();
     Recipe.query(
-      //success
       function(recipes){ delay.resolve(recipes);},
-
-      //reject
       function(){delay.reject('Unable to load from backend');}
     );
 
-    return delay.promise();
+    return delay.promise;
   };
 });
 
 
 /**
- * Regular loader
- */
+* Regular loader
+*/
 app.factory('RecipeLoader', function(Recipe, $route, $q){
   return function(){
 
@@ -48,7 +49,7 @@ app.factory('RecipeLoader', function(Recipe, $route, $q){
     Recipe.get(
       {id: itemId},
       function(recipe){delay.resolve(recipe);},
-      function(){delay.reject('Unable to fetch recipe: ' + itemId)}
+      function(){delay.reject('Unable to fetch recipe: ' + itemId);}
     );
 
     return delay.promise;

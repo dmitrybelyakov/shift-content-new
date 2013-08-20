@@ -10,7 +10,7 @@ app.directive('shiftNavigation', function (NavigationService) {
   return {
     scope: {}, //isolate directive scope
     restrict: 'EA',
-    templateUrl: '/modules/shift-content-new/views/parts/navigation.html',
+    templateUrl: '/modules/shift-content-new/views/directives/navigation.html',
     controller: function($scope, $location){
 
       var navigation = NavigationService;

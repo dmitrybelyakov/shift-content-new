@@ -11,6 +11,7 @@ files = [
   '../components/angular-route/angular-route.js',
   '../components/angular-animate/angular-animate.js',
   '../components/angular-mocks/angular-mocks.js',
+  '../components/angular-resource/angular-resource.js',
   '../scripts/*.js',
   '../scripts/**/*.js',
   'mock/**/*.js',

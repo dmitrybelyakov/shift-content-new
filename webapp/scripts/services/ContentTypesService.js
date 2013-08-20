@@ -1,11 +1,7 @@
 'use strict';
 
 angular.module('shiftContentApp')
-  .service('ContentTypesService', function ContentTypesService(
-    $http,
-    $q,
-    $timeout
-  ) {
+  .service('ContentTypesService', function ContentTypesService() {
 
     //init service
     var service = {};

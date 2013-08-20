@@ -44,25 +44,57 @@ class ApiController extends AbstractApiController
      * @param int $duration
      * @return void
      */
-    protected function delay($duration = 1)
+    protected function delay($duration = 2)
     {
         sleep($duration);
     }
 
 
     /**
-     * Index action
+     * List action
+     * displays a list of items.
+     *
      * @return \Zend\View\Model\JsonModel
      */
-    public function indexAction()
+    public function listAction()
+    {
+
+        $this->delay();
+
+        $item = array(
+            'id' => '123',
+            'title' => 'Me is an item',
+            'description' => 'An item found by its unique id',
+        );
+
+        $items = [$item, $item, $item, $item, $item];
+
+        return new JsonModel($items);
+    }
+
+
+    /**
+     * Item action
+     * Displays single item.
+     * @return \Zend\View\Model\JsonModel
+     */
+    public function itemAction()
     {
         $this->delay();
 
-        $response = array(
-            'test' => 'This is an API response'
+        $id = $this->getEvent()->getRouteMatch()->getParam('id');
+        if(!$id)
+            return $this->notFoundAction('No item with such id');
+
+
+        $item = array(
+            'id' => '123',
+            'title' => 'Me is an item',
+            'description' => 'An item found by its unique id',
         );
 
-        return new JsonModel($response);
+        return new JsonModel($item);
+
     }
 
 } //class ends here
