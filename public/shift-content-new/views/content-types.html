@@ -5,10 +5,34 @@
 			Content types
 		</td>
 		<td class="controls">
+      <a href="" class="button active" ng-hide="formVisible" ng-click="showForm()">Add new type</a>
+      <a href="" class="button inactive" ng-show="formVisible" ng-click="hideForm()">Cancel add</a>
 		</td>
 	</tr>
 </table>
 <!-- /Page header -->
+
+
+
+
+<!-- New type form -->
+<div class="formContainer add" ng-show="formVisible">
+    <form name="newTypeForm" ng-submit="createType()">
+
+        <label for="name">Content type name</label>
+        <input type="text" id="name" name="name" placeholder="Type name" ng-model="newType.name" required autofocus>
+
+        <label for="name">Content type description</label>
+        <input type="text" name="description" name="description" placeholder="Type description" ng-model="newType.description" required>
+
+        <div class="controls">
+          <input type="submit" value="Add type" ng-disabled="newTypeForm.$invalid">
+          <a href="" class="button inactive" ng-click="hideForm()">Cancel add</a>
+        </div>
+    </form>
+</div>
+<!-- /New type form -->
+
 
 
 <div ng-repeat="type in types">

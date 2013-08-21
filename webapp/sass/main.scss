@@ -1,20 +1,33 @@
 
-@import "animate";
+@import "compass/css3/animation";
+@import "animations";
+
 @import "compass/css3/border-radius";
 @import "compass/css3/box-sizing";
+
 
 //Scrren trsansition
 .transition.ng-leave {display: none;}
 .transition.ng-leave.ng-leave-active {}
 .transition.ng-enter {}
 .transition.ng-enter.ng-enter-active {
-  @include animateHelper(0, 0.2s, 'fadeIn');
+  @include animation(fadeIn 0.2s);
 }
 
-//global hidden class
-.hidden {
-  display: none;
+
+
+
+.testAnimations {
+  background: red;
+  height: 200px;
+  //height: 1000px; //important
+  overflow: hidden;
+  @include animation(slideDown 1s infinite, fadeIn 1s infinite);
 }
+
+
+
+
 
 
 //fix breadcrumbs glitch
@@ -71,7 +84,7 @@ table.layoutHolder td.navigation div.item.active a {
 
 td.navigation .menu .item.active .button a{
   background: #4D9AE9;
-  @include animateHelper(0, 0.4s, 'fadeIn');
+  @include animation(fadeIn 0.4s);
 }
 
 /**
@@ -99,12 +112,29 @@ div.formContainer {
   label {
     padding-left: 0px;
   }
+}
 
+/**
+ * Form animations
+ */
+div.formContainer.ng-hide-remove {
+  @include animation(fadeIn 0.2s);
+  display:block!important; //!remember
+}
+div.formContainer.ng-hide-add {
+  @include animation(fadeOut 0.2s);
 }
 
 
+
+
+
+
+
+
+
 /**
- * Content preloader directive
+ * Content pre loader directive
  */
 .view-preloader {
   position: absolute;
@@ -114,10 +144,10 @@ div.formContainer {
   height: 100%;
   background: rgba(255, 255, 255, 0.8);
   text-align: center;
-  @include animateHelper(0, 0.2s, 'fadeIn');
+  @include animation(fadeIn 0.2s);
 
   &.hide{
-    @include animateHelper(0, 0.2s, 'fadeOut');
+    @include animation(fadeIn 0.2s);
   }
 
   .loading-message {

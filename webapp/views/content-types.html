@@ -13,18 +13,20 @@
 <!-- /Page header -->
 
 
+
+
 <!-- New type form -->
 <div class="formContainer add" ng-show="formVisible">
-    <form ng-submit="createType()">
+    <form name="newTypeForm" ng-submit="createType()">
 
         <label for="name">Content type name</label>
-        <input type="text" id="name" name="name" placeholder="Type name" ng-model="newType.name">
+        <input type="text" id="name" name="name" placeholder="Type name" ng-model="newType.name" required autofocus>
 
         <label for="name">Content type description</label>
-        <input type="text" name="description" name="description" placeholder="Type description" ng-model="newType.description">
+        <input type="text" name="description" name="description" placeholder="Type description" ng-model="newType.description" required>
 
         <div class="controls">
-          <input type="submit" value="Add type">
+          <input type="submit" value="Add type" ng-disabled="newTypeForm.$invalid">
           <a href="" class="button inactive" ng-click="hideForm()">Cancel add</a>
         </div>
     </form>

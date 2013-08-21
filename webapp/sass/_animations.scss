@@ -1,0 +1,33 @@
+/**
+ * This defines animations that we use.
+ * @see https://github.com/ericam/compass-animate
+ * @see http://beta.compass-style.org/reference/compass/css3/animation/
+ */
+
+@import "compass-animate/helpers";
+@import "compass-animate/animate/fade";
+
+//use fades
+@include animate-fadeIn;
+@include animate-fadeInDown;
+@include animate-fadeOut;
+@include animate-fadeOutUp;
+
+
+/**
+ * Local effects
+ */
+
+//slide down
+@include keyframes(slideUp) {
+  100%   {
+    height: 0px;
+  }
+};
+
+//slide up
+@include keyframes(slideDown) {
+  0%   {
+    height: 0px;
+  }
+};
