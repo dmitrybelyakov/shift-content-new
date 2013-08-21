@@ -48,4 +48,17 @@ abstract class AbstractApiController extends BaseApiController
      */
     protected $responseTemplate = 'shiftcontent-new.api.response';
 
+    /**
+     * Delay
+     * A sleeper sugar to delay api response. May be useful to test frontend
+     * apps with near natural api delya.
+     *
+     * @param int $duration
+     * @return void
+     */
+    protected function delay($duration = 2)
+    {
+        sleep($duration);
+    }
+
 } //class ends here

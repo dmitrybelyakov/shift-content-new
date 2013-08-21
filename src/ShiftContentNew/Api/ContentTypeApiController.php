@@ -29,71 +29,60 @@ use ShiftContentNew\Api\AbstractApiController;
 
 
 /**
- * IndexController
+ * Content type api controller
+ * Responsible for handling requests to manage content types.
  *
  * @category    Projectshift
  * @package     ShiftContentNew
  * @subpackage  Controller
  */
-class ApiController extends AbstractApiController
+class ContentTypeApiController extends AbstractApiController
 {
     /**
-     * Delay
-     * A sleeper sugar to delay api response.
-     *
-     * @param int $duration
-     * @return void
-     */
-    protected function delay($duration = 2)
-    {
-        sleep($duration);
-    }
-
-
-    /**
      * List action
-     * displays a list of items.
+     * GET: returns a list of existing types.
+     * POST: creates a new content type
      *
      * @return \Zend\View\Model\JsonModel
      */
     public function listAction()
     {
-//        $this->delay();
+        //get: return content types
+        if($this->getRequest()->isGet())
+        {
+            $service = 'ShiftContentNew\Type\TypeService';
+            $service = $this->locator->get($service);
+            $types = $service->getTypes();
 
-        $item = array(
-            'id' => '123',
-            'title' => 'Me is an item',
-            'description' => 'An item found by its unique id',
-        );
+            $jsonTypes = array();
+            foreach($types as $type)
+                $jsonTypes[] = $type->toArray();
 
-        $items = [$item, $item, $item, $item, $item];
+            return new JsonModel($jsonTypes);
+        }
 
-        return new JsonModel($items);
+        //post validate and create type
+        if($this->getRequest()->isPost())
+        {
+            die('me is post action');
+        }
+
+        //otherwise return not allowed
+        return $this->notAllowedAction();
     }
 
 
     /**
-     * Item action
-     * Displays single item.
+     * Type action
+     * GET: returns single content type
+     * POST: updates content type
+     * DELETE: remove content type
+     *
      * @return \Zend\View\Model\JsonModel
      */
-    public function itemAction()
+    public function typeAction()
     {
-        $this->delay();
-
-        $id = $this->getEvent()->getRouteMatch()->getParam('id');
-        if(!$id)
-            return $this->notFoundAction('No item with such id');
-
-
-        $item = array(
-            'id' => '123',
-            'title' => 'Me is an item',
-            'description' => 'An item found by its unique id',
-        );
-
-        return new JsonModel($item);
-
+        die('me is type action');
     }
 
 } //class ends here

@@ -8,6 +8,16 @@ return array(
      */
     'ShiftKernel' => array(
 
+
+        /*
+         * Execute module migrations as part of postinstall process
+         */
+        'cli' => array(
+            'migrationsSequence' => array(
+                'shiftcontentnew' => 'ShiftContentNew',
+            )
+        ),
+
         /*
          * Backend navigation
          */
@@ -36,7 +46,6 @@ return array(
         ), //backend navigation
 
     ), //kernel
-
 
 
     /*
