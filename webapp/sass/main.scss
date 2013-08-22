@@ -99,20 +99,63 @@ a.button.active {
  * Form fixes
  */
 div.formContainer {
+
   .controls {
-    display: inline-block;
     margin-top: 10px;
+  }
+
+  .field {
+    margin-bottom: 10px;
+  }
+
+  input[type="text"] {
+    margin-bottom: 3px;
   }
 
   input[type="submit"] {
     cursor: pointer;
     &:hover {background: darken(#4D9AE9, 6)}
+    &:disabled {
+      @include opacity(0.5);
+      cursor: not-allowed;
+    }
   }
 
   label {
     padding-left: 0px;
   }
-}
+
+  .field .errors, field .errors li{
+    list-style: none;
+    margin: 0px;
+    padding: 0px;
+    display: inline-block;
+
+    font-size: 11px;
+    color: #d15959;
+  }
+
+  //.field.error
+  //{
+  //    input[type=text], textarea
+  //    {
+  //        background: #fff6f5;
+  //        border-color: #dea7a7;
+  //        color: #757170;
+  //    }
+  //    ul.errors, ul.errors li
+  //    {
+  //        list-marker: none;
+  //        margin: 0px;
+  //        padding: 1px 0px 0px 8px;
+  //        display: inline-block;
+  //
+  //        font-size: 11px;
+  //        color: #d15959;
+  //    }
+  //}
+
+} //form container
 
 /**
  * Form animations

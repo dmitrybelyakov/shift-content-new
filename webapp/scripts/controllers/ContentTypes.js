@@ -4,14 +4,6 @@ app.controller('ContentTypes', function ($scope, types) {
 
   $scope.types = types;
 
-  $scope.errors1 = [];
-  $scope.errors2 = [];
-
-  $scope.injectErrors = function(){
-    $scope.errors1.push({'message': 'This is an error message'});
-    $scope.errors2.push({message: 'Here goes another one'});
-  };
-
   //new type
   $scope.newType = {
     name: null,
