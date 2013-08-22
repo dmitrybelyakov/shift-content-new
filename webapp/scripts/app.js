@@ -3,8 +3,7 @@
 //set up app
 var app = angular.module('shiftContentApp', [
   'ngRoute',
-  'ngAnimate',
-  'ngResource'
+  'ngAnimate'
 ]);
 
 //configure
