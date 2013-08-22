@@ -1,17 +1,36 @@
 'use strict';
 var app = angular.module('shiftContentApp');
-app.controller('ContentTypes', function ($scope, types) {
 
-  $scope.types = [1,2,3,4,5];//types;
+/**
+ * Content types controller
+ * Responsible for displaying content types, creation and deletion of types.
+ */
+app.controller('ContentTypes', function (
+  $scope,
+  contentTypes,
+  ContentTypeRepository) {
 
+  /*
+   * Existing types
+   */
+
+  var repository = ContentTypeRepository;
+
+  //types
+  $scope.types = [1,2,3,4,5];
+
+
+  /*
+   * New type form
+   */
 
   //new type form
   $scope.newTypeForm = {};
 
   //new type
   $scope.newType = {
-    name: null,
-    description: null
+    name: undefined,
+    description: undefined
   };
 
 
@@ -29,8 +48,8 @@ app.controller('ContentTypes', function ($scope, types) {
   };
 
   $scope.rollbackData = function(){
-    $scope.newType.name = null;
-    $scope.newType.description = null;
+    $scope.newType.name = undefined;
+    $scope.newType.description = undefined;
   };
 
   $scope.createType = function(){
@@ -48,7 +67,15 @@ app.controller('ContentTypes', function ($scope, types) {
 
 
     //submitting data to backend
-    console.info('Submitting data to backend');
+//    console.info('Submitting data to backend');
+//    console.info($scope.newType);
+    var result = repository.save($scope.newType);
+
+    result.$promise.then(function(){
+      console.info(result);
+    });
+
+
 
 
 

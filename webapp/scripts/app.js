@@ -51,7 +51,7 @@ app.config(function ($locationProvider, $routeProvider) {
       controller: 'ContentTypes',
       templateUrl: '/modules/shift-content-new/views/content-types.html',
       resolve: {
-        types: ['MultiTypeLoader', function(MultiTypeLoader){
+        contentTypes: ['MultiTypeLoader', function(MultiTypeLoader){
           return new MultiTypeLoader();
         }]
       }

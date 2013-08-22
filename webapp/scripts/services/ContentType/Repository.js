@@ -14,7 +14,8 @@ app.factory('ContentTypeRepository', function ($resource) {
   };
 
   var methods = {
-    get: {method: 'GET', isArray: false}
+    get: {method: 'GET', isArray: false},
+    save: {method: 'POST', isArray: true}
   };
 
   return $resource(url, defaults, methods);
