@@ -10,6 +10,9 @@ app.controller('ContentTypes', function ($scope, types) {
     description: null
   };
 
+  //new type form
+  $scope.newTypeForm = {};
+
   //new type form controls
   $scope.formVisible = false;
 
@@ -20,6 +23,7 @@ app.controller('ContentTypes', function ($scope, types) {
   $scope.hideForm = function() {
     $scope.formVisible = false;
     $scope.rollbackData();
+    $scope.newTypeForm.$setPristine();
   };
 
   $scope.rollbackData = function(){
