@@ -100,15 +100,15 @@ a.button.active {
  */
 div.formContainer {
 
-  .controls {
-    margin-top: 10px;
-  }
+  label { padding-left: 0px;}
+  .field { margin-bottom: 10px;}
+  .controls { margin-top: 10px;}
 
-  .field {
-    margin-bottom: 10px;
-  }
-
-  input[type="text"] {
+  input[type="text"],
+  input[type="url"],
+  input[type="email"],
+  input[type="password"],
+  textarea {
     margin-bottom: 3px;
   }
 
@@ -121,14 +121,11 @@ div.formContainer {
     }
   }
 
+  //errors
   .invalid {
     background: #fff6f5;
     border-color: #dea7a7;
     color: #757170;
-  }
-
-  label {
-    padding-left: 0px;
   }
 
   .field .errors, field .errors li{
@@ -141,24 +138,6 @@ div.formContainer {
     color: #d15959;
   }
 
-  //.field.error
-  //{
-  //    input[type=text], textarea
-  //    {
-
-  //    }
-  //    ul.errors, ul.errors li
-  //    {
-  //        list-marker: none;
-  //        margin: 0px;
-  //        padding: 1px 0px 0px 8px;
-  //        display: inline-block;
-  //
-  //        font-size: 11px;
-  //        color: #d15959;
-  //    }
-  //}
-
 } //form container
 
 /**
@@ -168,17 +147,6 @@ div.formContainer {
 div.formContainer {
   overflow: hidden;
 }
-//div.formContainer.ng-hide-remove {
-//  @include animation(fadeIn 0.2s);
-//  display:block!important; //!remember
-//}
-//div.formContainer.ng-hide-add {
-//  @include animation(fadeOut 0.2s);
-//}
-
-
-
-
 
 
 

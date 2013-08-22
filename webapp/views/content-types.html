@@ -63,8 +63,7 @@
 
 
         <div class="controls">
-          <!--<input type="submit" value="Add type" ng-disabled="newTypeForm.$invalid">-->
-          <input type="submit" value="Add type">
+          <input type="submit" value="Add type" ng-disabled="newTypeForm.$invalid">
           <a href="" class="button inactive" ng-click="hideForm()">Cancel add</a>
         </div>
     </form>
@@ -72,8 +71,27 @@
 <!-- /New type form -->
 
 
-
-<div ng-repeat="type in types">
-  <h1>{{type.id}}.{{type.title}}</h1>
-  <div style="font-size: 14px;">{{type.description}}</div>
+<!-- No items to display -->
+<div class="noItems" ng-show="types.length == 0 && !formVisible">
+    <div>
+        <div>No content types yet. Go ahead and <a href="" ng-click="showForm()">create some</a> now.</div>
+    </div>
 </div>
+<!-- /No content types yet -->
+
+
+<table class="giantPill" id="" ng-repeat="type in types">
+    <tr>
+        <td class="item">
+            <img class="icon" src="/modules/shift-content/img/icon-content-type.png" width="16" height="16" />
+            <div class="title">
+                ${name}
+                <span class="description">${description}</span>
+            </div>
+        </td>
+        <td class="controls">
+            <a href="" class="button light">Delete</a>
+            <!--<span class="defaultMarker" title="This content item is default and can't be deleted">default</span>-->
+        </td>
+    </tr>
+</table>

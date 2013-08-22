@@ -8,9 +8,7 @@ var app = angular.module('shiftContentApp');
  */
 app.factory('ContentTypeRepository', function ($resource) {
 
-//  window.alert('123');/
-
-  var url =  '/api/content/:id/';
+  var url =  '/api/content/types/:id/';
   var defaults = {
     id: '@id'
   };

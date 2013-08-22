@@ -15,24 +15,8 @@ return array(
             ),
             //'restrict' => array('shiftkernel.canAccessBackend')
         ),
-        'may_terminate' => true,
+        'may_terminate' => false,
         'child_routes' => array(
-
-            //Single item
-            'item' => array(
-                'type' => 'Zend\Mvc\Router\Http\Segment',
-                'options' => array(
-                    'route' => ':id/',
-                    'defaults' => array(
-                        'controller' => 'ShiftContentNew\Api\ApiController',
-                        'action' => 'item',
-                        'id' => false
-                    ),
-                ),
-                'may_terminate' => true,
-                'child_routes' => array()
-            ), //single item
-
 
             //Content types api
             'types' => array(
