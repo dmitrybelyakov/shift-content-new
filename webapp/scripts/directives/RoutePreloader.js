@@ -10,7 +10,6 @@ app.directive('routePreloader', function($rootScope, $timeout, $location) {
         $scope.message = 'Loading...';
       },
       link: function postLink(scope, element) {
-
         var $ = angular.element;
         var padding = 20;
         var shouldBeVisible = false;

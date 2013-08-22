@@ -116,14 +116,18 @@ div.formContainer {
 
 /**
  * Form animations
+ * We may use simple fades instead of javascript animations.
  */
-div.formContainer.ng-hide-remove {
-  @include animation(fadeIn 0.2s);
-  display:block!important; //!remember
+div.formContainer {
+  overflow: hidden;
 }
-div.formContainer.ng-hide-add {
-  @include animation(fadeOut 0.2s);
-}
+//div.formContainer.ng-hide-remove {
+//  @include animation(fadeIn 0.2s);
+//  display:block!important; //!remember
+//}
+//div.formContainer.ng-hide-add {
+//  @include animation(fadeOut 0.2s);
+//}
 
 
 
