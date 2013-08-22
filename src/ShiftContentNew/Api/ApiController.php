@@ -38,62 +38,16 @@ use ShiftContentNew\Api\AbstractApiController;
 class ApiController extends AbstractApiController
 {
     /**
-     * Delay
-     * A sleeper sugar to delay api response.
-     *
-     * @param int $duration
-     * @return void
-     */
-    protected function delay($duration = 2)
-    {
-        sleep($duration);
-    }
-
-
-    /**
-     * List action
-     * displays a list of items.
+     * Index action
+     * Displays nothing here message.
      *
      * @return \Zend\View\Model\JsonModel
      */
-    public function listAction()
+    public function indexAction()
     {
-//        $this->delay();
-
-        $item = array(
-            'id' => '123',
-            'title' => 'Me is an item',
-            'description' => 'An item found by its unique id',
-        );
-
-        $items = [$item, $item, $item, $item, $item];
-
-        return new JsonModel($items);
+        $m = 'Nothing here. Use Specific APIs under this URL instead';
+        return new JsonModel(array('message' => $m));
     }
 
-
-    /**
-     * Item action
-     * Displays single item.
-     * @return \Zend\View\Model\JsonModel
-     */
-    public function itemAction()
-    {
-        $this->delay();
-
-        $id = $this->getEvent()->getRouteMatch()->getParam('id');
-        if(!$id)
-            return $this->notFoundAction('No item with such id');
-
-
-        $item = array(
-            'id' => '123',
-            'title' => 'Me is an item',
-            'description' => 'An item found by its unique id',
-        );
-
-        return new JsonModel($item);
-
-    }
 
 } //class ends here

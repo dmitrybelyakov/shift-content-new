@@ -11,11 +11,11 @@ return array(
             'route' => '/api/content/',
             'defaults' => array(
                 'controller' => 'ShiftContentNew\Api\ApiController',
-                'action' => 'list'
+                'action' => 'index'
             ),
             //'restrict' => array('shiftkernel.canAccessBackend')
         ),
-        'may_terminate' => false,
+        'may_terminate' => true,
         'child_routes' => array(
 
             //Content types api
