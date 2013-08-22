@@ -4,14 +4,15 @@ app.controller('ContentTypes', function ($scope, types) {
 
   $scope.types = types;
 
+  //new type form
+  $scope.newTypeForm = {};
+
   //new type
   $scope.newType = {
     name: null,
     description: null
   };
 
-  //new type form
-  $scope.newTypeForm = {};
 
   //new type form controls
   $scope.formVisible = false;
@@ -32,8 +33,16 @@ app.controller('ContentTypes', function ($scope, types) {
   };
 
   $scope.createType = function(){
-    console.info('Posting type to backend');
-    console.info($scope.newType);
+
+    var form = $scope.newTypeForm;
+
+    console.info('Check validation state first');
+    console.info('Invalid: ' + form.$invalid);
+    console.info('Pristine: ' + form.$pristine);
+    console.info(form.$error);
+
+
+
   };
 
 

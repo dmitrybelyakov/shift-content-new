@@ -15,7 +15,7 @@
 
 <!-- New type form -->
 <div class="formContainer add" ng-show="formVisible" initial-height>
-    <form name="newTypeForm" ng-submit="createType()">
+    <form name="newTypeForm" ng-submit="createType()" novalidate>
 
         <!-- Field -->
         <div class="field">
@@ -28,6 +28,7 @@
             ng-model="newType.name"
             ng-minlength="3"
             ng-maxlength="250"
+            ng-class="{invalid: newTypeForm.name.$invalid && !newTypeForm.name.$pristine}"
             required
             autofocus>
           <ul class="errors" ng-show="newTypeForm.name.$invalid && !newTypeForm.name.$pristine">
@@ -48,7 +49,8 @@
             name="description"
             placeholder="Type description"
             ng-model="newType.description"
-            ng-maxlength="250">
+            ng-maxlength="250"
+            ng-class="{invalid: newTypeForm.description.$invalid && !newTypeForm.description.$pristine}">
 
           <ul class="errors" ng-show="newTypeForm.description.$invalid && !newTypeForm.name.$pristine">
             <li ng-show="newTypeForm.description.$error.maxlength">Description must be less than 250 characters.</li>
@@ -61,7 +63,8 @@
 
 
         <div class="controls">
-          <input type="submit" value="Add type" ng-disabled="newTypeForm.$invalid">
+          <!--<input type="submit" value="Add type" ng-disabled="newTypeForm.$invalid">-->
+          <input type="submit" value="Add type">
           <a href="" class="button inactive" ng-click="hideForm()">Cancel add</a>
         </div>
     </form>

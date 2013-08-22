@@ -121,6 +121,12 @@ div.formContainer {
     }
   }
 
+  .invalid {
+    background: #fff6f5;
+    border-color: #dea7a7;
+    color: #757170;
+  }
+
   label {
     padding-left: 0px;
   }
@@ -139,9 +145,7 @@ div.formContainer {
   //{
   //    input[type=text], textarea
   //    {
-  //        background: #fff6f5;
-  //        border-color: #dea7a7;
-  //        color: #757170;
+
   //    }
   //    ul.errors, ul.errors li
   //    {
