@@ -15,7 +15,7 @@ app.animation('.formContainer', function() {
 
     //hide animation
     addClass : function(element, className, done) {
-      var duration = 200;
+      var duration = 100;
       var currentHeight = element.height();
       var complete = function(){
         element.height(currentHeight);
@@ -35,7 +35,7 @@ app.animation('.formContainer', function() {
 
     //show animation
     removeClass : function(element, className, done) {
-      var duration = 200;
+      var duration = 100;
       var currentHeight = element.height();
       element.css('height', currentHeight);
       var complete = function(){

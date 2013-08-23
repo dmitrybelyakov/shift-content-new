@@ -8,16 +8,15 @@ var app = angular.module('shiftContentApp');
 app.controller('ContentTypes', function (
   $scope,
   contentTypes,
-  ContentTypeRepository) {
+  AnotherContentTypeRepository) {
 
   /*
    * Existing types
    */
 
-  var repository = ContentTypeRepository;
+  $scope.types = contentTypes;
+  var repository = AnotherContentTypeRepository;
 
-  //types
-  $scope.types = [1,2,3,4,5];
 
 
   /*
@@ -33,9 +32,9 @@ app.controller('ContentTypes', function (
     description: undefined
   };
 
-
   //new type form controls
   $scope.formVisible = false;
+  $scope.formProgress = false;
 
   $scope.showForm = function() {
     $scope.formVisible = true;
@@ -60,24 +59,21 @@ app.controller('ContentTypes', function (
       return;
     }
 
-//    console.info('Check validation state first');
-//    console.info('Invalid: ' + form.$invalid);
-//    console.info('Pristine: ' + form.$pristine);
-//    console.info(form.$error);
+    console.info('sending');
+    $scope.formProgress = true;
 
-
-    //submitting data to backend
-//    console.info('Submitting data to backend');
-//    console.info($scope.newType);
-    var result = repository.save($scope.newType);
-
-    result.$promise.then(function(){
-      console.info(result);
-    });
-
-
-
-
+    //submit request
+    repository.create($scope.newType)
+      .success(function(response){
+        $scope.types.push(response);
+        $scope.formProgress = false;
+        $scope.hideForm();
+      })
+      .error(function(rejectReason){
+        $scope.formProgress = false;
+        $scope.hideForm();
+        console.info(rejectReason);
+      });
 
 
   };

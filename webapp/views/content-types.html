@@ -15,7 +15,8 @@
 
 <!-- New type form -->
 <div class="formContainer add" ng-show="formVisible" initial-height>
-    <form name="newTypeForm" ng-submit="createType()" novalidate>
+    <div class="progress" ng-show="formProgress" ng-class="{animate: formProgress}"><span>Working...</span></div>
+    <form name="newTypeForm" ng-submit="createType()" class="disabled" novalidate>
 
         <!-- Field -->
         <div class="field">
@@ -80,13 +81,13 @@
 <!-- /No content types yet -->
 
 
-<table class="giantPill" id="" ng-repeat="type in types">
+<table class="giantPill" ng-repeat="type in types" id="{{type.id}}">
     <tr>
         <td class="item">
             <img class="icon" src="/modules/shift-content/img/icon-content-type.png" width="16" height="16" />
             <div class="title">
-                ${name}
-                <span class="description">${description}</span>
+                {{type.name}}
+                <span class="description">{{type.description}}</span>
             </div>
         </td>
         <td class="controls">

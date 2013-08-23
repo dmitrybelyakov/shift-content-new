@@ -58,13 +58,26 @@ class ContentTypeApiController extends AbstractApiController
             foreach($types as $type)
                 $jsonTypes[] = $type->toArray();
 
-            return new JsonModel($jsonTypes);
+
+
+            return new JsonModel(array(
+                array('id' => 123, 'name' => 'ContentType', 'description' => 'Some content type from backend'),
+                array('id' => 123, 'name' => 'ContentType', 'description' => 'Some content type from backend'),
+                array('id' => 123, 'name' => 'ContentType', 'description' => 'Some content type from backend'),
+                array('id' => 123, 'name' => 'ContentType', 'description' => 'Some content type from backend'),
+                array('id' => 123, 'name' => 'ContentType', 'description' => 'Some content type from backend')
+            ));
         }
 
         //post validate and create type
         if($this->getRequest()->isPost())
         {
-            die('me is post action');
+//            return $this->exceptionAction('Request had failed');
+
+            $this->delay();
+            $data = $this->requestData();
+            $data['id'] = 456;
+            return new JsonModel($data);
         }
 
         //otherwise return not allowed

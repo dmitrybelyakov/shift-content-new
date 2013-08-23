@@ -31,3 +31,10 @@
     height: 0px;
   }
 };
+
+//loader
+@include keyframes(loader) {
+  100%   {
+    background-position: 30px 0;
+  }
+};
