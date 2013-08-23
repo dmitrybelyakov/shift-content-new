@@ -61,4 +61,21 @@ abstract class AbstractApiController extends BaseApiController
         sleep($duration);
     }
 
+
+    /**
+     * Failed validation
+     * Sets response code to 409 and returns unsupported message.
+     *
+     * @param array $errors
+     * @return \Zend\View\Model\JsonModel
+     */
+    public function failedValidationAction(array $errors)
+    {
+        $this->getResponse()->setStatusCode(409);
+        $vm = new JsonModel($errors);
+        $vm->setTemplate($this->responseTemplate);
+        return $vm;
+    }
+
+
 } //class ends here

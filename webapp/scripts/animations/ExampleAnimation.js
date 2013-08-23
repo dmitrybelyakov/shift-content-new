@@ -10,7 +10,7 @@ var app = angular.module('shiftContentApp');
  * NOTE: height must be initially set otherwise we will not be able to properly
  * animate the first time. Use directive for that.
  */
-app.animation('.formContainer', function() {
+app.animation('.exampleAnimation', function() {
   return {
 
     //hide animation

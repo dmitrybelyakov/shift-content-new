@@ -11,7 +11,6 @@ app.directive('routePreloader', function($rootScope, $timeout, $location) {
       },
       link: function postLink(scope, element) {
         var $ = angular.element;
-        var padding = 20;
         var shouldBeVisible = false;
 
         element = element.find('.view-preloader');
@@ -29,7 +28,7 @@ app.directive('routePreloader', function($rootScope, $timeout, $location) {
               }
 
               var content = $('td.page');
-              element.width(content.width() - (padding * 2));
+              element.width(content.width());
               element.show();
 
             },
@@ -73,7 +72,7 @@ app.directive('routePreloader', function($rootScope, $timeout, $location) {
           //get backend error
           var message = 'Loading failed';
           if(error) {
-            message = message + ': ' + error;
+            message = message + ': ' + error.data.content;
           }
 
           //set error state

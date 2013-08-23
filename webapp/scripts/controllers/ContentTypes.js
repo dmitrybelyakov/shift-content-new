@@ -17,40 +17,46 @@ app.controller('ContentTypes', function (
   $scope.types = contentTypes;
   var repository = AnotherContentTypeRepository;
 
+  //remove type
+  $scope.deleteType = function(xx){
+    console.info('Now delete type');
+    console.info(xx);
+  };
+
 
 
   /*
    * New type form
    */
 
-  //new type form
+  //form
   $scope.newTypeForm = {};
+  $scope.formVisible = false;
+  $scope.formProgress = false;
 
-  //new type
+  //type
   $scope.newType = {
     name: undefined,
     description: undefined
   };
-
-  //new type form controls
-  $scope.formVisible = false;
-  $scope.formProgress = false;
 
   $scope.showForm = function() {
     $scope.formVisible = true;
   };
 
   $scope.hideForm = function() {
+
+    //rollback
+    $scope.newType.name = undefined;
+    $scope.newType.description = undefined;
+
+    //and hide
     $scope.formVisible = false;
-    $scope.rollbackData();
+    $scope.formProgress = false;
     $scope.newTypeForm.$setPristine();
   };
 
-  $scope.rollbackData = function(){
-    $scope.newType.name = undefined;
-    $scope.newType.description = undefined;
-  };
-
+  //create type
   $scope.createType = function(){
 
     //check validity
@@ -59,21 +65,38 @@ app.controller('ContentTypes', function (
       return;
     }
 
-    console.info('sending');
     $scope.formProgress = true;
 
     //submit request
-    repository.create($scope.newType)
-      .success(function(response){
-        $scope.types.push(response);
-        $scope.formProgress = false;
-        $scope.hideForm();
-      })
-      .error(function(rejectReason){
-        $scope.formProgress = false;
-        $scope.hideForm();
-        console.info(rejectReason);
-      });
+    var promise = repository.create($scope.newType);
+
+    //catch backend validation
+    var validationErrors;
+    promise.catch(function(response){
+      if(response.status === 409) {
+        validationErrors = response.data;
+      }
+    });
+
+    //handle errors
+    promise.error(function(error){
+
+      if(validationErrors) {
+        console.info('Got validation errors:');
+        console.info(validationErrors);
+      } else {
+        console.info('Got server error:');
+        console.info(error);
+      }
+
+
+    });
+
+    //handle success
+    promise.success(function(response){
+      $scope.types.push(response);
+      $scope.hideForm();
+    });
 
 
   };

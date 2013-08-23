@@ -27,6 +27,9 @@ namespace ShiftContentNew\Api;
 use Zend\View\Model\JsonModel;
 use ShiftContentNew\Api\AbstractApiController;
 
+use ShiftContentNew\Type\Type;
+use ShiftCommon\Model\Validation\Result as Errors;
+
 
 /**
  * Content type api controller
@@ -47,36 +50,38 @@ class ContentTypeApiController extends AbstractApiController
      */
     public function listAction()
     {
+//        $this->delay();
+
+        $service = 'ShiftContentNew\Type\TypeService';
+        $service = $this->locator->get($service);
+
         //get: return content types
         if($this->getRequest()->isGet())
         {
-            $service = 'ShiftContentNew\Type\TypeService';
-            $service = $this->locator->get($service);
             $types = $service->getTypes();
 
             $jsonTypes = array();
             foreach($types as $type)
                 $jsonTypes[] = $type->toArray();
 
-
-
-            return new JsonModel(array(
-                array('id' => 123, 'name' => 'ContentType', 'description' => 'Some content type from backend'),
-                array('id' => 123, 'name' => 'ContentType', 'description' => 'Some content type from backend'),
-                array('id' => 123, 'name' => 'ContentType', 'description' => 'Some content type from backend'),
-                array('id' => 123, 'name' => 'ContentType', 'description' => 'Some content type from backend'),
-                array('id' => 123, 'name' => 'ContentType', 'description' => 'Some content type from backend')
-            ));
+            return new JsonModel($jsonTypes);
         }
 
         //post validate and create type
         if($this->getRequest()->isPost())
         {
-//            return $this->exceptionAction('Request had failed');
+            try
+            {
+                $data = $this->requestData();
+                $type = $service->saveType(new Type($data));
+                if($type instanceof Errors)
+                    return $this->failedValidationAction($type->getErrors());
+            }
+            catch(\Exception $exception) {
+                return $this->exceptionAction($exception->getMessage());
+            }
 
-            $this->delay();
-            $data = $this->requestData();
-            $data['id'] = 456;
+            //return on success
             return new JsonModel($data);
         }
 

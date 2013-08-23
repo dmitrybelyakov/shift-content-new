@@ -10,8 +10,8 @@
 
 //Scrren trsansition
 .transition.ng-leave {display: none;}
-.transition.ng-leave.ng-leave-active {}
-.transition.ng-enter {}
+.transition.ng-leave.ng-leave-active {display: none;}
+.transition.ng-enter {display: none;}
 .transition.ng-enter.ng-enter-active {
   @include animation(fadeIn 0.2s);
 }
@@ -24,7 +24,7 @@
   height: 200px;
   //height: 1000px; //important
   overflow: hidden;
-  @include animation(slideDown 1s infinite, fadeIn 1s infinite);
+  @include animation(fadeIn 1s infinite);
 }
 
 
@@ -199,6 +199,16 @@ div.formContainer {
 div.formContainer {
   overflow: hidden;
 }
+div.formContainer.ng-hide-add {
+  @include animation(fadeOut 0.1s infinite);
+}
+div.formContainer.ng-hide-remove {
+  @include animation(fadeIn 0.1s infinite);
+  display:block!important;
+}
+
+
+
 
 
 /**
@@ -207,23 +217,35 @@ div.formContainer {
 .view-preloader {
   position: absolute;
   top: 0px;
-  left: 200px;
+  left: 180px;
   z-index: 100;
   height: 100%;
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.95);
   text-align: center;
+  @include border-radius(10px);
   @include animation(fadeIn 0.2s);
 
-  &.hide{
-    @include animation(fadeIn 0.2s);
-  }
+  background-size: 30px 30px;
+  @include background-image(linear-gradient(
+        -45deg, rgba(0, 0, 0, 0.02) 25%,
+        transparent 25%,
+        transparent 50%,
+        rgba(0, 0, 0, 0.02) 50%,
+        rgba(0, 0, 0, 0.02) 75%,
+        transparent 75%
+  ));
+  @include animation(loader 0.5s linear infinite);
+
 
   .loading-message {
     display: inline-block;
-    padding: 10px 20px;
-    background: #e7e7e7;
     margin-top: 200px;
+    padding: 10px 20px;
+    background: #fff;
+    color: #c2c2c2;
+    padding: 10px 15px;
     @include border-radius(10px);
+    @include box-shadow(#dfdfdf 0px 1px 1px);
   }
 
   &.error .loading-message{

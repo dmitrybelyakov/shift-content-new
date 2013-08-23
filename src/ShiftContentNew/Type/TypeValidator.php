@@ -72,6 +72,7 @@ class TypeValidator extends EntityValidator
         $this->description->addFilter(new StripTags);
         $this->description->addFilter(new StringTrim);
         $this->description->addValidator(new StringLength(array('max' => 250)));
+        $this->description->addValidator(new NotEmpty);
 
 
         //fields validator
