@@ -10,13 +10,18 @@ app.controller('ContentTypes', function (
   contentTypes,
   AnotherContentTypeRepository) {
 
+  var _ = window._;
+  var repository = AnotherContentTypeRepository;
+
+
   /*
    * Existing types
    */
 
-  var _ = window._;
-  $scope.types = contentTypes;
-  var repository = AnotherContentTypeRepository;
+  $scope.types = _.sortBy(contentTypes, function(type){
+    return type.name;
+  });
+
 
 
   /*
@@ -50,6 +55,7 @@ app.controller('ContentTypes', function (
 
     //set clean
     $scope.newTypeForm.shift.clearBackendErrors();
+    $scope.newTypeForm.shift.clearSubmitted();
     $scope.newTypeForm.$setPristine();
   };
 
@@ -74,9 +80,8 @@ app.controller('ContentTypes', function (
     });
 
     //handle errors
-    promise.error(function(error){
+    promise.error(function(){
       $scope.formProgress = false;
-
       if(validationErrors) {
         $scope.newTypeForm.shift.setBackendErrors(validationErrors);
       } else {
@@ -90,6 +95,10 @@ app.controller('ContentTypes', function (
     //handle success
     promise.success(function(response){
       $scope.types.push(response);
+      $scope.types = _.sortBy($scope.types, function(type){
+        return type.name;
+      });
+
       $scope.hideForm();
     });
 

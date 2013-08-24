@@ -16,7 +16,7 @@
 <!-- New type form -->
 <div class="formContainer add" ng-show="formVisible">
     <div class="progress" ng-show="formProgress" ng-class="{animate: formProgress}"><span>Working...</span></div>
-    <form name="newTypeForm" ng-submit="createType()" class="disabled" novalidate>
+    <form name="newTypeForm" ng-submit="createType()" class="disabled" novalidate shift-form>
 
         <!-- Field -->
         <div class="field">
@@ -27,15 +27,15 @@
             name="name"
             placeholder="Type name"
             ng-model="newType.name"
-            ng-minlength="3"
-            ng-maxlength="250"
-            ng-class="{invalid: newTypeForm.name.$invalid && !newTypeForm.name.$pristine}"
+            ng-class="{invalid: newTypeForm.shift.fieldErrors('name')}"
+            ng-minlength = "2"
             required
             autofocus>
-          <ul class="errors" ng-show="newTypeForm.name.$invalid && !newTypeForm.name.$pristine">
+
+          <ul class="errors" ng-show="newTypeForm.shift.fieldErrors('name')">
             <li ng-show="newTypeForm.name.$error.required">Name is required!</li>
-            <li ng-show="newTypeForm.name.$error.minlength">Name must be more than 3 characters.</li>
-            <li ng-show="newTypeForm.name.$error.maxlength">Name must be less than 250 characters.</li>
+            <li ng-show="newTypeForm.name.$error.minlength">Too short!</li>
+            <li ng-repeat="error in newTypeForm.shift.backendErrors.name">{{error.message}}<span ng-hide="$last">,</span></li>
           </ul>
 
         </div>
@@ -50,11 +50,11 @@
             name="description"
             placeholder="Type description"
             ng-model="newType.description"
-            ng-maxlength="250"
-            ng-class="{invalid: newTypeForm.description.$invalid && !newTypeForm.description.$pristine}">
+            ng-class="{invalid: newTypeForm.shift.fieldErrors('description')}">
 
-          <ul class="errors" ng-show="newTypeForm.description.$invalid && !newTypeForm.name.$pristine">
-            <li ng-show="newTypeForm.description.$error.maxlength">Description must be less than 250 characters.</li>
+          <ul class="errors" ng-show="newTypeForm.shift.fieldErrors('description')">
+            <li ng-repeat="error in newTypeForm.formErrors.description">{{error}}<span ng-hide="$last">,</span></li>
+            <li ng-repeat="error in newTypeForm.shift.backendErrors.description">{{error.message}}<span ng-hide="$last">,</span></li>
           </ul>
         </div>
         <!-- /Field -->
@@ -63,8 +63,11 @@
 
 
 
+
+
         <div class="controls">
-          <input type="submit" value="Add type" ng-disabled="newTypeForm.$invalid">
+          <input type="submit" value="Add type">
+          <!--<input type="submit" value="Add type" ng-disabled="newTypeForm.$invalid">-->
           <a href="" class="button inactive" ng-click="hideForm()">Cancel add</a>
         </div>
     </form>

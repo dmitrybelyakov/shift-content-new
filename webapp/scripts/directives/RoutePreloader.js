@@ -16,7 +16,7 @@ app.directive('routePreloader', function($rootScope, $timeout, $location) {
         element = element.find('.view-preloader');
         element.hide();
 
-        //display preloader with timeout
+        //display loader with timeout
         $rootScope.$on('$routeChangeStart', function(){
 
           shouldBeVisible = true;
@@ -29,10 +29,10 @@ app.directive('routePreloader', function($rootScope, $timeout, $location) {
 
               var content = $('td.page');
               element.width(content.width());
+              element.css('left', $('td.navigation').width());
               element.show();
-
             },
-            150
+            50
           );
 
         });

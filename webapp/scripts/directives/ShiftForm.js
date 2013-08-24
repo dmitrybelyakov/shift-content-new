@@ -14,40 +14,26 @@ app.directive('shiftForm', function () {
     priority: 1000, //before ngSubmit
     link: function postLink(scope, element, attrs, form) {
 
-      //check container
-      if(!form.shift) {
-        form.shift = {};
-      }
-
       /*
        * Handle submit event
        */
-
+      form.shift = {};
       form.shift.attemptedSubmission = false;
       form.shift.backendErrors = {};
 
       //bind to act on submit
       element.bind('submit', function(){
         form.shift.setSubmitted();
-//
-//        console.info('IS FORM VALID');
-//        console.info(form.$invalid);
-//        console.info(form.$dirty);
-//
-//        if(form.$invalid || form.$valid && form.$pristine) {
-//          console.info('cancelling submit');
-//          return false;
-//        }
-//
-        form.shift.clearBackendErrors();
       });
 
       form.shift.isSubmitted = function(){
         return form.shift.attemptedSubmission;
       };
+
       form.shift.setSubmitted = function(){
         form.shift.attemptedSubmission = true;
       };
+
       form.shift.clearSubmitted = function(){
         form.shift.attemptedSubmission = false;
       };
@@ -56,7 +42,7 @@ app.directive('shiftForm', function () {
        * Handle backend errors
        */
 
-      //add single field error
+      //add single field error (replaces duplicates)
       form.shift.addBackendError = function(field, errorKey, message) {
         if(!field || !message || !errorKey) {
           return;
@@ -65,7 +51,25 @@ app.directive('shiftForm', function () {
         if(!form.shift.backendErrors[field]) {
           form.shift.backendErrors[field] = [];
         }
-        form.shift.backendErrors[field].push({key: errorKey, message: message});
+
+        var error = {
+          key: errorKey,
+          message: message
+        };
+
+        var isDuplicate = false;
+        for(var i in form.shift.backendErrors[field]) {
+          if(form.shift.backendErrors[field][i].key === errorKey) {
+            isDuplicate = true;
+            form.shift.backendErrors[field][i] = error; //replace
+          }
+        }
+
+        //skip duplicates
+        if(!isDuplicate) {
+          form.shift.backendErrors[field].push(error);
+        }
+
       };
 
       //set errors all at once
@@ -95,10 +99,9 @@ app.directive('shiftForm', function () {
         } else if (field && form.shift.backendErrors[field]) {
           return form.shift.backendErrors[field];
         } else {
-          return {}
+          return {};
         }
       };
-
 
       //checks if form or field has backend errors
       form.shift.hasBackendErrors = function(field) {
@@ -110,7 +113,7 @@ app.directive('shiftForm', function () {
           for(var key in form.shift.backendErrors) {
             if(form.shift.backendErrors.hasOwnProperty(key)) {
               size++;
-            };
+            }
           }
 
           if(size > 0) {
@@ -131,20 +134,19 @@ app.directive('shiftForm', function () {
         }
       }; //has errors
 
-
       //check if field has backend errors OR has frontend errors & is dirty
       form.shift.fieldValid = function(name){
         if(!name || !form[name]) {
           return false;
         }
 
-        var f = form['name'];
+        var f = form[name];
         if(form.shift.hasBackendErrors(name) || (f.$invalid && !f.$pristine)) {
           return false;
         }
 
         return true;
-      }
+      };
 
       //returns true if field has errors and form was submitted
       form.shift.fieldErrors = function(name){
@@ -158,10 +160,7 @@ app.directive('shiftForm', function () {
         }
 
         return false;
-      }
-
-
-
+      };
     }
   };
 });

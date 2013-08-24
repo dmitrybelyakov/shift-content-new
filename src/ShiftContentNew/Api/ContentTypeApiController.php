@@ -49,6 +49,7 @@ class ContentTypeApiController extends AbstractApiController
      */
     public function listAction()
     {
+        $this->delay(2);
         $service = $this->locator->get('ShiftContentNew\Type\TypeService');
 
         //get: return content types
