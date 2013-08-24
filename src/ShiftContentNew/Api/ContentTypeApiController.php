@@ -30,7 +30,6 @@ use ShiftContentNew\Api\AbstractApiController;
 use ShiftContentNew\Type\Type;
 use ShiftCommon\Model\Validation\Result as Errors;
 
-
 /**
  * Content type api controller
  * Responsible for handling requests to manage content types.
@@ -50,10 +49,7 @@ class ContentTypeApiController extends AbstractApiController
      */
     public function listAction()
     {
-//        $this->delay();
-
-        $service = 'ShiftContentNew\Type\TypeService';
-        $service = $this->locator->get($service);
+        $service = $this->locator->get('ShiftContentNew\Type\TypeService');
 
         //get: return content types
         if($this->getRequest()->isGet())

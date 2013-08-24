@@ -135,14 +135,20 @@ div.formContainer {
     color: #757170;
   }
 
-  .field .errors, field .errors li{
+  .field .errors {
     list-style: none;
     margin: 0px;
     padding: 0px;
     display: inline-block;
 
-    font-size: 11px;
-    color: #d15959;
+    & li {
+      display: inline-block;
+      font-size: 11px;
+      color: #d15959;
+      margin-right: 5px;
+    }
+
+
   }
 
 

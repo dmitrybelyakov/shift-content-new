@@ -7,7 +7,7 @@
  * !!! This is required to properly do animations on height. !!!
  */
 angular.module('shiftContentApp')
-  .directive('initialHeight', function () {
+  .directive('shiftInitialHeight', function () {
     return {
       restrict: 'A',
       link: function postLink(scope, element) {

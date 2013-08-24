@@ -14,19 +14,13 @@ app.controller('ContentTypes', function (
    * Existing types
    */
 
+  var _ = window._;
   $scope.types = contentTypes;
   var repository = AnotherContentTypeRepository;
 
-  //remove type
-  $scope.deleteType = function(xx){
-    console.info('Now delete type');
-    console.info(xx);
-  };
-
-
 
   /*
-   * New type form
+   * New type
    */
 
   //form
@@ -46,28 +40,29 @@ app.controller('ContentTypes', function (
 
   $scope.hideForm = function() {
 
+    //hide
+    $scope.formVisible = false;
+    $scope.formProgress = false;
+
     //rollback
     $scope.newType.name = undefined;
     $scope.newType.description = undefined;
 
-    //and hide
-    $scope.formVisible = false;
-    $scope.formProgress = false;
+    //set clean
+    $scope.newTypeForm.shift.clearBackendErrors();
     $scope.newTypeForm.$setPristine();
   };
+
 
   //create type
   $scope.createType = function(){
 
-    //check validity
-    var form = $scope.newTypeForm;
-    if(form.$invalid) {
+    if($scope.newTypeForm.$invalid) {
       return;
     }
 
-    $scope.formProgress = true;
-
     //submit request
+    $scope.formProgress = true;
     var promise = repository.create($scope.newType);
 
     //catch backend validation
@@ -80,13 +75,13 @@ app.controller('ContentTypes', function (
 
     //handle errors
     promise.error(function(error){
+      $scope.formProgress = false;
 
       if(validationErrors) {
-        console.info('Got validation errors:');
-        console.info(validationErrors);
+        $scope.newTypeForm.shift.setBackendErrors(validationErrors);
       } else {
-        console.info('Got server error:');
-        console.info(error);
+
+        //handle server error
       }
 
 
