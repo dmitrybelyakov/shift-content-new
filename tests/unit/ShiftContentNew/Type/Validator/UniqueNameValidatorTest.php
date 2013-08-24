@@ -122,6 +122,7 @@ class UniqueNameValidatorTest extends TestCase
         //mock context
         $editedType = Mockery::mock('ShiftContentNew\Type\Type');
         $editedType->shouldReceive('getName')->andReturn($name);
+        $editedType->shouldReceive('getId')->andReturn(123);
 
         //mock found type
         $foundType = Mockery::mock('ShiftContentNew\Type\Type');

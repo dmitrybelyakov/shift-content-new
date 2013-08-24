@@ -80,11 +80,17 @@ class UniqueNameValidator extends AbstractValidator
         //Set value inside validator
         $this->setValue($name);
 
-        if($editedType && $name == $editedType->getName())
+        //edited type must be persisted to pass
+        if($editedType && $editedType->getId() &&
+            $name == $editedType->getName())
+        {
             return true;
+        }
 
         $service = $this->locator->get('ShiftContentNew\Type\TypeService');
         $type = $service->getTypeByName($name);
+
+
 
         if(!$type)
             return true;

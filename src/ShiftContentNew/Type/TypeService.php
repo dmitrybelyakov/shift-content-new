@@ -107,7 +107,7 @@ class TypeService
      */
     public function getTypeByName($name)
     {
-        return $this->getRepository()->findByName($name);
+        return $this->getRepository()->findOneByName($name);
     }
 
 

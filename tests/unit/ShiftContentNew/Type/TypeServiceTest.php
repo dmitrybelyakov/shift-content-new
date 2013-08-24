@@ -149,7 +149,7 @@ class TypeServiceTest extends TestCase
         $type = Mockery::mock('ShiftContentNew\Type\Type');
 
         $repo = Mockery::mock('ShiftContentNew\Type\TypeRepository');
-        $repo->shouldReceive('findByName')
+        $repo->shouldReceive('findOneByName')
             ->with($name)
             ->andReturn($type);
 
