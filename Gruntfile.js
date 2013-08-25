@@ -254,11 +254,6 @@ module.exports = function (grunt) {
         singleRun: true
       }
     },
-    cdnify: {
-      dist: {
-        html: ['<%= yo.dist %>/*.html', '<%= yo.dist %>/view-partials/*.html']
-      }
-    },
     ngmin: {
       dist: {
         files: [{
@@ -313,7 +308,6 @@ module.exports = function (grunt) {
     'copy:dist', //copy temp images, app scripts & templates to dist
     'useminPrepare', //parse index to find minification instruction for js/css
     'concat', //from usemin
-    'cdnify', //replace local scripts with cdn
     'ngmin', //prepare scripts in dist
     'cssmin', //copy minified css from temp to dist
     'uglify', //minfy dist scripts per usemin config
