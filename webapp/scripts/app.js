@@ -41,7 +41,7 @@ app.config(function ($locationProvider, $routeProvider) {
 
     //manage feed collections
     router.when('/feeds/', {
-      controller: 'MainCtrl',
+      controller: 'Queue',
       templateUrl: '/modules/shift-content-new/views/manage-feeds.html'
     });
 
