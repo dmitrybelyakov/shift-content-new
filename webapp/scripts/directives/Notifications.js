@@ -1,28 +1,30 @@
 'use strict';
-
 var app = angular.module('shiftContentApp');
-app.directive('shiftNotifications', function (NotificationService, $timeout) {
+
+/**
+ * Notifications directive
+ * Use this in templates to output notifications sent to notification service.
+ * Specify what message queue to listen to by giving your element and id
+ * corresponding to queue name.
+ */
+app.directive('shiftNotifications', function (NotificationService) {
   return {
     restrict: 'A',
-    templateUrl:'/modules/shift-content-new/views/directives/notification.html',
     scope: {},
-    controller: function($scope){
-
-      //initially empty
-      $scope.queue = [];
-
-      //close notification
-      $scope.close = function(id){
-        NotificationService.removeNotification(id);
-      };
-
-    },
+    template:'<div class="notification {{notification.type}}" ' +
+      'ng-repeat="notification in queue">' +
+      '{{notification.message}}' +
+      '<span class="close" ng-click="close(\'{{notification.id}}\')"></span>' +
+      '</div>',
     link: function(scope, element, attrs) {
 
-      $timeout(function(){
-        scope.queue = NotificationService.getQueue(attrs.id);
-      },2000);
+      //get queue
+      scope.queue = NotificationService.getQueue(attrs.id);
 
+      //close notification
+      scope.close = function(id){
+        NotificationService.removeNotification(id);
+      };
 
     }
   };

@@ -1,6 +1,13 @@
 'use strict';
 var app = angular.module('shiftContentApp');
 
+/**
+ * Notification service
+ * Maintains multiple queues of notification messages each of which may
+ * have a message test, type and a timeout in seconds an infinite.
+ * You can display those queued messages via notifications directives in
+ * your templates.
+ */
 app.service('NotificationService', function NotificationService($timeout) {
 
   //init service
@@ -14,13 +21,14 @@ app.service('NotificationService', function NotificationService($timeout) {
     return name.toString().replace(/[^A-Z0-9]/ig, '');
   };
 
+
   //send notification to specified queue
   service.notify = function(queue, type, message, timeout) {
 
     //convert to proper name
     queue = service.queName(queue);
 
-    //no queue?
+    //create if required
     if(!service.queues[queue]) {
       service.queues[queue] = [];
     }
