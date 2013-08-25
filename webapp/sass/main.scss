@@ -258,3 +258,17 @@ div.formContainer.ng-hide-remove {
     color: #fff;
   }
 }
+
+/**
+ * Notifications
+ */
+.notification {
+  .close {
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background: red;
+    float: right;
+    cursor: pointer;
+  }
+}

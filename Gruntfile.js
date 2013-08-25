@@ -27,7 +27,7 @@ module.exports = function (grunt) {
           livereload: LIVERELOAD_PORT
         },
         files: [
-          '<%= yo.app %>/{,*/}*.html',
+          '<%= yo.app %>/{,*/}/{,*/}*.html',
           '!<%= yo.app %>/{index,main}.html', //handled by baker
           '!<%= yo.app %>/view-partials/*.html', //handled by baker
           '.tmp/{,*/}*.html',
