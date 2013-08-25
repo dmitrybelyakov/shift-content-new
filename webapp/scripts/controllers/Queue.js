@@ -16,5 +16,10 @@ app.controller('Queue', function ($scope, NotificationService) {
   };
 
 
+  $scope.growl = function(){
+    service.growl('Rrrrr...');
+  };
+
+
 
 });

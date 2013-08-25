@@ -1,4 +1,7 @@
-<div class="notification {{notification.type}}" ng-repeat="notification in queue">
-  {{notification.message}}
-  <span class="close" ng-click="close('{{notification.id}}')"></span>
+<div class="growls">
+  <div class="growl" ng-repeat="growl in growls" ng-click="close('{{growl.id}}')">
+    <div class="outline">
+      <div class="message">{{growl.message}}</div>
+    </div>
+  </div>
 </div>

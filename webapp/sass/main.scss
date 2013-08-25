@@ -4,6 +4,8 @@
 @import "compass/css3/box-sizing";
 @import "compass/css3/box-shadow";
 @import "compass/css3/images";
+@import "compass/css3/box";//
+@import "compass/css3/user-interface";
 
 @import "animations";
 
@@ -274,3 +276,49 @@ div.formContainer.ng-hide-remove {
     background-repeat: no-repeat;
   }
 }
+
+.growls {
+  position: fixed;
+  z-index: 999;
+  bottom: 50%;
+  width: 100%;
+  text-align: center;
+  padding-left: 60px;
+  //background: rgba(255,0,0,0.8);
+
+
+  .growl {
+    display: block;
+    margin: 6px 0px;
+    @include animation(fadeIn 0.2s);
+    &.ng-leave {
+      @include animation(fadeOut 0.2s);
+    }
+  }
+  .outline {
+    display: inline-block;
+    border: 6px solid;
+    border-color: rgba(0,0,0,0.4);
+    @include border-radius(17px);
+  }
+
+  .message {
+    max-width: 400px;
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.7);
+    color: #fff;
+    padding: 10px 25px;
+    display: inline-block;
+    font-size: 18px;
+    cursor: pointer;
+    @include border-radius(11px);
+    @include user-select(none);
+  }
+}
+
+
+
+
+
+
+

@@ -13,14 +13,19 @@ app.service('NotificationService', function NotificationService($timeout) {
   //init service
   var service = {};
 
-  //queues container
+
   service.queues = [];
+  service.growls = [];
+  var growlTimeout = 2000;
+
+  /*
+   * Notifications
+   */
 
   //prepare queue name
   service.queName = function(name){
     return name.toString().replace(/[^A-Z0-9]/ig, '');
   };
-
 
   //send notification to specified queue
   service.notify = function(queue, type, message, timeout) {
@@ -90,6 +95,44 @@ app.service('NotificationService', function NotificationService($timeout) {
       }
     }
   };
+
+
+
+  /*
+   * Growls
+   */
+
+  //send out growl notification
+  service.growl = function(message){
+    var id = Math.random().toString(36).slice(2);
+
+    //add growl
+    service.growls.push({
+      id: id,
+      message: message
+    });
+
+    //remove after timeout
+    $timeout(function(){
+      service.removeGrowl(id);
+    }, growlTimeout);
+  };
+
+  //remove growl from queue
+  service.removeGrowl = function(id){
+    for(var index in service.growls) {
+      if(service.growls.hasOwnProperty(index) &&
+        service.growls[index].id === id) {
+        service.growls.splice(index, 1);
+      }
+    }
+  };
+
+  //get growls
+  service.getGrowls = function(){
+    return service.growls;
+  };
+
 
   //return service
   return service;
