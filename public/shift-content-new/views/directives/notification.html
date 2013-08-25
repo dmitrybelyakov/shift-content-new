@@ -1,0 +1,4 @@
+<div class="notification {{notification.type}}" ng-repeat="notification in queue">
+  {{notification.message}}
+  <span class="close" ng-click="close('{{notification.id}}')"></span>
+</div>

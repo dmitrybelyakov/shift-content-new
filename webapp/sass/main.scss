@@ -267,8 +267,10 @@ div.formContainer.ng-hide-remove {
     display: inline-block;
     width: 15px;
     height: 15px;
-    background: red;
     float: right;
     cursor: pointer;
+    background: url('/modules/shift-kernel/img/backend/icon-micro-cross-dark.png');
+    background-position: center;
+    background-repeat: no-repeat;
   }
 }

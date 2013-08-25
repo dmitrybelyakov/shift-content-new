@@ -7,12 +7,12 @@ app.controller('Queue', function ($scope, NotificationService) {
 
 
   $scope.addMessage = function(){
-    service.notify(123, 'message', 'Example message...', 1);
+    service.notify(123, 'message', 'Example message...');
 //    console.info(service.getAllQueues());
   };
 
   $scope.addMessage2 = function(){
-    service.notify('some name', 'error', 'Example message...', 1);
+    service.notify('some name', 'error', 'Example message...', 'infinite');
   };
 
 
