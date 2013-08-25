@@ -12,6 +12,9 @@
 </table>
 <!-- /Page header -->
 
+<!-- Notifications -->
+<div id="default" shift-notifications></div>
+<!-- /Notifications -->
 
 <!-- New type form -->
 <div class="formContainer add" ng-show="formVisible">
@@ -94,7 +97,7 @@
             </div>
         </td>
         <td class="controls">
-            <a href="" class="button light">Delete</a>
+            <a href="" class="button light" ng-click="deleteType(type)">Delete</a>
             <!--<span class="defaultMarker" title="This content item is default and can't be deleted">default</span>-->
         </td>
     </tr>

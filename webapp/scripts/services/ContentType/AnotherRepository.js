@@ -33,6 +33,10 @@ app.factory('AnotherContentTypeRepository', function ($http) {
     return $http.post(baseUrl, data);
   };
 
+  Repository.delete = function(type) {
+    return $http.delete(baseUrl + type.id +'/');
+  };
+
 
   return Repository;
 });

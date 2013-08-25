@@ -8,11 +8,12 @@ var app = angular.module('shiftContentApp');
 app.controller('ContentTypes', function (
   $scope,
   contentTypes,
-  AnotherContentTypeRepository) {
+  AnotherContentTypeRepository,
+  NotificationService) {
 
   var _ = window._;
   var repository = AnotherContentTypeRepository;
-
+  var notifications = NotificationService;
 
   /*
    * Existing types
@@ -21,6 +22,39 @@ app.controller('ContentTypes', function (
   $scope.types = _.sortBy(contentTypes, function(type){
     return type.name;
   });
+
+  //delete type
+  $scope.deleteType = function(type){
+    var promise = repository.delete(type);
+
+    //catch not found
+    var notFound = false;
+    promise.catch(function(response){
+      if(response.status === 404) {
+        notFound = true;
+      }
+    });
+
+    //handle errors
+    promise.error(function(apiException){
+      var message = 'Server error';
+      if(notFound) {
+        message += ': Not found';
+      }
+      if(apiException.content) {
+        message += ': '+ apiException.content;
+      }
+      notifications.send('default', 'error', message);
+    });
+
+    //handle success
+    promise.success(function(){
+      $scope.types = _.reject($scope.types, function(iteration){
+        return (iteration.id === type.id);
+      });
+      notifications.growl('Content type deleted');
+    });
+  };
 
 
 
@@ -80,13 +114,19 @@ app.controller('ContentTypes', function (
     });
 
     //handle errors
-    promise.error(function(){
+    promise.error(function(apiException){
       $scope.formProgress = false;
+
       if(validationErrors) {
+        //server validation
         $scope.newTypeForm.shift.setBackendErrors(validationErrors);
       } else {
-
-        //handle server error
+        //server exception
+        var message = 'Server error';
+        if(apiException.content) {
+          message += ': '+ apiException.content;
+        }
+        notifications.send('default', 'error', message);
       }
 
 
@@ -100,6 +140,7 @@ app.controller('ContentTypes', function (
       });
 
       $scope.hideForm();
+      notifications.growl('Added content type');
     });
 
 

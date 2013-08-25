@@ -78,7 +78,7 @@ class ContentTypeApiController extends AbstractApiController
             }
 
             //return on success
-            return new JsonModel($data);
+            return new JsonModel($type->toArray());
         }
 
         //otherwise return not allowed
@@ -96,7 +96,38 @@ class ContentTypeApiController extends AbstractApiController
      */
     public function typeAction()
     {
-        die('me is type action');
+        //get type
+        try
+        {
+            $id = $this->getEvent()->getRouteMatch()->getParam('id');
+            $service = $this->locator->get('ShiftContentNew\Type\TypeService');
+            $type = $service->getType($id);
+            if(!$type)
+                return $this->notFoundAction();
+
+        }
+        catch (\Exception $exception) {
+            return $this->exceptionAction($exception->getMessage());
+        }
+
+
+        //delete: remove type
+        if($this->getRequest()->isDelete())
+        {
+            try
+            {
+                $service->deleteType($type);
+            }
+            catch(\Exception $exception)
+            {
+                return $this->exceptionAction($exception->getMessage());
+            }
+
+            return $this->noContentAction();
+        }
+
+        //otherwise return not allowed
+        return $this->notAllowedAction();
     }
 
 } //class ends here

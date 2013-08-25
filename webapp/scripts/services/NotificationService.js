@@ -28,7 +28,7 @@ app.service('NotificationService', function NotificationService($timeout) {
   };
 
   //send notification to specified queue
-  service.notify = function(queue, type, message, timeout) {
+  service.send = function(queue, type, message, timeout) {
 
     //convert to proper name
     queue = service.queName(queue);
