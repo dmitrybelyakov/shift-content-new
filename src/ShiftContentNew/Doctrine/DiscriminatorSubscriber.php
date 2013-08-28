@@ -25,7 +25,7 @@
  */
 namespace ShiftContentNew\Doctrine;
 
-use ShiftContent\Module;
+use ShiftContentNew\Module;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LoadClassMetadataEventArgs as MetadataArgs;
 
