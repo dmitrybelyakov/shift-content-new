@@ -25,7 +25,7 @@
  */
 namespace ShiftContentNew\Type\Field\Attribute;
 
-use ShiftContent\Module;
+use ShiftContentNew\Module;
 use ShiftContentNew\Type\Field\Attribute\Attribute;
 use ShiftContentNew\Type\Field\Attribute\AttributeOption as Option;
 use ShiftContentNew\Exception\ConfigurationException;

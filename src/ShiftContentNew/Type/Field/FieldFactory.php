@@ -26,7 +26,7 @@
 namespace ShiftContentNew\Type\Field;
 
 use Zend\Di\Locator;
-use ShiftContent\Module;
+use ShiftContentNew\Module;
 use ShiftContentNew\Exception\ConfigurationException;
 use ShiftContentNew\Type\Field\Field;
 use ShiftContentNew\FieldType\FieldTypeFactory;
