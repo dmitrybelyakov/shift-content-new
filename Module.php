@@ -94,6 +94,14 @@ class Module implements AutoloaderProvider
         $resolver = 'Zend\View\Resolver\TemplateMapResolver';
         $config['di']['instance'][$resolver] = $resolverParams;
 
+        //add content fields
+        $attributes = require_once __DIR__ . '/config/content-fields.php';
+        $config['ShiftContentNew']['contentFields'] = $attributes;
+
+        //add content field attributes
+        $attributes = require_once __DIR__ . '/config/field-attributes.php';
+        $config['ShiftContentNew']['fieldAttributes'] = $attributes;
+
 		//return config
 		return $config;
     }
