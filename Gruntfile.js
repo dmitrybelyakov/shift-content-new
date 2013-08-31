@@ -66,7 +66,6 @@ module.exports = function (grunt) {
           middleware: function (connect, options) {
             return [
               lrSnippet,
-              mountFolder(connect, 'webapp/test'),
               require('connect-conductor').route(options),
               connect.static(options.base),
               proxySnippet
@@ -297,7 +296,12 @@ module.exports = function (grunt) {
       e2e: {
         configFile: '<%= yo.app %>/test/karma-e2e.conf.js',
         singleRun: true
-      }
+      },
+      e2edebug: {
+        configFile: '<%= yo.app %>/test/karma-e2e.conf.js',
+        singleRun: false,
+        autowatch: true
+      },
     }
   });
 
@@ -314,12 +318,13 @@ module.exports = function (grunt) {
   grunt.registerTask('test-server', [
     'bake:index',
     'configureProxies',
-    'connect:test',
-    //'watch'
+    'connect:test'
   ]);
 
+  grunt.registerTask('test', ['test:unit', 'test:e2e']);
   grunt.registerTask('test:unit', ['karma:unit']);
   grunt.registerTask('test:e2e', ['test-server', 'karma:e2e']);
+  grunt.registerTask('test:e2e:debug', ['test-server', 'karma:e2edebug']);
 
   grunt.registerTask('finalize', [
     'rename:scriptsPartial',

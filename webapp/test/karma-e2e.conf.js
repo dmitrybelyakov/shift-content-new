@@ -15,9 +15,8 @@ module.exports = function(config) {
     urlRoot: '_karma_',
     proxies: {
        '/': 'http://localhost:9002/'
-    },
-    autoWatch: true,
-    singleRun: false
+    }
+
 
   });
 };
