@@ -3,6 +3,10 @@ var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
 var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 
+var mountFolder = function (connect, dir) {
+  return connect.static(require('path').resolve(dir));
+};
+
 //get config
 var yo = require(require('path').resolve('webapp/config/grunt.json'));
 yo.routes = require(require('path').resolve('webapp/config/routes.json'));
@@ -62,6 +66,7 @@ module.exports = function (grunt) {
           middleware: function (connect, options) {
             return [
               lrSnippet,
+              mountFolder(connect, 'webapp/test'),
               require('connect-conductor').route(options),
               connect.static(options.base),
               proxySnippet
@@ -74,6 +79,7 @@ module.exports = function (grunt) {
           routes: yo.routes,
           middleware: function (connect, options) {
             return [
+              mountFolder(connect, 'webapp/test'),
               require('connect-conductor').route(options),
               connect.static(options.base),
               proxySnippet
@@ -279,6 +285,7 @@ module.exports = function (grunt) {
         }
       }
     },
+
     /*
      * Testing
      */
@@ -307,7 +314,8 @@ module.exports = function (grunt) {
   grunt.registerTask('test-server', [
     'bake:index',
     'configureProxies',
-    'connect:test'
+    'connect:test',
+    //'watch'
   ]);
 
   grunt.registerTask('test:unit', ['karma:unit']);

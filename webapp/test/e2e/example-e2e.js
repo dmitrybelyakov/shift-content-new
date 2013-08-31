@@ -1,13 +1,16 @@
-beforeEach(function() {
-  browser().navigateTo('/');
-});
+//
+// test/e2e/controllers/controllersSpec.js
+//
+describe("E2E: Testing Controllers", function() {
 
-/**
- * Testing routes
- * Here we basically navigate the browser and check results.
- */
+  beforeEach(function() {
+    browser().navigateTo('/backend/modules/content-new/');
+  });
+
+  it('Should open home and display index view', function() {
+    browser().navigateTo('/backend/modules/content-new/');
+    expect(element('table.pageHeader td.title').html()).toContain('List view')
+  });
 
 
-it('should jump to the /videos path when / is accessed', function() {
-  expect(browser().location().path()).toBe("/");
 });
