@@ -110,6 +110,12 @@ class ContentTypeApiController extends AbstractApiController
             return $this->exceptionAction($exception->getMessage());
         }
 
+        //get: return type
+        if($this->getRequest()->isGet())
+        {
+            return new JsonModel($type->toArray());
+        }
+
 
         //delete: remove type
         if($this->getRequest()->isDelete())

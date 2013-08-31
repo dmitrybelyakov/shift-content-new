@@ -8,7 +8,7 @@ var app = angular.module('shiftContentApp');
 app.controller('ContentTypes', function (
   $scope,
   $location,
-  contentTypes,
+  types,
   ContentTypes,
   NotificationService) {
 
@@ -20,13 +20,13 @@ app.controller('ContentTypes', function (
    * Existing types
    */
 
-  $scope.types = _.sortBy(contentTypes, function(type){
+  $scope.types = _.sortBy(types, function(type){
     return type.name;
   });
 
   //proceed to type editing
   $scope.editType = function(id){
-    console.info('NOW EDIT TYPE ' + id);
+    $location.path($location.path() + id + '/');
   };
 
   //delete type

@@ -17,8 +17,8 @@ app.factory('ContentTypes', function ($http) {
 
   //get by id
   Repository.get = function(id){
-    return $http.get(baseUrl + id + '').then(function(response){
-      return new ContentType(response.data);
+    return $http.get(baseUrl + id + '/').then(function(response){
+      return response.data;
     });
   };
 

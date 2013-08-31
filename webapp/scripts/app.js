@@ -53,17 +53,17 @@ app.config(function ($locationProvider, $routeProvider) {
       controller: 'ContentTypes',
       templateUrl: views + '/content-types/list.html',
       resolve: {
-        contentTypes: ['ContentTypes', function(ContentTypes){
+        types: ['ContentTypes', function(ContentTypes){
           return ContentTypes.query();
         }]
       }
     });
-    router.when('/types/:id', {
+    router.when('/types/:id/', {
       controller: 'ContentType',
       templateUrl: views + '/content-types/type.html',
       resolve: {
-        contentTypes: ['ContentTypes', function(ContentTypes){
-          return ContentTypes.query();
+        type: ['ContentTypes', '$route', function(ContentTypes, $route){
+          return ContentTypes.get($route.current.params.id);
         }]
       }
     });
