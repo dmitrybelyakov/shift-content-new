@@ -45,16 +45,4 @@ var shared = function(config) {
   });
 };
 
-shared.files = [
-
-  //angular libs
-  '../components/angular/angular.js',
-  '../components/angular-route/angular-route.js',
-  '../components/angular-animate/angular-animate.js',
-
-  //application code
-  '../scripts/*.js',
-  '../scripts/**/*.js'
-];
-
 module.exports = shared;

@@ -5,13 +5,16 @@ module.exports = function(config) {
   shared(config);
 
   //add unit test specific files
-  config.files = shared.files.concat([
+  config.files = [
 
-    //add angular mocks
+    //angular libs
+    '../components/angular/angular.js',
+    '../components/angular-route/angular-route.js',
+    '../components/angular-animate/angular-animate.js',
     '../components/angular-mocks/angular-mocks.js',
 
     //add unit tests
     'mock/**/*.js',
     'spec/**/*.js'
-  ]);
+  ];
 };
