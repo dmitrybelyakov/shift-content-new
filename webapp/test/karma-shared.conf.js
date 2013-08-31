@@ -1,18 +1,16 @@
+
 // Karma configuration
 // http://karma-runner.github.io/0.10/config/configuration-file.html
 
-module.exports = function(config) {
+
+var shared = function(config) {
   config.set({
+
     // base path, that will be used to resolve files and exclude
     basePath: '',
 
     // testing framework to use (jasmine/mocha/qunit/...)
-    frameworks: ['ng-scenario'],
-
-    // list of files / patterns to load in the browser
-    files: [
-      'test/e2e/**/*.js'
-    ],
+    frameworks: ['jasmine'],
 
     // list of files / patterns to exclude
     exclude: [],
@@ -24,10 +22,8 @@ module.exports = function(config) {
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-
-    // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
-
+//    // enable / disable watching file and executing tests whenever any file changes
+//    autoWatch: false,
 
     // Start these browsers, currently available:
     // - Chrome
@@ -39,16 +35,26 @@ module.exports = function(config) {
     // - IE (only Windows)
     browsers: ['Chrome'],
 
-
     // Continuous Integration mode
     // if true, it capture browsers, run tests and exit
-    singleRun: false
+    singleRun: false,
 
-    // Uncomment the following lines if you are using grunt's server to run the tests
-    // proxies: {
-    //   '/': 'http://localhost:9000/'
-    // },
-    // URL root prevent conflicts with the site root
-    // urlRoot: '_karma_'
+    // Use colors
+    colors: true
+
   });
 };
+
+shared.files = [
+
+  //angular libs
+  '../components/angular/angular.js',
+  '../components/angular-route/angular-route.js',
+  '../components/angular-animate/angular-animate.js',
+
+  //application code
+  '../scripts/*.js',
+  '../scripts/**/*.js'
+];
+
+module.exports = shared;

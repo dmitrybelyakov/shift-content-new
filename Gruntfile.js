@@ -68,6 +68,18 @@ module.exports = function (grunt) {
             ];
           }
         }
+      },
+      test: {
+        options: {
+          routes: yo.routes,
+          middleware: function (connect, options) {
+            return [
+              require('connect-conductor').route(options),
+              connect.static(options.base),
+              proxySnippet
+            ];
+          }
+        }
       }
     },
     open: {
@@ -248,12 +260,6 @@ module.exports = function (grunt) {
         'svgmin'
       ]
     },
-    karma: {
-      unit: {
-        configFile: '<%= yo.app %>/test/karma.conf.js',
-        singleRun: true
-      }
-    },
     ngmin: {
       dist: {
         files: [{
@@ -272,6 +278,19 @@ module.exports = function (grunt) {
           ]
         }
       }
+    },
+    /*
+     * Testing
+     */
+    karma: {
+      unit: {
+        configFile: '<%= yo.app %>/test/karma.conf.js',
+        singleRun: true
+      },
+      e2e: {
+        configFile: '<%= yo.app %>/test/karma-e2e.conf.js',
+        singleRun: true
+      }
     }
   });
 
@@ -285,9 +304,14 @@ module.exports = function (grunt) {
     'watch'
   ]);
 
-  grunt.registerTask('test', [
-    'karma'
+  grunt.registerTask('test-server', [
+    'bake:index',
+    'configureProxies',
+    'connect:test'
   ]);
+
+  grunt.registerTask('test:unit', ['karma:unit']);
+  grunt.registerTask('test:e2e', ['test-server', 'karma:e2e']);
 
   grunt.registerTask('finalize', [
     'rename:scriptsPartial',
