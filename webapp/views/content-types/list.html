@@ -89,7 +89,7 @@
 
 <table class="giantPill" ng-repeat="type in types" id="{{type.id}}">
     <tr>
-        <td class="item">
+        <td class="item" ng-click="editType(type.id)">
             <img class="icon" src="/modules/shift-content/img/icon-content-type.png" width="16" height="16" />
             <div class="title">
                 {{type.name}}
@@ -98,7 +98,6 @@
         </td>
         <td class="controls">
             <a href="" class="button light" ng-click="deleteType(type)">Delete</a>
-            <!--<span class="defaultMarker" title="This content item is default and can't be deleted">default</span>-->
         </td>
     </tr>
 </table>

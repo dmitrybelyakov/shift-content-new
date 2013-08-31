@@ -7,12 +7,13 @@ var app = angular.module('shiftContentApp');
  */
 app.controller('ContentTypes', function (
   $scope,
+  $location,
   contentTypes,
-  AnotherContentTypeRepository,
+  ContentTypes,
   NotificationService) {
 
   var _ = window._;
-  var repository = AnotherContentTypeRepository;
+  var repository = ContentTypes;
   var notifications = NotificationService;
 
   /*
@@ -22,6 +23,11 @@ app.controller('ContentTypes', function (
   $scope.types = _.sortBy(contentTypes, function(type){
     return type.name;
   });
+
+  //proceed to type editing
+  $scope.editType = function(id){
+    console.info('NOW EDIT TYPE ' + id);
+  };
 
   //delete type
   $scope.deleteType = function(type){

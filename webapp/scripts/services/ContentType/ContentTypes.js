@@ -7,7 +7,7 @@ var app = angular.module('shiftContentApp');
  * Alternative implementation of content repository built with $http service
  * instead of resource.
  */
-app.factory('AnotherContentTypeRepository', function ($http) {
+app.factory('ContentTypes', function ($http) {
 
   //base endpoint
   var baseUrl = '/api/content/types/';
