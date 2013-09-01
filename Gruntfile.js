@@ -68,17 +68,34 @@ module.exports = function (grunt) {
             ];
           }
         }
+      },
+      test: {
+        options: {
+          routes: yo.routes,
+          middleware: function (connect, options) {
+            return [
+              require('connect-conductor').route(options),
+              connect.static(options.base),
+              proxySnippet
+            ];
+          }
+        }
       }
     },
     karma: {
       unit: {
         configFile: '<%= yo.app %>/test/unit.js',
-        singleRun: true
-      },
-      auto: {
-        configFile: '<%= yo.app %>/test/unit.js',
-        singleRun: false,
-        autowatch: true
+        singleRun: true,
+        autowatch: false
+      }
+    },
+    shell: {
+      protractor: {
+        command: 'protractor <%= yo.app %>/test/e2e.js',
+        options: {
+          stdout: true,
+          failOnError: true
+        }
       }
     },
     open: {
@@ -290,7 +307,15 @@ module.exports = function (grunt) {
     'watch'
   ]);
 
-  grunt.registerTask('test', ['karma:unit']);
+  grunt.registerTask('testserver', [
+    'bake:index',
+    'configureProxies',
+    'connect:test'
+  ]);
+
+  grunt.registerTask('test:unit', ['karma:unit']);
+  grunt.registerTask('test:e2e', ['testserver', 'shell:protractor']);
+  grunt.registerTask('test', ['test:unit', 'test:e2e']);
 
   grunt.registerTask('finalize', [
     'rename:scriptsPartial',
@@ -304,7 +329,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'jshint',
-    'test',
     'clean:dist',
     'bake:index', //compose index of templates
     'concurrent:dist', //compile compass to temp and minify images to dist
@@ -320,5 +344,5 @@ module.exports = function (grunt) {
     'finalize'
   ]);
 
-  grunt.registerTask('default', 'build');
+  grunt.registerTask('default', ['test', 'build']);
 };

@@ -5,6 +5,5 @@
   "/backend/modules/content-new/components/*path": "/webapp/components/[path]",
   "/backend/modules/content-new/scripts/*path": "/webapp/scripts/[path]",
   "/modules/shift-content-new/views/*path": "/webapp/views/[path]",
-  "/backend/modules/content-new/img/*path": "/webapp/img/[path]",
-  "/backend/modules/content-new/test/*path": "/webapp/test/[path]"
+  "/backend/modules/content-new/img/*path": "/webapp/img/[path]"
 }
