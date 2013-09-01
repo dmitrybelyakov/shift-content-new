@@ -1,5 +1,5 @@
 var util = require('util');
-describe('angularjs homepage', function() {
+describe('Module homepage', function() {
   var p, prot;
 
   beforeEach(function() {
