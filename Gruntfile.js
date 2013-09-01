@@ -10,7 +10,7 @@ yo.bake = require(require('path').resolve('webapp/config/bake.json'));
 
 module.exports = function (grunt) {
   require('time-grunt')(grunt);
-  require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+  require('load-grunt-tasks')(grunt);
 
   grunt.initConfig({
     yo: yo,
