@@ -3,10 +3,6 @@ var LIVERELOAD_PORT = 35729;
 var lrSnippet = require('connect-livereload')({ port: LIVERELOAD_PORT });
 var proxySnippet = require('grunt-connect-proxy/lib/utils').proxyRequest;
 
-var mountFolder = function (connect, dir) {
-  return connect.static(require('path').resolve(dir));
-};
-
 //get config
 var yo = require(require('path').resolve('webapp/config/grunt.json'));
 yo.routes = require(require('path').resolve('webapp/config/routes.json'));
@@ -72,19 +68,17 @@ module.exports = function (grunt) {
             ];
           }
         }
+      }
+    },
+    karma: {
+      unit: {
+        configFile: '<%= yo.app %>/test/unit.js',
+        singleRun: true
       },
-      test: {
-        options: {
-          routes: yo.routes,
-          middleware: function (connect, options) {
-            return [
-              mountFolder(connect, 'webapp/test'),
-              require('connect-conductor').route(options),
-              connect.static(options.base),
-              proxySnippet
-            ];
-          }
-        }
+      auto: {
+        configFile: '<%= yo.app %>/test/unit.js',
+        singleRun: false,
+        autowatch: true
       }
     },
     open: {
@@ -283,25 +277,6 @@ module.exports = function (grunt) {
           ]
         }
       }
-    },
-
-    /*
-     * Testing
-     */
-    karma: {
-      unit: {
-        configFile: '<%= yo.app %>/test/karma.conf.js',
-        singleRun: true
-      },
-      e2e: {
-        configFile: '<%= yo.app %>/test/karma-e2e.conf.js',
-        singleRun: true
-      },
-      e2edebug: {
-        configFile: '<%= yo.app %>/test/karma-e2e.conf.js',
-        singleRun: false,
-        autowatch: true
-      },
     }
   });
 
@@ -315,16 +290,7 @@ module.exports = function (grunt) {
     'watch'
   ]);
 
-  grunt.registerTask('test-server', [
-    'bake:index',
-    'configureProxies',
-    'connect:test'
-  ]);
-
-  grunt.registerTask('test', ['test:unit', 'test:e2e']);
-  grunt.registerTask('test:unit', ['karma:unit']);
-  grunt.registerTask('test:e2e', ['test-server', 'karma:e2e']);
-  grunt.registerTask('test:e2e:debug', ['test-server', 'karma:e2edebug']);
+  grunt.registerTask('test', ['karma:unit']);
 
   grunt.registerTask('finalize', [
     'rename:scriptsPartial',

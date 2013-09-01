@@ -1,9 +1,7 @@
-
 // Karma configuration
 // http://karma-runner.github.io/0.10/config/configuration-file.html
 
-
-var shared = function(config) {
+module.exports = function(config) {
   config.set({
 
     // base path, that will be used to resolve files and exclude
@@ -11,6 +9,23 @@ var shared = function(config) {
 
     // testing framework to use (jasmine/mocha/qunit/...)
     frameworks: ['jasmine'],
+
+    // list of files / patterns to load in the browser
+    files: [
+      //angular libs
+      '../components/angular/angular.js',
+      '../components/angular-route/angular-route.js',
+      '../components/angular-animate/angular-animate.js',
+      '../components/angular-mocks/angular-mocks.js',
+
+      //application code
+      '../scripts/*.js',
+      '../scripts/**/*.js',
+
+      //tests
+      'mock/**/*.js',
+      'spec/**/*.js'
+    ],
 
     // list of files / patterns to exclude
     exclude: [],
@@ -22,8 +37,10 @@ var shared = function(config) {
     // possible values: LOG_DISABLE || LOG_ERROR || LOG_WARN || LOG_INFO || LOG_DEBUG
     logLevel: config.LOG_INFO,
 
-//    // enable / disable watching file and executing tests whenever any file changes
-//    autoWatch: false,
+
+    // enable / disable watching file and executing tests whenever any file changes
+    autoWatch: false,
+
 
     // Start these browsers, currently available:
     // - Chrome
@@ -41,8 +58,5 @@ var shared = function(config) {
 
     // Use colors
     colors: true
-
   });
 };
-
-module.exports = shared;
