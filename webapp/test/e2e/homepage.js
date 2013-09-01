@@ -1,4 +1,3 @@
-var util = require('util');
 describe('Module homepage', function() {
   var p, prot;
 
