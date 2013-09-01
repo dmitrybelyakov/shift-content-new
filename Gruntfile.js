@@ -9,6 +9,7 @@ yo.routes = require(require('path').resolve('webapp/config/routes.json'));
 yo.bake = require(require('path').resolve('webapp/config/bake.json'));
 
 module.exports = function (grunt) {
+  require('time-grunt')(grunt);
   require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
   grunt.initConfig({
@@ -71,6 +72,7 @@ module.exports = function (grunt) {
       },
       test: {
         options: {
+          port: 9003,
           routes: yo.routes,
           middleware: function (connect, options) {
             return [
