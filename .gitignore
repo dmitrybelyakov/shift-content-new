@@ -19,3 +19,4 @@ dist
 .sass-cache
 libpeerconnection.log
 webapp/components
+selenium
