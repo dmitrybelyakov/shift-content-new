@@ -19,9 +19,24 @@ module.exports = function (grunt) {
         files: ['<%= yo.app %>/sass/{,*/}*.{scss,sass}'],
         tasks: ['compass:server']
       },
-      bake: {
+      html: {
         files: ['<%= yo.app %>/*.html', '<%= yo.app %>/view-partials/*.html'],
         tasks: ['bake']
+      },
+      scriptsAdd: {
+        options: {
+          livereload: LIVERELOAD_PORT,
+          event: ['added', 'deleted']
+        },
+        tasks: ['bake', 'includeSource'],
+        files: ['<%= yo.app %>/scripts/{,*/}{,*/}*.js']
+      },
+      scriptsChange: {
+        options: {
+          livereload: LIVERELOAD_PORT,
+          event: ['changed']
+        },
+        files: ['<%= yo.app %>/scripts/{,*/}{,*/}*.js']
       },
       livereload: {
         options: {
@@ -33,8 +48,6 @@ module.exports = function (grunt) {
           '!<%= yo.app %>/view-partials/*.html', //handled by baker
           '.tmp/{,*/}*.html',
           '.tmp/css/{,*/}*.css',
-          '<%= yo.app %>/sass/{,*/}*.css',
-          '{.tmp,<%= yo.app %>}/scripts/{,*/}{,*/}*.js',
           '<%= yo.app %>/img/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
       }
@@ -43,6 +56,16 @@ module.exports = function (grunt) {
       index: {
         options: {},
         files: yo.bake.index
+      }
+    },
+    includeSource: {
+      scripts: {
+        options: {
+          basePath: 'webapp'
+        },
+        files: {
+          '.tmp/index.html': '.tmp/index.html'
+        }
       }
     },
     connect: {
@@ -307,6 +330,7 @@ module.exports = function (grunt) {
   grunt.registerTask('server', [
     'clean:server',
     'bake:index',
+    'includeSource',
     'concurrent:server',
     'configureProxies',
     'connect:livereload',
@@ -316,6 +340,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('testserver', [
     'bake:index',
+    'includeSource',
     'configureProxies',
     'connect:test'
   ]);
@@ -336,8 +361,10 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'jshint',
+    'test',
     'clean:dist',
     'bake:index', //compose index of templates
+    'includeSource', //autoinclude scripts
     'concurrent:dist', //compile compass to temp and minify images to dist
     'copy:dist', //copy temp images, app scripts & templates to dist
     'useminPrepare', //parse index to find minification instruction for js/css
