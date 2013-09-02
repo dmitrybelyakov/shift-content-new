@@ -69,7 +69,7 @@ module.exports = function (grunt) {
       },
       build: {
         files: {
-          '<%= yo.dist %>/index.html': '<%= yo.app %>/index.html'
+          '<%= yo.dist %>/view-partials/scripts.html':'<%= yo.app %>/view-partials/scripts.html'
         }
       }
     },
@@ -195,7 +195,6 @@ module.exports = function (grunt) {
     },
     useminPrepare: {
       html: [
-        '<%= yo.dist %>/*.html',
         '<%= yo.dist %>/view-partials/*.html'
       ],
       options: {
@@ -264,7 +263,6 @@ module.exports = function (grunt) {
             cwd: '<%= yo.app %>',
             dest: '<%= yo.dist %>',
             src: [
-              'index.html',
               'views/{,*/}*.html',
               'view-partials/{,*/}*.html'
             ]
@@ -279,10 +277,6 @@ module.exports = function (grunt) {
       }//dist
     },
     rename: {
-      scriptsPartial: {
-        src: '<%= yo.dist %>/index.html',
-        dest: '<%= yo.dist %>/view-partials/scripts.html'
-      },
       partials: {
         src: '<%= yo.dist %>/view-partials',
         dest: '<%= yo.processedDist %>'
@@ -335,7 +329,7 @@ module.exports = function (grunt) {
   grunt.registerTask('server', [
     'clean:server',
     'bake:index',
-    'includeSource',
+    'includeSource:develop',
     'concurrent:server',
     'configureProxies',
     'connect:livereload',
@@ -345,7 +339,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('testserver', [
     'bake:index',
-    'includeSource',
+    'includeSource:develop',
     'configureProxies',
     'connect:test'
   ]);
@@ -355,7 +349,6 @@ module.exports = function (grunt) {
   grunt.registerTask('test', ['test:unit', 'test:e2e']);
 
   grunt.registerTask('finalize', [
-    'rename:scriptsPartial',
     'rename:partials',
     'rename:dist',
     'rename:views',
@@ -366,12 +359,10 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'jshint',
-    'test',
+//    'test',
     'clean:dist',
-    'bake:index', //compose index of templates
-    'includeSource:develop', //autoinclude scripts
     'concurrent:dist', //compile compass to temp and minify images to dist
-    'copy:dist', //copy temp images, app scripts & templates to dist
+    'copy', //copy temp images, app scripts & templates to dist
     'includeSource:build', //autoinclude scripts
     'useminPrepare', //parse index to find minification instruction for js/css
     'cdnify', //replace local scripts with cdn
