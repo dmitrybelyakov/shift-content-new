@@ -129,7 +129,7 @@ class ContentTypeApiController extends AbstractApiController
                 return $this->exceptionAction($exception->getMessage());
             }
 
-            return; //$this->noContentAction();
+            return $this->noContentAction();
         }
 
         //otherwise return not allowed
