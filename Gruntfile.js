@@ -28,7 +28,7 @@ module.exports = function (grunt) {
           livereload: LIVERELOAD_PORT,
           event: ['added', 'deleted']
         },
-        tasks: ['bake', 'includeSource'],
+        tasks: ['bake', 'includeSource:develop'],
         files: ['<%= yo.app %>/scripts/{,*/}{,*/}*.js']
       },
       scriptsChange: {
@@ -59,12 +59,17 @@ module.exports = function (grunt) {
       }
     },
     includeSource: {
-      scripts: {
-        options: {
-          basePath: 'webapp'
-        },
+      options: {
+        basePath: '<%= yo.app %>'
+      },
+      develop: {
         files: {
           '.tmp/index.html': '.tmp/index.html'
+        }
+      },
+      build: {
+        files: {
+          '<%= yo.dist %>/index.html': '<%= yo.app %>/index.html'
         }
       }
     },
@@ -364,9 +369,10 @@ module.exports = function (grunt) {
     'test',
     'clean:dist',
     'bake:index', //compose index of templates
-    'includeSource', //autoinclude scripts
+    'includeSource:develop', //autoinclude scripts
     'concurrent:dist', //compile compass to temp and minify images to dist
     'copy:dist', //copy temp images, app scripts & templates to dist
+    'includeSource:build', //autoinclude scripts
     'useminPrepare', //parse index to find minification instruction for js/css
     'cdnify', //replace local scripts with cdn
     'concat', //from usemin
