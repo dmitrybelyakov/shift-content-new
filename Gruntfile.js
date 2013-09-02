@@ -278,6 +278,11 @@ module.exports = function (grunt) {
         'svgmin'
       ]
     },
+    cdnify: {
+      dist: {
+        html: ['<%= yo.dist %>/*.html', '<%= yo.dist %>/view-partials/*.html']
+      }
+    },
     ngmin: {
       dist: {
         files: [{
@@ -336,6 +341,7 @@ module.exports = function (grunt) {
     'concurrent:dist', //compile compass to temp and minify images to dist
     'copy:dist', //copy temp images, app scripts & templates to dist
     'useminPrepare', //parse index to find minification instruction for js/css
+    'cdnify', //replace local scripts with cdn
     'concat', //from usemin
     'ngmin', //prepare scripts in dist
     'cssmin', //copy minified css from temp to dist
