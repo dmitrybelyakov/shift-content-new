@@ -1,7 +1,12 @@
 'use strict';
-
 var app = angular.module('shiftContentApp');
-app.directive('routePreloader', function($rootScope, $timeout, $location) {
+
+/**
+ * Route preloader
+ * Used to display feedback in overlay while routes are being resolved.
+ * Only appears after short timeout when a real backend request is being made.
+ */
+app.directive('shiftRoutePreloader', function($rootScope, $timeout, $location) {
     return {
       templateUrl: '/modules/shift-content-new/views' +
         '/directives/view-preloader.html',

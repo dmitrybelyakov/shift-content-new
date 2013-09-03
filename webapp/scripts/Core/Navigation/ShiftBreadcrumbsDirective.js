@@ -2,9 +2,9 @@
 var app = angular.module('shiftContentApp');
 
 /**
- * Superhero directive
- * This is an example of angular directive having a controller, that
- * allows a directive to expose an api and communicate with other directives.
+ * Breadcrumbs
+ * Responsible for displaying breadcrumbs from content provided by
+ * navigation service.
  */
 app.directive('shiftBreadcrumbs', function () {
 

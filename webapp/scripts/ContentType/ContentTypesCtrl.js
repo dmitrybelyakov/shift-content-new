@@ -5,15 +5,15 @@ var app = angular.module('shiftContentApp');
  * Content types controller
  * Responsible for displaying content types, creation and deletion of types.
  */
-app.controller('ContentTypes', function (
+app.controller('ContentTypesCtrl', function (
   $scope,
   $location,
   types,
-  ContentTypes,
+  TypeRepository,
   NotificationService) {
 
   var _ = window._;
-  var repository = ContentTypes;
+  var repository = TypeRepository;
   var notifications = NotificationService;
 
   /*

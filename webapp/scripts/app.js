@@ -6,17 +6,17 @@ var app = angular.module('shiftContentApp', [
   'ngAnimate'
 ]);
 
+//base path to views
+app.constant('viewsBase', '/modules/shift-content-new/views');
+
 //configure
-app.config(function ($locationProvider, $routeProvider) {
+app.config(function ($locationProvider, $routeProvider, viewsBase) {
 
     //set to html5 mode
     $locationProvider.html5Mode(true).hashPrefix('!');
 
-    //configure routes
     var router = $routeProvider;
-
-    //views base path
-    var views = '/modules/shift-content-new/views';
+    var views = viewsBase;
 
     //index
     router.otherwise({
@@ -30,12 +30,6 @@ app.config(function ($locationProvider, $routeProvider) {
       redirectTo: '/'
     });
 
-    //test
-    router.when('/another/', {
-      controller: 'MainCtrl',
-      templateUrl: views + '/another.html'
-    });
-
     //manage content items
     router.when('/manage/:contentId/', {
       controller: 'MainCtrl',
@@ -44,28 +38,8 @@ app.config(function ($locationProvider, $routeProvider) {
 
     //manage feed collections
     router.when('/feeds/', {
-      controller: 'Queue',
+      controller: 'MainCtrl',
       templateUrl: views + '/manage-feeds.html'
-    });
-
-    //manage content types
-    router.when('/types/', {
-      controller: 'ContentTypes',
-      templateUrl: views + '/content-types/list.html',
-      resolve: {
-        types: ['ContentTypes', function(ContentTypes){
-          return ContentTypes.query();
-        }]
-      }
-    });
-    router.when('/types/:id/', {
-      controller: 'ContentType',
-      templateUrl: views + '/content-types/type.html',
-      resolve: {
-        type: ['ContentTypes', '$route', function(ContentTypes, $route){
-          return ContentTypes.get($route.current.params.id);
-        }]
-      }
     });
 
     //manage field types

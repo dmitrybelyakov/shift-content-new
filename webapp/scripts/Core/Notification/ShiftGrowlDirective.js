@@ -1,6 +1,11 @@
 'use strict';
 var app = angular.module('shiftContentApp');
 
+/**
+ * Growl directive
+ * Use this in templates (usually right after body) to display overlay
+ * growl-style notifications sent to notification service.
+ */
 app.directive('shiftGrowl', function (NotificationService) {
     return {
       restrict: 'A',

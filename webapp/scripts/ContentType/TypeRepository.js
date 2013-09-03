@@ -3,11 +3,10 @@ var app = angular.module('shiftContentApp');
 
 
 /**
- * Content repository
- * Alternative implementation of content repository built with $http service
- * instead of resource.
+ * Content types repository
+ * Used to perform basic persistence operations by communicating with backend.
  */
-app.factory('ContentTypes', function ($http) {
+app.factory('TypeRepository', function ($http) {
 
   //base endpoint
   var baseUrl = '/api/content/types/';
@@ -29,14 +28,15 @@ app.factory('ContentTypes', function ($http) {
     });
   };
 
+  //create type
   Repository.create = function(data) {
     return $http.post(baseUrl, data);
   };
 
+  //delete type
   Repository.delete = function(type) {
     return $http.delete(baseUrl + type.id +'/');
   };
-
 
   return Repository;
 });

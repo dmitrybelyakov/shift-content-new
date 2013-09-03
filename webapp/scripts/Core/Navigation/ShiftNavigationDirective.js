@@ -2,9 +2,9 @@
 var app = angular.module('shiftContentApp');
 
 /**
- * Superhero directive
- * This is an example of angular directive having a controller, that
- * allows a directive to expose an api and communicate with other directives.
+ * NavigationDirective
+ * Responsible for displaying navigation from content provided by navigation
+ * service.
  */
 app.directive('shiftNavigation', function (NavigationService) {
   return {
@@ -14,7 +14,6 @@ app.directive('shiftNavigation', function (NavigationService) {
     controller: function($scope, $location){
 
       var navigation = NavigationService;
-
 
       var setActiveItem = function(){
         var currentRoute = $location.path().substring(1);
@@ -29,7 +28,6 @@ app.directive('shiftNavigation', function (NavigationService) {
         }
 
       };
-
 
       setActiveItem();
       $scope.$on('$routeChangeStart', function() {
