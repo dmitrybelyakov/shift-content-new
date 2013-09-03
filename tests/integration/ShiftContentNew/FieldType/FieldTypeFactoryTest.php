@@ -78,21 +78,6 @@ class FieldTypeFactoryTest extends TestCase
 
 
     /**
-     * Test that we are able to create factory
-     * @test
-     */
-    public function canInstantiateFactory()
-    {
-        $factory = new FieldTypeFactory($this->getLocator());
-        $this->assertInstanceOf(
-            'ShiftContentNew\FieldType\FieldTypeFactory',
-            $factory
-        );
-    }
-
-
-
-    /**
      * Test that we are able to instantiate value class
      * @test
      */
@@ -242,6 +227,10 @@ class FieldTypeFactoryTest extends TestCase
         $type->setValueProcessorClass('Exception'); //just to test
         $factory->getValueProcessor($type);
     }
+
+
+
+
 
 
 }//class ends here

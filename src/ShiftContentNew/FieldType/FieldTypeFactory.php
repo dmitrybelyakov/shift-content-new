@@ -26,12 +26,13 @@
 namespace ShiftContentNew\FieldType;
 
 use Zend\Di\Locator;
+use ShiftContentNew\Module;
 use ShiftContentNew\FieldType\AbstractFieldType;
 use ShiftContentNew\Exception\ConfigurationException;
 
 /**
  * Field type factory
- * User to validate and create field types and their supporting
+ * Used to validate and create field types and their supporting
  * classes.
  *
  * @category    Projectshift
@@ -47,6 +48,12 @@ class FieldTypeFactory
      */
     protected $locator;
 
+    /**
+     * Module configuration
+     * @var array
+     */
+    protected $config;
+
 
     /**
      * Construct
@@ -58,6 +65,51 @@ class FieldTypeFactory
         $this->locator = $locator;
     }
 
+
+    /**
+     * Set config
+     * Allows to inject arbitrary config.
+     *
+     * @param array $config
+     * @return \ShiftContentNew\FieldType\FieldTypeFactory
+     */
+    public function setConfig(array $config)
+    {
+        $this->config = $config;
+        return $this;
+    }
+
+
+    /**
+     * Get config
+     * Check to see if we already have a config injected and returns that.
+     * Otherwise retrieves config from module bootstrap.
+     *
+     * @return array
+     */
+    public function getConfig()
+    {
+        if(!$this->config)
+            $this->config = Module::getModuleConfig()->toArray();
+        return $this->config;
+    }
+
+
+    /**
+     * Get field types
+     * Returns an array of registered field types.
+     * @return array
+     */
+    public function getFieldTypes()
+    {
+        $config = $this->getConfig();
+
+        $fieldTypes = array();
+        foreach($config['contentFields'] as $shortName => $className)
+            $fieldTypes[$shortName] = new $className;
+
+        return $fieldTypes;
+    }
 
     /**
      * Get value
@@ -195,6 +247,7 @@ class FieldTypeFactory
         //return on success
         return $valueProcessor;
     }
+
 
 
 } //class ends here
