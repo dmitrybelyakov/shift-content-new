@@ -31,7 +31,7 @@ use ShiftContentNew\Type\Type;
 use ShiftCommon\Model\Validation\Result as Errors;
 
 /**
- * Fields api controller
+ * Field types api controller
  * A read-only api controller exposing configured content type fields that
  * are available for assigning to content types.
  *
@@ -39,7 +39,7 @@ use ShiftCommon\Model\Validation\Result as Errors;
  * @package     ShiftContentNew
  * @subpackage  Controller
  */
-class FieldsApi extends AbstractApi
+class FieldTypesApi extends AbstractApi
 {
     /**
      * List action
@@ -49,14 +49,25 @@ class FieldsApi extends AbstractApi
      */
     public function listAction()
     {
-        $service = $this->locator->get('ShiftContentNew\Type\TypeService');
+        $factory = 'ShiftContentNew\FieldType\FieldTypeFactory';
+        $factory = $this->locator->get($factory);
+        $types = $factory->getFieldTypes();
 
         //get: return content types
         if($this->getRequest()->isGet())
         {
-            return new JsonModel();
-        }
+            $fieldTypes = array();
+            foreach($types as $shortName => $type)
+            {
+                $fieldTypes[] = array(
+                    'shortName' => $shortName,
+                    'name' => $type->getName(),
+                    'description' => $type->getDescription(),
+                );
+            }
 
+            return new JsonModel($fieldTypes);
+        }
 
         //otherwise return not allowed
         return $this->notAllowedAction();

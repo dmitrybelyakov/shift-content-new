@@ -49,18 +49,18 @@ return array(
                 )
             ), //content types api
 
-            //Content fields api
+            //Field types api
             'fields' => array(
                 'type' => 'Zend\Mvc\Router\Http\Segment',
                 'options' => array(
-                    'route' => 'fields/',
+                    'route' => 'field-types/',
                     'defaults' => array(
-                        'controller' => 'ShiftContentNew\Api\FieldsApi',
+                        'controller' => 'ShiftContentNew\Api\FieldTypesApi',
                         'action' => 'list'
                     ),
                 ),
                 'may_terminate' => true,
-            ), //content fields api
+            ), //field types api
 
         )
     ), //content api
