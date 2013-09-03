@@ -12,6 +12,7 @@
     "angular": "1.2.0rc1",
     "angular-route": "1.2.0rc1",
     "angular-animate": "1.2.0rc1",
+    "angular-cache": "~1.0.0",
     "underscore": "~1.5.1"
   },
   "devDependencies": {

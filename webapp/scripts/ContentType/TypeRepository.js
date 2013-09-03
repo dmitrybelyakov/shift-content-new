@@ -6,35 +6,38 @@ var app = angular.module('shiftContentApp');
  * Content types repository
  * Used to perform basic persistence operations by communicating with backend.
  */
-app.factory('TypeRepository', function ($http) {
+app.factory('TypeRepository', function ($http, $cacheFactory) {
 
-  //base endpoint
+
   var baseUrl = '/api/content/types/';
-
-  //resource-like class to communicate with backend
+  var cache = $cacheFactory.get('$http');
   var Repository = {};
 
   //get by id
   Repository.get = function(id){
-    return $http.get(baseUrl + id + '/').then(function(response){
+    var url = baseUrl + id + '/';
+    return $http.get(url, {cache: true}).then(function(response){
       return response.data;
     });
   };
 
   //query to get all
   Repository.query = function(){
-    return $http.get(baseUrl).then(function(response){
+    return $http.get(baseUrl,{cache: true}).then(function(response){
       return response.data;
     });
   };
 
   //create type
   Repository.create = function(data) {
+    cache.remove(baseUrl);
     return $http.post(baseUrl, data);
   };
 
   //delete type
   Repository.delete = function(type) {
+    cache.remove(baseUrl);
+    cache.remove(baseUrl + type.id +'/');
     return $http.delete(baseUrl + type.id +'/');
   };
 

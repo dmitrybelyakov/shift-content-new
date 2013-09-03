@@ -1,0 +1,32 @@
+{
+  "author": "Jason Dobry",
+  "name": "angular-cache",
+  "description": "angular-cache is a very useful replacement for Angular's $cacheFactory.",
+  "version": "1.0.0",
+  "homepage": "http://jmdobry.github.io/angular-cache/",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/jmdobry/angular-cache.git"
+  },
+  "main": "./src/angular-cache.js",
+  "ignore": [
+    ".idea/",
+    "*.iml",
+    "coverage/",
+    "node_modules/",
+    "test/",
+    "libpeerconnection.log",
+    ".gitignore",
+    ".travis.yml"
+  ],
+  "_release": "1.0.0",
+  "_resolution": {
+    "type": "version",
+    "tag": "1.0.0",
+    "commit": "01c9bb4744d4fdf5b399cb84fad788d46205748b"
+  },
+  "_source": "git://github.com/jmdobry/angular-cache.git",
+  "_target": "~1.0.0",
+  "_originalSource": "angular-cache",
+  "_direct": true
+}

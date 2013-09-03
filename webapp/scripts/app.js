@@ -3,7 +3,8 @@
 //set up app
 var app = angular.module('shiftContentApp', [
   'ngRoute',
-  'ngAnimate'
+  'ngAnimate',
+  'angular-cache'
 ]);
 
 //base path to views

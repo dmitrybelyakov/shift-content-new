@@ -15,6 +15,7 @@ module.exports = function(config) {
       //angular libs
       '../components/angular/angular.js',
       '../components/angular-route/angular-route.js',
+      '../components/angular-cache/dist/angular-cache-1.0.0.js',
       '../components/angular-animate/angular-animate.js',
       '../components/angular-mocks/angular-mocks.js',
 
