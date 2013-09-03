@@ -10,7 +10,7 @@ return array(
         'options' => array(
             'route' => '/api/content/',
             'defaults' => array(
-                'controller' => 'ShiftContentNew\Api\ApiController',
+                'controller' => 'ShiftContentNew\Api\Api',
                 'action' => 'index'
             ),
             //'restrict' => array('shiftkernel.canAccessBackend')
@@ -24,7 +24,7 @@ return array(
                 'options' => array(
                     'route' => 'types/',
                     'defaults' => array(
-                        'controller' => 'ShiftContentNew\Api\ContentTypeApiController',
+                        'controller' => 'ShiftContentNew\Api\TypeApi',
                         'action' => 'list'
                     ),
                 ),
@@ -37,7 +37,7 @@ return array(
                         'options' => array(
                             'route' => ':id/',
                             'defaults' => array(
-                                'controller' => 'ShiftContentNew\Api\ContentTypeApiController',
+                                'controller' => 'ShiftContentNew\Api\TypeApi',
                                 'action' => 'type',
                                 'id' => false
                             ),
@@ -48,6 +48,19 @@ return array(
 
                 )
             ), //content types api
+
+            //Content fields api
+            'fields' => array(
+                'type' => 'Zend\Mvc\Router\Http\Segment',
+                'options' => array(
+                    'route' => 'fields/',
+                    'defaults' => array(
+                        'controller' => 'ShiftContentNew\Api\FieldsApi',
+                        'action' => 'list'
+                    ),
+                ),
+                'may_terminate' => true,
+            ), //content fields api
 
         )
     ), //content api

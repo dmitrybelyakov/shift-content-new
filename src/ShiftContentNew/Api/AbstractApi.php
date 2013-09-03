@@ -38,7 +38,7 @@ use Zend\View\Model\JsonModel;
  * @package     ShiftContentNew
  * @subpackage  Api
  */
-abstract class AbstractApiController extends BaseApiController
+abstract class AbstractApi extends BaseApiController
 {
 
     /**

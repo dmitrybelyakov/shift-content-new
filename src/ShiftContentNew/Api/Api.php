@@ -25,7 +25,7 @@
  */
 namespace ShiftContentNew\Api;
 use Zend\View\Model\JsonModel;
-use ShiftContentNew\Api\AbstractApiController;
+use ShiftContentNew\Api\AbstractApi;
 
 
 /**
@@ -35,7 +35,7 @@ use ShiftContentNew\Api\AbstractApiController;
  * @package     ShiftContentNew
  * @subpackage  Controller
  */
-class ApiController extends AbstractApiController
+class Api extends AbstractApi
 {
     /**
      * Index action

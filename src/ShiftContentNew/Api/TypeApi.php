@@ -25,7 +25,7 @@
  */
 namespace ShiftContentNew\Api;
 use Zend\View\Model\JsonModel;
-use ShiftContentNew\Api\AbstractApiController;
+use ShiftContentNew\Api\AbstractApi;
 
 use ShiftContentNew\Type\Type;
 use ShiftCommon\Model\Validation\Result as Errors;
@@ -38,7 +38,7 @@ use ShiftCommon\Model\Validation\Result as Errors;
  * @package     ShiftContentNew
  * @subpackage  Controller
  */
-class ContentTypeApiController extends AbstractApiController
+class TypeApi extends AbstractApi
 {
     /**
      * List action
