@@ -351,7 +351,6 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'jshint',
-//    'test',
     'clean:dist',
     'concurrent:dist', //compile compass to temp and minify images to dist
     'copy', //copy temp images, app scripts & templates to dist
@@ -368,5 +367,5 @@ module.exports = function (grunt) {
     'finalize'
   ]);
 
-  grunt.registerTask('default', ['test', 'build']);
+  grunt.registerTask('default', ['jshint', 'test', 'build']);
 };
