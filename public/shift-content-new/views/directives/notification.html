@@ -1,5 +1,5 @@
 <div class="growls">
-  <div class="growl" ng-repeat="growl in growls" ng-click="close('{{growl.id}}')">
+  <div class="growl" data-ng-repeat="growl in growls" data-ng-click="close('{{growl.id}}')">
     <div class="outline">
       <div class="message">{{growl.message}}</div>
     </div>

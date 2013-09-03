@@ -23,7 +23,7 @@ app.config(function ($routeProvider, viewsBase) {
 
   router.when('/types/:id/', {
     controller: 'ContentTypeCtrl',
-    templateUrl: views + '/content-types/list.html',
+    templateUrl: views + '/content-types/type.html',
     resolve: {
       type: ['TypeRepository', '$route', function(TypeRepository, $route){
         return TypeRepository.get($route.current.params.id);

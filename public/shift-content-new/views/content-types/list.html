@@ -5,8 +5,8 @@
 			Content types
 		</td>
 		<td class="controls">
-      <a href="" class="button active" ng-hide="formVisible" ng-click="showForm()">Add new type</a>
-      <a href="" class="button inactive" ng-show="formVisible" ng-click="hideForm()">Cancel add</a>
+      <a href="" class="button active" data-ng-hide="formVisible" data-ng-click="showForm()">Add new type</a>
+      <a href="" class="button inactive" data-ng-show="formVisible" data-ng-click="hideForm()">Cancel add</a>
 		</td>
 	</tr>
 </table>
@@ -17,9 +17,9 @@
 <!-- /Notifications -->
 
 <!-- New type form -->
-<div class="formContainer add" ng-show="formVisible">
-    <div class="progress" ng-show="formProgress" ng-class="{animate: formProgress}"><span>Working...</span></div>
-    <form name="newTypeForm" ng-submit="createType()" class="disabled" novalidate shift-form>
+<div class="formContainer add" data-ng-show="formVisible">
+    <div class="progress" data-ng-show="formProgress" data-ng-class="{animate: formProgress}"><span>Working...</span></div>
+    <form name="newTypeForm" data-ng-submit="createType()" class="disabled" novalidate shift-form>
 
         <!-- Field -->
         <div class="field">
@@ -29,16 +29,16 @@
             id="name"
             name="name"
             placeholder="Type name"
-            ng-model="newType.name"
-            ng-class="{invalid: newTypeForm.shift.fieldErrors('name')}"
-            ng-minlength = "2"
+            data-ng-model="newType.name"
+            data-ng-class="{invalid: newTypeForm.shift.fieldErrors('name')}"
+            data-ng-minlength = "2"
             required
             autofocus>
 
-          <ul class="errors" ng-show="newTypeForm.shift.fieldErrors('name')">
-            <li ng-show="newTypeForm.name.$error.required">Name is required!</li>
-            <li ng-show="newTypeForm.name.$error.minlength">Too short!</li>
-            <li ng-repeat="error in newTypeForm.shift.backendErrors.name">{{error.message}}<span ng-hide="$last">,</span></li>
+          <ul class="errors" data-ng-show="newTypeForm.shift.fieldErrors('name')">
+            <li data-ng-show="newTypeForm.name.$error.required">Name is required!</li>
+            <li data-ng-show="newTypeForm.name.$error.minlength">Too short!</li>
+            <li data-ng-repeat="error in newTypeForm.shift.backendErrors.name">{{error.message}}<span data-ng-hide="$last">,</span></li>
           </ul>
 
         </div>
@@ -52,12 +52,12 @@
             id="description"
             name="description"
             placeholder="Type description"
-            ng-model="newType.description"
-            ng-class="{invalid: newTypeForm.shift.fieldErrors('description')}">
+            data-ng-model="newType.description"
+            data-ng-class="{invalid: newTypeForm.shift.fieldErrors('description')}">
 
-          <ul class="errors" ng-show="newTypeForm.shift.fieldErrors('description')">
-            <li ng-repeat="error in newTypeForm.formErrors.description">{{error}}<span ng-hide="$last">,</span></li>
-            <li ng-repeat="error in newTypeForm.shift.backendErrors.description">{{error.message}}<span ng-hide="$last">,</span></li>
+          <ul class="errors" data-ng-show="newTypeForm.shift.fieldErrors('description')">
+            <li data-ng-repeat="error in newTypeForm.formErrors.description">{{error}}<span data-ng-hide="$last">,</span></li>
+            <li data-ng-repeat="error in newTypeForm.shift.backendErrors.description">{{error.message}}<span data-ng-hide="$last">,</span></li>
           </ul>
         </div>
         <!-- /Field -->
@@ -70,8 +70,8 @@
 
         <div class="controls">
           <input type="submit" value="Add type">
-          <!--<input type="submit" value="Add type" ng-disabled="newTypeForm.$invalid">-->
-          <a href="" class="button inactive" ng-click="hideForm()">Cancel add</a>
+          <!--<input type="submit" value="Add type" data-ng-disabled="newTypeForm.$invalid">-->
+          <a href="" class="button inactive" data-ng-click="hideForm()">Cancel add</a>
         </div>
     </form>
 </div>
@@ -79,17 +79,17 @@
 
 
 <!-- No items to display -->
-<div class="noItems" ng-show="types.length == 0 && !formVisible">
+<div class="noItems" data-ng-show="types.length == 0 && !formVisible">
     <div>
-        <div>No content types yet. Go ahead and <a href="" ng-click="showForm()">create some</a> now.</div>
+        <div>No content types yet. Go ahead and <a href="" data-ng-click="showForm()">create some</a> now.</div>
     </div>
 </div>
 <!-- /No content types yet -->
 
 
-<table class="giantPill" ng-repeat="type in types" id="{{type.id}}">
+<table class="giantPill" data-ng-repeat="type in types" id="{{type.id}}">
     <tr>
-        <td class="item" ng-click="editType(type.id)">
+        <td class="item" data-ng-click="editType(type.id)">
             <img class="icon" src="/modules/shift-content/img/icon-content-type.png" width="16" height="16" />
             <div class="title">
                 {{type.name}}
@@ -97,7 +97,7 @@
             </div>
         </td>
         <td class="controls">
-            <a href="" class="button light" ng-click="deleteType(type)">Delete</a>
+            <a href="" class="button light" data-ng-click="deleteType(type)">Delete</a>
         </td>
     </tr>
 </table>

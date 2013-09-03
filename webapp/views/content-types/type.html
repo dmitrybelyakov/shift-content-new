@@ -2,15 +2,157 @@
 <table class="pageHeader">
 	<tr>
 		<td class="title">
-			Content types / {{type.name}}
+			Manage type
 		</td>
 		<td class="controls">
-      <a href="" class="button active" ng-hide="formVisible" ng-click="showForm()">Add new type</a>
-      <a href="" class="button inactive" ng-show="formVisible" ng-click="hideForm()">Cancel add</a>
+      <a href="types/" class="button inactive">Back to list</a>
 		</td>
 	</tr>
 </table>
 <!-- /Page header -->
 
 
-  Me is content type
+<!-- Header -->
+<table class="pageSubheader" data-ng-hide="typeFormVisible">
+  <tr>
+    <td class="title">
+      <img src="/modules/shift-content/img/icon-subheader-content-type.png" width="30" height="30" />
+      <div class="subheader">
+        {{type.name}}
+        <span class="subheaderDescription">{{type.description}}</span>
+      </div>
+    </td>
+    <td class="controls">
+      <a href="" class="button active" data-ng-hide="typeFormVisible" data-ng-click="showTypeForm()">Edit type</a>
+    </td>
+  </tr>
+</table>
+<!-- /Header -->
+
+<!-- Edit type form -->
+<div class="formContainer edit" data-ng-show="typeFormVisible">
+    <div class="progress" data-ng-show="typeFormProgress" data-ng-class="{animate: formProgress}"><span>Working...</span></div>
+    <form name="editTypeForm" data-ng-submit="createType()" class="disabled" novalidate shift-form>
+
+        <!-- Field -->
+        <div class="field">
+          <label for="name">Content type name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Type name"
+            data-ng-model="type.name"
+            data-ng-class="{invalid: editTypeForm.shift.fieldErrors('name')}"
+            data-ng-minlength = "2"
+            required
+            autofocus>
+
+          <ul class="errors" data-ng-show="editTypeForm.shift.fieldErrors('name')">
+            <li data-ng-show="editTypeForm.name.$error.required">Name is required!</li>
+            <li data-ng-show="editTypeForm.name.$error.minlength">Too short!</li>
+            <li data-ng-repeat="error in editTypeForm.shift.backendErrors.name">{{error.message}}<span data-ng-hide="$last">,</span></li>
+          </ul>
+
+        </div>
+        <!-- /Field -->
+
+        <!-- Field -->
+        <div class="field">
+          <label for="description">Content type description</label>
+          <input
+            type="text"
+            id="description"
+            name="description"
+            placeholder="Type description"
+            data-ng-model="type.description"
+            data-ng-class="{invalid: editTypeForm.shift.fieldErrors('description')}">
+
+          <ul class="errors" data-ng-show="editTypeForm.shift.fieldErrors('description')">
+            <li data-ng-repeat="error in editTypeForm.formErrors.description">{{error}}<span data-ng-hide="$last">,</span></li>
+            <li data-ng-repeat="error in editTypeForm.shift.backendErrors.description">{{error.message}}<span data-ng-hide="$last">,</span></li>
+          </ul>
+        </div>
+        <!-- /Field -->
+
+
+        <div class="controls">
+          <input type="submit" value="Save type">
+          <a href="" class="button inactive" data-ng-click="hideTypeForm()">Discard changes</a>
+        </div>
+    </form>
+</div>
+<!-- Edit type form -->
+
+
+<!-- Subsection: default fields -->
+<table class="sectionHeader">
+    <tr>
+        <td class="title">Default fields</td>
+        <td class="controls"></td>
+    </tr>
+</table>
+<div class="rowsContainer">
+    <table class="row">
+        <tr>
+            <td class="itemContainer">
+                <img src="/modules/shift-content/img/icon-field.png" width="16" height="16" />
+
+                <div class="itemBlock">
+                    <div class="title">Publication date</div>
+                    <div class="description">Date and time</div>
+                </div>
+            </td>
+            <td class="controls"></td>
+        </tr>
+    </table>
+    <table class="row">
+        <tr>
+            <td class="itemContainer">
+                <img src="/modules/shift-content/img/icon-field.png" width="16" height="16" />
+
+                <div class="itemBlock">
+                    <div class="title">Status</div>
+                    <div class="description">Text field</div>
+                </div>
+            </td>
+            <td class="controls"></td>
+        </tr>
+    </table>
+    <table class="row">
+        <tr>
+            <td class="itemContainer">
+                <img src="/modules/shift-content/img/icon-field.png" width="16" height="16" />
+
+                <div class="itemBlock">
+                    <div class="title">Item title</div>
+                    <div class="description">Text field</div>
+                </div>
+            </td>
+            <td class="controls"></td>
+        </tr>
+    </table>
+    <table class="row">
+        <tr>
+            <td class="itemContainer">
+                <img src="/modules/shift-content/img/icon-field.png" width="16" height="16" />
+
+                <div class="itemBlock">
+                    <div class="title">URL Slug</div>
+                    <div class="description">Text field</div>
+                </div>
+            </td>
+            <td class="controls"></td>
+        </tr>
+    </table>
+</div>
+<!-- /Subsection: default fields -->
+
+<!-- Subsection: custom fields -->
+<table class="sectionHeader">
+    <tr>
+        <td class="title">Custom fields</td>
+        <td class="controls"><a href="" class="button active" data-ng-hide="addFieldFormVisible">Add field</a></td>
+    </tr>
+</table>
+<!-- /Subsection: custom fields -->

@@ -1,12 +1,12 @@
 <!-- Sub navigation -->
 
-<div class="menu" ng-repeat="section in navigation">
+<div class="menu" data-ng-repeat="section in navigation">
   <div class="itemSection"><span><a>{{section.title}}</a></span></div>
 
-  <div ng-repeat="item in section.items">
-    <div class="item" ng-class="{active: item.active}">
+  <div data-ng-repeat="item in section.items">
+    <div class="item" data-ng-class="{active: item.active}">
       <div class="button">
-        <a ng-href="{{item.href}}">{{item.label}}</a>
+        <a data-ng-href="{{item.href}}">{{item.label}}</a>
       </div>
     </div>
   </div>

@@ -216,9 +216,6 @@ div.formContainer.ng-hide-remove {
 }
 
 
-
-
-
 /**
  * Content pre loader directive
  */
@@ -316,7 +313,20 @@ div.formContainer.ng-hide-remove {
   }
 }
 
+/**
+ * Table view fixes
+ */
 
+div.content table.sectionHeader td.title {
+  vertical-align: bottom;
+  padding-bottom: 10px;
+}
+div.content table.sectionHeader td.controls {
+  .button {
+    display: inline-block;
+    margin-bottom: 5px;
+  }
+}
 
 
 
