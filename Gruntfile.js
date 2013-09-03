@@ -23,20 +23,12 @@ module.exports = function (grunt) {
         files: ['<%= yo.app %>/*.html', '<%= yo.app %>/view-partials/*.html'],
         tasks: ['bake']
       },
-      scriptsAdd: {
+      scripts: {
         options: {
           livereload: LIVERELOAD_PORT,
-          event: ['added', 'deleted']
         },
         tasks: ['bake', 'includeSource:develop'],
-        files: ['<%= yo.app %>/scripts/{,*/}{,*/}*.js']
-      },
-      scriptsChange: {
-        options: {
-          livereload: LIVERELOAD_PORT,
-          event: ['changed']
-        },
-        files: ['<%= yo.app %>/scripts/{,*/}{,*/}*.js']
+        files: ['<%= yo.app %>/scripts/{,*/}{,*/}{,*/}*.js']
       },
       livereload: {
         options: {
