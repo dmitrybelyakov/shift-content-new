@@ -27,6 +27,9 @@ app.config(function ($routeProvider, viewsBase) {
     resolve: {
       type: ['TypeRepository', '$route', function(TypeRepository, $route){
         return TypeRepository.get($route.current.params.id);
+      }],
+      fieldTypes: ['FieldTypeRepository', function(FieldTypeRepository){
+        return FieldTypeRepository.query();
       }]
     }
   });

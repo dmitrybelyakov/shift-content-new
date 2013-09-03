@@ -76,7 +76,6 @@
         </div>
         <!-- /Field -->
 
-
         <div class="controls">
           <input type="submit" value="Save type">
           <a href="" class="button inactive" data-ng-click="hideTypeForm()">Discard changes</a>
@@ -153,7 +152,82 @@
 <table class="sectionHeader">
     <tr>
         <td class="title">Custom fields</td>
-        <td class="controls"><a href="" class="button active" data-ng-hide="addFieldFormVisible">Add field</a></td>
+        <td class="controls">
+          <a href="" class="button active" data-ng-hide="fieldFormVisible" data-ng-click="showFieldForm()">Add field</a>
+          <a href="" class="button active" data-ng-show="fieldFormVisible" data-ng-click="hideFieldForm()">Cancel add</a>
+        </td>
     </tr>
 </table>
 <!-- /Subsection: custom fields -->
+
+<!-- Edit type form -->
+<div id="fieldMessages" shift-notifications></div>
+<div class="formContainer add" data-ng-show="fieldFormVisible">
+    <div class="progress" data-ng-show="fieldFormProgress" data-ng-class="{animate: formProgress}"><span>Working...</span></div>
+    <form name="addFieldForm" data-ng-submit="addField()" class="disabled" novalidate shift-form>
+
+      <!-- Field -->
+      <div class="field">
+        <label for="fieldType">Field type</label>
+        <div>
+          <select ng-model="month" ng-options="field.shortName as field.name for field in fieldTypes">
+            <option value="">Please select...</option>
+          </select>
+        </div>
+
+        <ul class="errors" data-ng-show="addFieldForm.shift.fieldErrors('type')">
+          <li data-ng-show="addFieldForm.type.$error.required">Field type is required!</li>
+          <li data-ng-repeat="error in addFieldForm.shift.backendErrors.type">{{error.message}}<span data-ng-hide="$last">,</span></li>
+        </ul>
+
+      </div>
+      <!-- /Field -->
+
+        <!-- Field -->
+        <div class="field">
+          <label for="fieldName">Field name</label>
+          <input
+            type="text"
+            id="fieldName"
+            name="name"
+            placeholder="Field name"
+            data-ng-model="newField.name"
+            data-ng-class="{invalid: addFieldForm.shift.fieldErrors('name')}"
+            data-ng-minlength = "2"
+            required
+            autofocus>
+
+          <ul class="errors" data-ng-show="addFieldForm.shift.fieldErrors('name')">
+            <li data-ng-show="addFieldForm.name.$error.required">Name is required!</li>
+            <li data-ng-show="addFieldForm.name.$error.minlength">Too short!</li>
+            <li data-ng-repeat="error in addFieldForm.shift.backendErrors.name">{{error.message}}<span data-ng-hide="$last">,</span></li>
+          </ul>
+
+        </div>
+        <!-- /Field -->
+
+        <!-- Field -->
+        <div class="field">
+          <label for="fieldDescription">Content type description</label>
+          <input
+            type="text"
+            id="fieldDescription"
+            name="description"
+            placeholder="Field description"
+            data-ng-model="newField.description"
+            data-ng-class="{invalid: addFieldForm.shift.fieldErrors('description')}">
+
+          <ul class="errors" data-ng-show="addFieldForm.shift.fieldErrors('description')">
+            <li data-ng-repeat="error in addFieldForm.formErrors.description">{{error}}<span data-ng-hide="$last">,</span></li>
+            <li data-ng-repeat="error in addFieldForm.shift.backendErrors.description">{{error.message}}<span data-ng-hide="$last">,</span></li>
+          </ul>
+        </div>
+        <!-- /Field -->
+
+        <div class="controls">
+          <input type="submit" value="Save type">
+          <a href="" class="button inactive" data-ng-click="hideFieldForm()">Discard changes</a>
+        </div>
+    </form>
+</div>
+<!-- Edit type form -->

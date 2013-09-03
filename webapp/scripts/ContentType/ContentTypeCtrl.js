@@ -8,6 +8,7 @@ var app = angular.module('shiftContentApp');
 app.controller('ContentTypeCtrl', function (
   $scope,
   type,
+  fieldTypes,
   TypeRepository,
   NotificationService) {
 
@@ -26,6 +27,7 @@ app.controller('ContentTypeCtrl', function (
   //show edit type form
   $scope.showTypeForm = function(){
     $scope.typeFormVisible = true;
+    $scope.hideFieldForm();
   };
 
   //rollback data and hide form
@@ -88,6 +90,21 @@ app.controller('ContentTypeCtrl', function (
    */
   $scope.fieldFormVisible = false;
   $scope.fieldFormProgress = false;
+  $scope.fieldTypes = fieldTypes;
+
+  console.info(fieldTypes);
+
+
+  //show field form
+  $scope.showFieldForm = function(){
+    $scope.fieldFormVisible = true;
+    $scope.hideTypeForm();
+  };
+
+  //hide field form
+  $scope.hideFieldForm = function(){
+    $scope.fieldFormVisible = false;
+  };
 
 
 
