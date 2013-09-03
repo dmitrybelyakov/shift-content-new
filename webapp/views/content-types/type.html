@@ -30,9 +30,10 @@
 <!-- /Header -->
 
 <!-- Edit type form -->
+<div id="typeMessages" shift-notifications></div>
 <div class="formContainer edit" data-ng-show="typeFormVisible">
     <div class="progress" data-ng-show="typeFormProgress" data-ng-class="{animate: formProgress}"><span>Working...</span></div>
-    <form name="editTypeForm" data-ng-submit="createType()" class="disabled" novalidate shift-form>
+    <form name="editTypeForm" data-ng-submit="saveType()" class="disabled" novalidate shift-form>
 
         <!-- Field -->
         <div class="field">

@@ -96,11 +96,12 @@ class ContentTypeApiController extends AbstractApiController
      */
     public function typeAction()
     {
+        $service = $this->locator->get('ShiftContentNew\Type\TypeService');
+
         //get type
         try
         {
             $id = $this->getEvent()->getRouteMatch()->getParam('id');
-            $service = $this->locator->get('ShiftContentNew\Type\TypeService');
             $type = $service->getType($id);
             if(!$type)
                 return $this->notFoundAction();
@@ -116,7 +117,6 @@ class ContentTypeApiController extends AbstractApiController
             return new JsonModel($type->toArray());
         }
 
-
         //delete: remove type
         if($this->getRequest()->isDelete())
         {
@@ -131,6 +131,30 @@ class ContentTypeApiController extends AbstractApiController
 
             return $this->noContentAction();
         }
+
+        //post: validate and update type
+        if($this->getRequest()->isPost())
+        {
+            try
+            {
+                $data = $this->requestData();
+                $type->setName($data['name']);
+                $type->setDescription($data['description']);
+
+                $type = $service->saveType($type);
+                if($type instanceof Errors)
+                    return $this->failedValidationAction($type->getErrors());
+            }
+            catch(\Exception $exception)
+            {
+                return $this->exceptionAction($exception->getMessage());
+            }
+
+            //return on success
+            return new JsonModel($type->toArray());
+        }
+
+
 
         //otherwise return not allowed
         return $this->notAllowedAction();

@@ -24,6 +24,47 @@ app.factory('TypeRepository', function ($http, $angularCacheFactory) {
   var Repository = {};
 
 
+  /*
+   * Manage type cache
+   */
+  Repository.cache = {};
+
+  //save item to cache and update within cached list
+  Repository.cache.type = function(type) {
+    var id = type.id.toString();
+    cache.put(id, type);
+    if(cache.get('all')) {
+      cache.put('all', _.reject(cache.get('all'), function(e){
+        return e.id === type.id;
+      }));
+      cache.get('all').push(type);
+    }
+  };
+
+  //caches all types and each one item
+  Repository.cache.list = function(types) {
+    cache.put('all', types);
+    _.each(types, function(el){
+      cache.put(el.id.toString(), el);
+    });
+  };
+
+  //removes type cache from repository
+  Repository.cache.remove = function(type) {
+    var id = type.id.toString();
+    cache.remove(id);
+    if(cache.get('all')) {
+      cache.put('all', _.reject(cache.get('all'), function(e){
+        return e.id === type.id;
+      }));
+    }
+  };
+
+  /*
+   * Types CRUD
+   */
+
+
   //get by id
   Repository.get = function(id){
     id = id.toString();
@@ -32,7 +73,7 @@ app.factory('TypeRepository', function ($http, $angularCacheFactory) {
     } else {
       return $http.get(baseUrl + id + '/')
         .success(function(data){
-          cache.put(id, data);
+          Repository.cache.type(data);
         })
         .then(function(response){
           return response.data;
@@ -46,10 +87,7 @@ app.factory('TypeRepository', function ($http, $angularCacheFactory) {
       return cache.get('all');
     } else {
       return $http.get(baseUrl).then(function(response){
-        cache.put('all', response.data);
-        _.each(response.data, function(el){
-          cache.put(el.id.toString(), el);
-        });
+        Repository.cache.list(response.data);
         return response.data;
       });
     }
@@ -59,8 +97,16 @@ app.factory('TypeRepository', function ($http, $angularCacheFactory) {
   Repository.create = function(data) {
     return $http.post(baseUrl, data)
       .success(function(response){
-        cache.put(response.id.toString(), response);
-        cache.get('all').push(response);
+        Repository.cache.type(response);
+      });
+  };
+
+  //update type
+  Repository.update = function(data) {
+    var id = data.id.toString();
+    return $http.post(baseUrl + id + '/', data)
+      .success(function(response){
+        Repository.cache.type(response);
       });
   };
 
@@ -68,13 +114,8 @@ app.factory('TypeRepository', function ($http, $angularCacheFactory) {
   Repository.delete = function(type) {
     return $http.delete(baseUrl + type.id +'/')
       .success(function(){
-        cache.remove(type.id);
-        cache.put('all', _.reject(cache.get('all'), function(e){
-          return e.id === type.id;
-        }));
+        Repository.cache.remove(type);
       });
-
-
   };
 
   return Repository;

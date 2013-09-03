@@ -134,8 +134,6 @@ app.controller('ContentTypesCtrl', function (
         }
         notifications.send('default', 'error', message);
       }
-
-
     });
 
     //handle success

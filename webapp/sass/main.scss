@@ -208,10 +208,8 @@ div.formContainer {
   overflow: hidden;
 }
 div.formContainer.ng-hide-add {
-  @include animation(fadeOut 0.1s infinite);
 }
 div.formContainer.ng-hide-remove {
-  @include animation(fadeIn 0.1s infinite);
   display:block!important;
 }
 
