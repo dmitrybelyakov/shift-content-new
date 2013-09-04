@@ -166,11 +166,17 @@
     <div class="progress" data-ng-show="fieldFormProgress" data-ng-class="{animate: formProgress}"><span>Working...</span></div>
     <form name="addFieldForm" data-ng-submit="addField()" class="disabled" novalidate shift-form>
 
-      <!-- Field -->
+      <!-- Field type-->
       <div class="field">
         <label for="fieldType">Field type</label>
         <div>
-          <select ng-model="month" ng-options="field.shortName as field.name for field in fieldTypes">
+          <select
+            name ="type"
+            id="fieldType"
+            ng-model="newField.type"
+            ng-options="field.shortName as field.name for field in fieldTypes"
+            required
+            autofocus>
             <option value="">Please select...</option>
           </select>
         </div>
@@ -181,9 +187,9 @@
         </ul>
 
       </div>
-      <!-- /Field -->
+      <!-- /Field type -->
 
-        <!-- Field -->
+        <!-- Field name -->
         <div class="field">
           <label for="fieldName">Field name</label>
           <input
@@ -193,36 +199,38 @@
             placeholder="Field name"
             data-ng-model="newField.name"
             data-ng-class="{invalid: addFieldForm.shift.fieldErrors('name')}"
-            data-ng-minlength = "2"
-            required
-            autofocus>
+            data-ng-minlength = "3"
+            data-ng-maxlength = "250"
+            required>
 
           <ul class="errors" data-ng-show="addFieldForm.shift.fieldErrors('name')">
             <li data-ng-show="addFieldForm.name.$error.required">Name is required!</li>
             <li data-ng-show="addFieldForm.name.$error.minlength">Too short!</li>
+            <li data-ng-show="addFieldForm.name.$error.maxlength">Too long!</li>
             <li data-ng-repeat="error in addFieldForm.shift.backendErrors.name">{{error.message}}<span data-ng-hide="$last">,</span></li>
           </ul>
 
         </div>
-        <!-- /Field -->
+        <!-- /Field name -->
 
-        <!-- Field -->
+        <!-- Field property -->
         <div class="field">
-          <label for="fieldDescription">Content type description</label>
+          <label for="fieldProperty">Field property name</label>
           <input
             type="text"
-            id="fieldDescription"
-            name="description"
-            placeholder="Field description"
-            data-ng-model="newField.description"
-            data-ng-class="{invalid: addFieldForm.shift.fieldErrors('description')}">
+            id="fieldProperty"
+            name="property"
+            placeholder="fieldPropertyName"
+            data-ng-model="newField.property"
+            data-ng-class="{invalid: addFieldForm.shift.fieldErrors('property')}"
+            required>
 
-          <ul class="errors" data-ng-show="addFieldForm.shift.fieldErrors('description')">
-            <li data-ng-repeat="error in addFieldForm.formErrors.description">{{error}}<span data-ng-hide="$last">,</span></li>
-            <li data-ng-repeat="error in addFieldForm.shift.backendErrors.description">{{error.message}}<span data-ng-hide="$last">,</span></li>
+          <ul class="errors" data-ng-show="addFieldForm.shift.fieldErrors('property')">
+            <li data-ng-show="addFieldForm.property.$error.required">Property name is required!</li>
+            <li data-ng-repeat="error in addFieldForm.shift.backendErrors.property">{{error.message}}<span data-ng-hide="$last">,</span></li>
           </ul>
         </div>
-        <!-- /Field -->
+        <!-- /Field property-->
 
         <div class="controls">
           <input type="submit" value="Save type">

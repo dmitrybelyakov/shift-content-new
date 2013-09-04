@@ -10,7 +10,8 @@ app.controller('ContentTypeCtrl', function (
   type,
   fieldTypes,
   TypeRepository,
-  NotificationService) {
+  NotificationService,
+  $log) {
 
   var _ = window._;
   var repository = TypeRepository;
@@ -91,9 +92,11 @@ app.controller('ContentTypeCtrl', function (
   $scope.fieldFormVisible = false;
   $scope.fieldFormProgress = false;
   $scope.fieldTypes = fieldTypes;
-
-  console.info(fieldTypes);
-
+  $scope.newField = {
+    name: undefined,
+    property: undefined,
+    type: undefined
+  };
 
   //show field form
   $scope.showFieldForm = function(){
@@ -101,9 +104,25 @@ app.controller('ContentTypeCtrl', function (
     $scope.hideTypeForm();
   };
 
-  //hide field form
+  //hide field form & rollback data
   $scope.hideFieldForm = function(){
     $scope.fieldFormVisible = false;
+    $scope.newField = {
+      name: undefined,
+      property: undefined,
+      type: undefined
+    };
+  };
+
+  //add field and handle response
+  $scope.addField = function(){
+    if($scope.addFieldForm.$invalid) {
+      return;
+    }
+
+    $log.log('NOW SUBMIT REQUEST');
+    $log.log($scope.newField);
+
   };
 
 
