@@ -109,6 +109,11 @@ module.exports = function (grunt) {
         configFile: '<%= yo.app %>/test/unit.js',
         singleRun: true,
         autowatch: false
+      },
+      auto: {
+        configFile: '<%= yo.app %>/test/unit.js',
+        singleRun: false,
+        autoWatch: true
       }
     },
     shell: {
