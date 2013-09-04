@@ -8,11 +8,12 @@ var app = angular.module('shiftContentApp');
 app.controller('ContentTypesCtrl', function (
   $scope,
   $location,
+  $window,
   types,
   TypeRepository,
   NotificationService) {
 
-  var _ = window._;
+  var _ = $window._;
   var repository = TypeRepository;
   var notifications = NotificationService;
 
@@ -23,6 +24,7 @@ app.controller('ContentTypesCtrl', function (
   $scope.types = _.sortBy(types, function(type){
     return type.name;
   });
+
 
   //proceed to type editing
   $scope.editType = function(id){

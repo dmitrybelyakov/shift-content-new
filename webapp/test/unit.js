@@ -12,6 +12,10 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
+
+      //3d party libs
+      '../components/underscore/underscore.js',
+
       //angular libs
       '../components/angular/angular.js',
       '../components/angular-route/angular-route.js',
