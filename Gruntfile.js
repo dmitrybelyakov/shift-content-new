@@ -75,7 +75,7 @@ module.exports = function (grunt) {
         host: '<%= yo.proxyHost %>',
         port: '<%= yo.proxyPort %>',
         https: false,
-        changeOrigin: false
+        changeOrigin: true
       }],
       livereload: {
         options: {
