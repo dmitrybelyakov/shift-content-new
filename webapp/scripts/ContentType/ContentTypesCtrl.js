@@ -49,7 +49,7 @@ app.controller('ContentTypesCtrl', function (
       if(notFound) {
         message += ': Not found';
       }
-      if(apiException.content) {
+      else if(apiException.content) {
         message += ': '+ apiException.content;
       }
       notifications.send('default', 'error', message);
@@ -104,7 +104,6 @@ app.controller('ContentTypesCtrl', function (
 
   //create type
   $scope.createType = function(){
-
     if($scope.newTypeForm.$invalid) {
       return;
     }
