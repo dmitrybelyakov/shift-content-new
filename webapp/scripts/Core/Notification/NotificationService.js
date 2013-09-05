@@ -23,15 +23,52 @@ app.service('NotificationService', function NotificationService($timeout) {
    */
 
   //prepare queue name
-  service.queName = function(name){
+  service.queueName = function(name){
     return name.toString().replace(/[^A-Z0-9]/ig, '');
   };
+
+  //parses timeout to return milliseconds
+  service.parseTimeout = function(t)
+  {
+    if(!t) {
+      return 0;
+    }
+    if(typeof t.indexOf === 'function') {
+      if(t.indexOf('s') !== -1 && t.indexOf('ms') == -1){
+        t = parseFloat(t) * 1000;
+      } else{
+        t = parseFloat(t);
+      }
+    }
+
+    return t;
+  }
+
+  //get queue by name
+  service.getQueue = function(queue){
+    if(!queue) {
+      return;
+    }
+
+    queue = service.queueName(queue);
+    if(!service.queues[queue]) {
+      service.queues[queue] = []; //create empty to bind
+    }
+
+    return service.queues[queue];
+  };
+
+  //get all queues
+  service.getAllQueues = function(){
+    return service.queues;
+  };
+
 
   //send notification to specified queue
   service.send = function(queue, type, message, timeout) {
 
     //convert to proper name
-    queue = service.queName(queue);
+    queue = service.queueName(queue);
 
     //create if required
     if(!service.queues[queue]) {
@@ -41,12 +78,9 @@ app.service('NotificationService', function NotificationService($timeout) {
     //prepare timeout
     if(!timeout) {
       timeout = 5000; //default timeout
-    } else if(timeout.indexOf('ms') !== -1){
-      timeout = parseFloat(timeout);
-    } else if (timeout.indexOf('s') !== -1) {
-      timeout = parseFloat(timeout);
+    } else {
+      timeout = service.parseTimeout(timeout);
     }
-
 
     //push message to queue
     var id = Math.random().toString(36).slice(2);
@@ -64,21 +98,6 @@ app.service('NotificationService', function NotificationService($timeout) {
         service.removeNotification(id);
       }, timeout);
     }
-  };
-
-  //get queue by name
-  service.getQueue = function(queue){
-    queue = service.queName(queue);
-    if(!service.queues[queue]) {
-      service.queues[queue] = []; //create empty to bind
-    }
-
-    return service.queues[queue];
-  };
-
-  //get all queues
-  service.getAllQueues = function(){
-    return service.queues;
   };
 
   //remove message from queue (close)
@@ -103,8 +122,9 @@ app.service('NotificationService', function NotificationService($timeout) {
    */
 
   //send out growl notification
-  service.growl = function(message){
+  service.growl = function(message, timeout){
     var id = Math.random().toString(36).slice(2);
+
 
     //add growl
     service.growls.push({
@@ -112,10 +132,17 @@ app.service('NotificationService', function NotificationService($timeout) {
       message: message
     });
 
+    //prepare timeout
+    if(!timeout) {
+      timeout = growlTimeout;
+    } else {
+      timeout = service.parseTimeout(timeout);
+    }
+
     //remove after timeout
     $timeout(function(){
       service.removeGrowl(id);
-    }, growlTimeout);
+    }, timeout);
   };
 
   //remove growl from queue
