@@ -63,319 +63,321 @@ describe('ContentTypesCtrl: ', function () {
   //-------------------------------------------------------------------------
 
 
-  it('sorts types on init', function(){
-    controller('ContentTypesCtrl', deps);
-    expect(scope.types[0]).toEqual(types[2]);
-    expect(scope.types[1]).toEqual(types[1]);
-    expect(scope.types[2]).toEqual(types[0]);
-  });
+
 
   /*
    * Delete type
    */
-
-  it('can go to type editor screen', inject(function($location){
-    controller('ContentTypesCtrl', deps);
-    expect($location.path()).toBe('/');
-
-    var id = '123';
-    scope.editType(id);
-    expect($location.path()).toBe('/' + id + '/');
-  }));
-
-
-  it('can delete type and catch 404', function(){
-
-    var type = {name: 'delete me'};
-
-    //mock repo
-    var repo = {};
-    repo.delete = jasmine.createSpy('delete type')
-      .andCallFake(function(){
-        var result = angular.copy(promise);
-        result.catch = function(c){c({status: 404})};
-        return result;
+  describe('Delete types', function(){
+    it('sorts types on init', function(){
+      controller('ContentTypesCtrl', deps);
+      expect(scope.types[0]).toEqual(types[2]);
+      expect(scope.types[1]).toEqual(types[1]);
+      expect(scope.types[2]).toEqual(types[0]);
     });
 
-    //init controller
-    deps.TypeRepository = repo;
-    controller('ContentTypesCtrl', deps);
+    it('can go to type editor screen', inject(function($location){
+      controller('ContentTypesCtrl', deps);
+      expect($location.path()).toBe('/');
 
-    //now delete
-    scope.deleteType(type);
-    expect(repo.delete).toHaveBeenCalledWith(type);
-    expect(notifications.send).toHaveBeenCalledWith(
-      'default', 'error', 'Server error: Not found'
-    );
-  });
+      var id = '123';
+      scope.editType(id);
+      expect($location.path()).toBe('/' + id + '/');
+    }));
 
+    it('can delete type and catch 404', function(){
 
-  it('can delete type and catch 500', function(){
+      var type = {name: 'delete me'};
 
-    var type = {name: 'delete me'};
+      //mock repo
+      var repo = {};
+      repo.delete = jasmine.createSpy('delete type')
+        .andCallFake(function(){
+          var result = angular.copy(promise);
+          result.catch = function(c){c({status: 404})};
+          return result;
+      });
 
-    //mock repo
-    var repo = {};
-    repo.delete = jasmine.createSpy('delete type')
-      .andCallFake(function(){
-        var result = angular.copy(promise);
-        result.catch = function(c){c({status: 500})};
-        result.error = function(c){c({content: 'Api exception'})};
-        return result;
+      //init controller
+      deps.TypeRepository = repo;
+      controller('ContentTypesCtrl', deps);
+
+      //now delete
+      scope.deleteType(type);
+      expect(repo.delete).toHaveBeenCalledWith(type);
+      expect(notifications.send).toHaveBeenCalledWith(
+        'default', 'error', 'Server error: Not found'
+      );
     });
 
-    //init controller
-    deps.TypeRepository = repo;
-    controller('ContentTypesCtrl', deps);
+    it('can delete type and catch 500', function(){
 
-    //now delete
-    scope.deleteType(type);
-    expect(repo.delete).toHaveBeenCalledWith(type);
-    expect(notifications.send).toHaveBeenCalledWith(
-      'default', 'error', 'Server error: Api exception'
-    );
-  });
+      var type = {name: 'delete me'};
 
+      //mock repo
+      var repo = {};
+      repo.delete = jasmine.createSpy('delete type')
+        .andCallFake(function(){
+          var result = angular.copy(promise);
+          result.catch = function(c){c({status: 500})};
+          result.error = function(c){c({content: 'Api exception'})};
+          return result;
+      });
 
-  it('can delete type', function(){
+      //init controller
+      deps.TypeRepository = repo;
+      controller('ContentTypesCtrl', deps);
 
-    //mock repo
-    var repo = {};
-    repo.delete = jasmine.createSpy('delete type')
-      .andCallFake(function(){
-        var result = angular.copy(promise);
-        result.catch = function(c){c({status: 204})};
-        return result;
+      //now delete
+      scope.deleteType(type);
+      expect(repo.delete).toHaveBeenCalledWith(type);
+      expect(notifications.send).toHaveBeenCalledWith(
+        'default', 'error', 'Server error: Api exception'
+      );
     });
 
-    //init controller
-    deps.TypeRepository = repo;
-    controller('ContentTypesCtrl', deps);
-    expect(scope.types.length).toBe(3);
+    it('can delete type', function(){
 
-    //now delete
-    scope.deleteType(types[1]);
-    expect(repo.delete).toHaveBeenCalledWith(types[1]);
-    expect(notifications.growl).toHaveBeenCalledWith('Content type deleted');
+      //mock repo
+      var repo = {};
+      repo.delete = jasmine.createSpy('delete type')
+        .andCallFake(function(){
+          var result = angular.copy(promise);
+          result.catch = function(c){c({status: 204})};
+          return result;
+      });
 
-    //deleted removed from list
-    expect(scope.types[0]).toEqual(types[2]);
-    expect(scope.types[1]).toEqual(types[0]);
-  });
+      //init controller
+      deps.TypeRepository = repo;
+      controller('ContentTypesCtrl', deps);
+      expect(scope.types.length).toBe(3);
+
+      //now delete
+      scope.deleteType(types[1]);
+      expect(repo.delete).toHaveBeenCalledWith(types[1]);
+      expect(notifications.growl).toHaveBeenCalledWith('Content type deleted');
+
+      //deleted removed from list
+      expect(scope.types[0]).toEqual(types[2]);
+      expect(scope.types[1]).toEqual(types[0]);
+    });
+  }); //delete type
+
+
 
 
   /*
    * Add new type
    */
+  describe('Create types', function(){
+    it('marks form progress while working', function () {
 
-  it('marks form progress while working', function () {
+      //mock repo
+      var repo = {};
+      repo.create = jasmine.createSpy('create type')
+        .andCallFake(function(){
+          var result = angular.copy(promise);
+          result.catch = function(c){c({status: 500})};
+          result.error = function(c){c({content: ''})};
+          result.success = function(){};
+          return result;
+      });
 
-    //mock repo
-    var repo = {};
-    repo.create = jasmine.createSpy('create type')
-      .andCallFake(function(){
-        var result = angular.copy(promise);
-        result.catch = function(c){c({status: 500})};
-        result.error = function(c){c({content: ''})};
-        result.success = function(){};
-        return result;
+      deps.TypeRepository = repo;
+      controller('ContentTypesCtrl', deps);
+
+
+      expect(scope.formProgress).toBe(false); //initially active
+      scope.createType();
+      expect(scope.formProgress).toBe(true); //progress marked
+      timeout(function(){
+        expect(scope.formProgress).toBe(false); //back to active
+      },0);
     });
 
-    deps.TypeRepository = repo;
-    controller('ContentTypesCtrl', deps);
+    it('can show new type form', function(){
+      controller('ContentTypesCtrl', deps);
 
-
-    expect(scope.formProgress).toBe(false); //initially active
-    scope.createType();
-    expect(scope.formProgress).toBe(true); //progress marked
-    timeout(function(){
-      expect(scope.formProgress).toBe(false); //back to active
-    },0);
-  });
-
-  it('can show new type form', function(){
-    controller('ContentTypesCtrl', deps);
-
-    expect(scope.formVisible).toBe(false);
-    scope.showForm();
-    expect(scope.formVisible).toBe(true);
-  });
-
-  it('can hide form and rollback data', function(){
-    controller('ContentTypesCtrl', deps);
-
-    //mock form
-    var form = {shift: {}};
-    form.shift.clearBackendErrors = jasmine.createSpy('clear errors');
-    form.shift.clearSubmitted = jasmine.createSpy('clear sumit');
-    form.$setPristine = jasmine.createSpy('set clear');
-    scope.newTypeForm = form;
-
-    scope.showForm();
-    scope.newType.name = 'some name';
-    scope.newType.description = 'some description';
-
-    scope.hideForm();
-    expect(scope.newType.name).toBe('');
-    expect(scope.newType.description).toBe('');
-  });
-
-  it('cancels type creation if form invalid', function () {
-    controller('ContentTypesCtrl', deps);
-
-    //mock form
-    scope.newTypeForm = {};
-    scope.newTypeForm.$invalid = true;
-
-    expect(scope.createType()).toBeUndefined();
-  });
-
-  it('can create type and handle validation errors', function(){
-
-    //mock backend validation errors
-    var backendValidationErrors = {name: ['Name errors']};
-
-    //mock repo
-    var repo = {};
-    repo.create = jasmine.createSpy('create type')
-      .andCallFake(function(){
-        var result = angular.copy(promise);
-        result.catch = function(c){c({
-          status: 409,
-          data: backendValidationErrors
-        })};
-        result.success = function(){}; //do nothing
-        return result;
-    });
-
-    deps.TypeRepository = repo;
-    controller('ContentTypesCtrl', deps);
-
-    //mock form
-    var form = {shift: {}};
-    form.$invalid = false;
-    form.shift.setBackendErrors = jasmine.createSpy('set backend errors');
-    scope.newTypeForm = form;
-
-    //now create
-    scope.createType();
-
-    //assert validation errors set
-    expect(form.shift.setBackendErrors).toHaveBeenCalledWith(
-      backendValidationErrors
-    );
-
-  });
-
-  it('can create type and handle 404', function () {
-    //mock repo
-    var repo = {};
-    repo.create = jasmine.createSpy('create type')
-      .andCallFake(function(){
-        var result = angular.copy(promise);
-        result.catch = function(c){c({status: 404})};
-        result.success = function(){};
-
-        return result;
-    });
-
-    deps.TypeRepository = repo;
-    controller('ContentTypesCtrl', deps);
-
-    //now create
-    scope.createType();
-
-    //assert error set
-    expect(notifications.send).toHaveBeenCalledWith(
-      'default', 'error', 'Server error: Not found'
-    );
-  });
-
-  it('can create type and catch 500', function () {
-
-    //mock repo
-    var repo = {};
-    repo.create = jasmine.createSpy('create type')
-      .andCallFake(function(){
-        var result = angular.copy(promise);
-        result.catch = function(c){c({status: 500})};
-        result.error = function(c){c({content: 'Api error'})};
-        result.success = function(){};
-
-        return result;
-    });
-
-    deps.TypeRepository = repo;
-    controller('ContentTypesCtrl', deps);
-
-    //now create
-    scope.createType();
-
-    //assert error set
-    expect(notifications.send).toHaveBeenCalledWith(
-      'default', 'error', 'Server error: Api error'
-    );
-  });
-
-  it('can create type', function () {
-
-    //we'll create this
-    var newType = {};
-    newType.name = 'Type name';
-    newType.description = 'And some description';
-
-    //mock repo
-    var repo = {};
-    repo.create = jasmine.createSpy('create type')
-      .andCallFake(function(){
-        var result = angular.copy(promise);
-        result.catch = function(c){c({status: 200})};
-        result.error = function(c){};
-        result.success = function(c){c(newType)}; //returns new type on success
-        return result;
-    });
-
-    //init controller
-    deps.TypeRepository = repo;
-    controller('ContentTypesCtrl', deps);
-
-    //mock form
-    var form = {shift: {}};
-    form.$invalid = false;
-    form.shift.clearBackendErrors = jasmine.createSpy('clear backend errors');
-    form.shift.clearSubmitted = jasmine.createSpy('clear submit state');
-    form.$setPristine = jasmine.createSpy('clear frontend errors');
-    scope.newTypeForm = form;
-
-    //now create
-    scope.showForm();
-    scope.newType = newType;
-    scope.createType();
-
-    //assert repo called
-    expect(repo.create).toHaveBeenCalledWith(newType);
-
-    //assert result growled
-    expect(notifications.growl).toHaveBeenCalledWith('Added content type');
-
-    //assert input rolled back (async)
-    timeout(function(){
-      expect(scope.newType.name).toBeUndefined();
-      expect(scope.newType.description).toBeUndefined();
-
-      //assert form cleared of errors & submit state
-      expect(form.shift.clearBackendErrors).toHaveBeenCalled();
-      expect(form.shift.clearSubmitted).toHaveBeenCalled();
-      expect(form.$setPristine).toHaveBeenCalled();
-
-      //and hidden
       expect(scope.formVisible).toBe(false);
+      scope.showForm();
+      expect(scope.formVisible).toBe(true);
+    });
 
-    }, 0);
+    it('can hide form and rollback data', function(){
+      controller('ContentTypesCtrl', deps);
 
-  });
+      //mock form
+      var form = {shift: {}};
+      form.shift.clearBackendErrors = jasmine.createSpy('clear errors');
+      form.shift.clearSubmitted = jasmine.createSpy('clear sumit');
+      form.$setPristine = jasmine.createSpy('set clear');
+      scope.newTypeForm = form;
+
+      scope.showForm();
+      scope.newType.name = 'some name';
+      scope.newType.description = 'some description';
+
+      scope.hideForm();
+      expect(scope.newType.name).toBe('');
+      expect(scope.newType.description).toBe('');
+    });
+
+    it('cancels type creation if form invalid', function () {
+      controller('ContentTypesCtrl', deps);
+
+      //mock form
+      scope.newTypeForm = {};
+      scope.newTypeForm.$invalid = true;
+
+      expect(scope.createType()).toBeUndefined();
+    });
+
+    it('can create type and handle validation errors', function(){
+
+      //mock backend validation errors
+      var backendValidationErrors = {name: ['Name errors']};
+
+      //mock repo
+      var repo = {};
+      repo.create = jasmine.createSpy('create type')
+        .andCallFake(function(){
+          var result = angular.copy(promise);
+          result.catch = function(c){c({
+            status: 409,
+            data: backendValidationErrors
+          })};
+          result.success = function(){}; //do nothing
+          return result;
+      });
+
+      deps.TypeRepository = repo;
+      controller('ContentTypesCtrl', deps);
+
+      //mock form
+      var form = {shift: {}};
+      form.$invalid = false;
+      form.shift.setBackendErrors = jasmine.createSpy('set backend errors');
+      scope.newTypeForm = form;
+
+      //now create
+      scope.createType();
+
+      //assert validation errors set
+      expect(form.shift.setBackendErrors).toHaveBeenCalledWith(
+        backendValidationErrors
+      );
+
+    });
+
+    it('can create type and handle 404', function () {
+      //mock repo
+      var repo = {};
+      repo.create = jasmine.createSpy('create type')
+        .andCallFake(function(){
+          var result = angular.copy(promise);
+          result.catch = function(c){c({status: 404})};
+          result.success = function(){};
+
+          return result;
+      });
+
+      deps.TypeRepository = repo;
+      controller('ContentTypesCtrl', deps);
+
+      //now create
+      scope.createType();
+
+      //assert error set
+      expect(notifications.send).toHaveBeenCalledWith(
+        'default', 'error', 'Server error: Not found'
+      );
+    });
+
+    it('can create type and catch 500', function () {
+
+      //mock repo
+      var repo = {};
+      repo.create = jasmine.createSpy('create type')
+        .andCallFake(function(){
+          var result = angular.copy(promise);
+          result.catch = function(c){c({status: 500})};
+          result.error = function(c){c({content: 'Api error'})};
+          result.success = function(){};
+
+          return result;
+      });
+
+      deps.TypeRepository = repo;
+      controller('ContentTypesCtrl', deps);
+
+      //now create
+      scope.createType();
+
+      //assert error set
+      expect(notifications.send).toHaveBeenCalledWith(
+        'default', 'error', 'Server error: Api error'
+      );
+    });
+
+    it('can create type', function () {
+
+      //we'll create this
+      var newType = {};
+      newType.name = 'Type name';
+      newType.description = 'And some description';
+
+      //mock repo
+      var repo = {};
+      repo.create = jasmine.createSpy('create type')
+        .andCallFake(function(){
+          var result = angular.copy(promise);
+          result.catch = function(c){c({status: 200})};
+          result.error = function(c){};
+          result.success = function(c){c(newType)}; //returns new type on success
+          return result;
+      });
+
+      //init controller
+      deps.TypeRepository = repo;
+      controller('ContentTypesCtrl', deps);
+
+      //mock form
+      var form = {shift: {}};
+      form.$invalid = false;
+      form.shift.clearBackendErrors = jasmine.createSpy('clear backend errors');
+      form.shift.clearSubmitted = jasmine.createSpy('clear submit state');
+      form.$setPristine = jasmine.createSpy('clear frontend errors');
+      scope.newTypeForm = form;
+
+      //now create
+      scope.showForm();
+      scope.newType = newType;
+      scope.createType();
+
+      //assert repo called
+      expect(repo.create).toHaveBeenCalledWith(newType);
+
+      //assert result growled
+      expect(notifications.growl).toHaveBeenCalledWith('Added content type');
+
+      //assert input rolled back (async)
+      timeout(function(){
+        expect(scope.newType.name).toBeUndefined();
+        expect(scope.newType.description).toBeUndefined();
+
+        //assert form cleared of errors & submit state
+        expect(form.shift.clearBackendErrors).toHaveBeenCalled();
+        expect(form.shift.clearSubmitted).toHaveBeenCalled();
+        expect(form.$setPristine).toHaveBeenCalled();
+
+        //and hidden
+        expect(scope.formVisible).toBe(false);
+
+      }, 0);
+
+    });
+  }); //add type
 
 
 
-
-});
+}); //tests end here
