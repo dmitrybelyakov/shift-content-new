@@ -21,13 +21,13 @@ describe('Module homepage', function() {
     expect(title.getText()).toContain('Manage feeds');
   });
 
-  it('should show types home screen', function() {
-    p.get('types/');
-    var t = p.findElement(prot.By.css('table.pageHeader td.title'));
-    p.waitForAngular();
-    expect(t.getText()).toContain('Content types');
-
-
-  }, 5000);
+//  it('should show types home screen', function() {
+//    p.get('types/');
+//    var t = p.findElement(prot.By.css('table.pageHeader td.title'));
+//    p.waitForAngular();
+//    expect(t.getText()).toContain('Content types');
+//
+//
+//  }, 5000);
 
 });

@@ -216,8 +216,8 @@ describe('ContentTypesCtrl: ', function () {
     scope.newType.description = 'some description';
 
     scope.hideForm();
-    expect(scope.newType.name).toBeUndefined();
-    expect(scope.newType.description).toBeUndefined();
+    expect(scope.newType.name).toBe('');
+    expect(scope.newType.description).toBe('');
   });
 
   it('cancels type creation if form invalid', function () {
@@ -267,6 +267,30 @@ describe('ContentTypesCtrl: ', function () {
 
   });
 
+  it('can create type and handle 404', function () {
+    //mock repo
+    var repo = {};
+    repo.create = jasmine.createSpy('create type')
+      .andCallFake(function(){
+        var result = angular.copy(promise);
+        result.catch = function(c){c({status: 404})};
+        result.success = function(){};
+
+        return result;
+    });
+
+    deps.TypeRepository = repo;
+    controller('ContentTypesCtrl', deps);
+
+    //now create
+    scope.createType();
+
+    //assert error set
+    expect(notifications.send).toHaveBeenCalledWith(
+      'default', 'error', 'Server error: Not found'
+    );
+  });
+
   it('can create type and catch 500', function () {
 
     //mock repo
@@ -292,7 +316,6 @@ describe('ContentTypesCtrl: ', function () {
       'default', 'error', 'Server error: Api error'
     );
   });
-
 
   it('can create type', function () {
 

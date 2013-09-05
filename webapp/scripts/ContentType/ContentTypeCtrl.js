@@ -11,9 +11,11 @@ app.controller('ContentTypeCtrl', function (
   fieldTypes,
   TypeRepository,
   NotificationService,
+  $window,
+  $timeout,
   $log) {
 
-  var _ = window._;
+  var _ = $window._;
   var repository = TypeRepository;
   var notifications = NotificationService;
 
@@ -33,10 +35,19 @@ app.controller('ContentTypeCtrl', function (
 
   //rollback data and hide form
   $scope.hideTypeForm = function(){
+
+    //hide
     $scope.typeFormVisible = false;
     $scope.typeFormProgress = false;
+
+    //roll back
     $scope.type.name = $scope.typeMemory.name;
     $scope.type.description = $scope.typeMemory.description;
+
+    //clear form state
+    $scope.editTypeForm.shift.clearBackendErrors();
+    $scope.editTypeForm.shift.clearSubmitted();
+    $scope.editTypeForm.$setPristine();
   };
 
   //save type and handle response
@@ -44,7 +55,6 @@ app.controller('ContentTypeCtrl', function (
     if($scope.editTypeForm.$invalid) {
       return;
     }
-
     //submit request
     $scope.typeFormProgress = true;
     var promise = repository.update($scope.type);
@@ -57,21 +67,40 @@ app.controller('ContentTypeCtrl', function (
       }
     });
 
+    //catch not found
+    var notFound;
+    promise.catch(function(response){
+      if(response.status === 404) {
+        notFound = true;
+      }
+    });
+
     //handle errors
     promise.error(function(apiException){
-      $scope.typeFormProgress = false;
+      $timeout(function(){
+        $scope.typeFormProgress = false;
+      });
 
+
+      var message = 'Server error';
+
+      //failed validation
       if(validationErrors) {
-        //server validation
         $scope.editTypeForm.shift.setBackendErrors(validationErrors);
-      } else {
-        //server exception
-        var message = 'Server error';
-        if(apiException.content) {
-          message += ': '+ apiException.content;
-        }
+        return;
+      }
+
+      if(notFound) {
+        message += ': Not found';
         notifications.send('typeMessages', 'error', message);
       }
+
+      if(apiException.content) {
+        message += ': '+ apiException.content;
+        notifications.send('typeMessages', 'error', message);
+      }
+
+
     });
 
     //handle success

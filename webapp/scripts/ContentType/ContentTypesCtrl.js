@@ -78,8 +78,8 @@ app.controller('ContentTypesCtrl', function (
 
   //type
   $scope.newType = {
-    name: undefined,
-    description: undefined
+    name: '',
+    description: ''
   };
 
   $scope.showForm = function() {
@@ -93,8 +93,8 @@ app.controller('ContentTypesCtrl', function (
     $scope.formProgress = false;
 
     //rollback
-    $scope.newType.name = undefined;
-    $scope.newType.description = undefined;
+    $scope.newType.name = '';
+    $scope.newType.description = '';
 
     //set clean
     $scope.newTypeForm.shift.clearBackendErrors();
@@ -123,24 +123,36 @@ app.controller('ContentTypesCtrl', function (
       }
     });
 
+    //catch not found
+    var notFound = false;
+    promise.catch(function(response){
+      if(response.status === 404) {
+        notFound = true;
+      }
+    });
+
     //handle errors
     promise.error(function(apiException){
       $timeout(function(){ //timeout to test
         $scope.formProgress = false;
       }, 0);
 
-
+      //server validation
       if(validationErrors) {
-        //server validation
         $scope.newTypeForm.shift.setBackendErrors(validationErrors);
-      } else {
-        //server exception
-        var message = 'Server error';
-        if(apiException.content) {
-          message += ': '+ apiException.content;
-        }
-        notifications.send('default', 'error', message);
+        return;
       }
+
+      //errors
+      var message = 'Server error';
+      if(notFound) {
+        message += ': Not found';
+      }
+      else if(apiException.content) {
+        message += ': '+ apiException.content;
+      }
+      notifications.send('default', 'error', message);
+
     });
 
     //handle success
