@@ -1,3 +1,6 @@
+'use strict';
+var util = require('util');
+
 describe('Module homepage', function() {
   var p, prot;
 
@@ -17,5 +20,14 @@ describe('Module homepage', function() {
     var title = p.findElement(prot.By.css('table.pageHeader td.title'));
     expect(title.getText()).toContain('Manage feeds');
   });
+
+  it('should show types home screen', function() {
+    p.get('types/');
+    var t = p.findElement(prot.By.css('table.pageHeader td.title'));
+    p.waitForAngular();
+    expect(t.getText()).toContain('Content types');
+
+
+  }, 5000);
 
 });

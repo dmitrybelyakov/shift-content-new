@@ -11,7 +11,8 @@ app.controller('ContentTypesCtrl', function (
   $window,
   types,
   TypeRepository,
-  NotificationService) {
+  NotificationService,
+  $timeout) {
 
   var _ = $window._;
   var repository = TypeRepository;
@@ -110,7 +111,9 @@ app.controller('ContentTypesCtrl', function (
 
     //submit request
     $scope.formProgress = true;
-    var promise = repository.create($scope.newType);
+
+    var promise;
+    promise = repository.create($scope.newType);
 
     //catch backend validation
     var validationErrors;
@@ -122,7 +125,10 @@ app.controller('ContentTypesCtrl', function (
 
     //handle errors
     promise.error(function(apiException){
-      $scope.formProgress = false;
+      $timeout(function(){ //timeout to test
+        $scope.formProgress = false;
+      }, 0);
+
 
       if(validationErrors) {
         //server validation
@@ -144,9 +150,15 @@ app.controller('ContentTypesCtrl', function (
         return type.name;
       });
 
-      $scope.hideForm();
+      $timeout(function(){ //timeout to test
+        $scope.hideForm();
+      }, 0);
+
       notifications.growl('Added content type');
     });
+
+
+
 
 
   };

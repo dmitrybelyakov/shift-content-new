@@ -4,6 +4,7 @@ describe('ContentTypesCtrl: ', function () {
 
   var scope;
   var controller;
+  var timeout;
 
   var deps; //controller dependencies
   var promise; //promise stub
@@ -14,9 +15,10 @@ describe('ContentTypesCtrl: ', function () {
   beforeEach(module('shiftContentApp'));
 
   //inject dependencies
-  beforeEach(inject(function($rootScope, $controller){
+  beforeEach(inject(function($rootScope, $controller, $timeout){
     scope = $rootScope.$new();
     controller = $controller;
+    timeout = $timeout;
   }));
 
   //create controller
@@ -166,6 +168,31 @@ describe('ContentTypesCtrl: ', function () {
    * Add new type
    */
 
+  it('marks form progress while working', function () {
+
+    //mock repo
+    var repo = {};
+    repo.create = jasmine.createSpy('create type')
+      .andCallFake(function(){
+        var result = angular.copy(promise);
+        result.catch = function(c){c({status: 500})};
+        result.error = function(c){c({content: ''})};
+        result.success = function(){};
+        return result;
+    });
+
+    deps.TypeRepository = repo;
+    controller('ContentTypesCtrl', deps);
+
+
+    expect(scope.formProgress).toBe(false); //initially active
+    scope.createType();
+    expect(scope.formProgress).toBe(true); //progress marked
+    timeout(function(){
+      expect(scope.formProgress).toBe(false); //back to active
+    },0);
+  });
+
   it('can show new type form', function(){
     controller('ContentTypesCtrl', deps);
 
@@ -266,14 +293,66 @@ describe('ContentTypesCtrl: ', function () {
     );
   });
 
-//
-//  it('can create type', function () {
-//
-//  });
-//
-//  it('marks form progress while working', function () {
-//
-//  });
+
+  it('can create type', function () {
+
+    //we'll create this
+    var newType = {};
+    newType.name = 'Type name';
+    newType.description = 'And some description';
+
+    //mock repo
+    var repo = {};
+    repo.create = jasmine.createSpy('create type')
+      .andCallFake(function(){
+        var result = angular.copy(promise);
+        result.catch = function(c){c({status: 200})};
+        result.error = function(c){};
+        result.success = function(c){c(newType)}; //returns new type on success
+        return result;
+    });
+
+    //init controller
+    deps.TypeRepository = repo;
+    controller('ContentTypesCtrl', deps);
+
+    //mock form
+    var form = {shift: {}};
+    form.$invalid = false;
+    form.shift.clearBackendErrors = jasmine.createSpy('clear backend errors');
+    form.shift.clearSubmitted = jasmine.createSpy('clear submit state');
+    form.$setPristine = jasmine.createSpy('clear frontend errors');
+    scope.newTypeForm = form;
+
+    //now create
+    scope.showForm();
+    scope.newType = newType;
+    scope.createType();
+
+    //assert repo called
+    expect(repo.create).toHaveBeenCalledWith(newType);
+
+    //assert result growled
+    expect(notifications.growl).toHaveBeenCalledWith('Added content type');
+
+    //assert input rolled back (async)
+    timeout(function(){
+      expect(scope.newType.name).toBeUndefined();
+      expect(scope.newType.description).toBeUndefined();
+
+      //assert form cleared of errors & submit state
+      expect(form.shift.clearBackendErrors).toHaveBeenCalled();
+      expect(form.shift.clearSubmitted).toHaveBeenCalled();
+      expect(form.$setPristine).toHaveBeenCalled();
+
+      //and hidden
+      expect(scope.formVisible).toBe(false);
+
+    }, 0);
+
+  });
+
+
 
 
 });
