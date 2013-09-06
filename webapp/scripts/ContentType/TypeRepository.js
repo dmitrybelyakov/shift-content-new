@@ -6,7 +6,7 @@ var app = angular.module('shiftContentApp');
  * Content types repository
  * Used to perform basic persistence operations by communicating with backend.
  */
-app.factory('TypeRepository', function ($http, $angularCacheFactory) {
+app.factory('TypeRepository', function ($http, $angularCacheFactory, $window) {
 
   //configure cache
   $angularCacheFactory('contentTypes', {
@@ -19,7 +19,7 @@ app.factory('TypeRepository', function ($http, $angularCacheFactory) {
   var cache = $angularCacheFactory.get('contentTypes');
   cache.removeAll();
 
-  var _ = window._;
+  var _ = $window._;
   var baseUrl = '/api/content/types/';
   var Repository = {};
 

@@ -52,13 +52,6 @@ describe('ContentTypesCtrl: ', function () {
     };
   });
 
-  //IMPORTANT: reset state
-  afterEach(function(){
-    deps.TypeRepository = {};
-    deps.NotificationService.send.reset();
-    deps.NotificationService.growl.reset();
-  });
-
 
   //-------------------------------------------------------------------------
 
