@@ -10,6 +10,9 @@ module.exports = function(config) {
     // testing framework to use (jasmine/mocha/qunit/...)
     frameworks: ['jasmine'],
 
+    //list of reporters
+    reporters: ['progress', 'growl', 'coverage'],
+
     // list of files / patterns to load in the browser
     files: [
 
@@ -44,7 +47,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: false,
+    autoWatch: true,
 
 
     // Start these browsers, currently available:
@@ -62,6 +65,19 @@ module.exports = function(config) {
     singleRun: false,
 
     // Use colors
-    colors: true
+    colors: true,
+
+    //preprocessors
+    preprocessors: {
+      '../scripts/**/**/**/*.js': ['coverage'] //cover those
+    },
+
+    //put coverage jere
+    coverageReporter: {
+       type : 'html',
+       dir : '../../.tmp/test'
+     }
+
+
   });
 };

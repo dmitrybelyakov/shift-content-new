@@ -269,6 +269,10 @@ describe('ContentTypeCtrl: ', function () {
    */
   describe('Fields manager', function(){
 
+    it('runs only this one test', function () {
+      expect(true).toBe(true);
+    });
+
   });
 
 
