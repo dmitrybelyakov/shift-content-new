@@ -15,7 +15,7 @@ app.config(function ($routeProvider, viewsBase) {
     controller: 'ContentTypesCtrl',
     templateUrl: views + '/content-types/list.html',
     resolve: {
-      types: ['TypeRepository', function(TypeRepository){
+      types: ['TypeRepository', '$timeout', function(TypeRepository, $timeout){
         return TypeRepository.query();
       }]
     }

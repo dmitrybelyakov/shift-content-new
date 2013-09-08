@@ -1,0 +1,15 @@
+{
+  "container": {"id": "newTypeForm"},
+  "open": {"partialLinkText": "Add"},
+  "close": {"partialLinkText": "Cancel"},
+  "close2": {"partialLinkText": "Discard"},
+  "submit": {"css": "#newTypeForm input[type=\"submit\"]"},
+  "name": {
+    "input": {"name": "name"},
+    "errors": {"id": "nameErrors"}
+  },
+  "description": {
+    "input": {"name": "description"},
+    "errors": {"id": "descriptionErrors"}
+  }
+}

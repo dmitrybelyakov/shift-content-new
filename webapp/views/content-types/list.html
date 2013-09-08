@@ -17,7 +17,7 @@
 <!-- /Notifications -->
 
 <!-- New type form -->
-<div class="formContainer add" data-ng-show="formVisible">
+<div class="formContainer add" data-ng-show="formVisible" id="newTypeForm">
     <div class="progress" data-ng-show="formProgress" data-ng-class="{animate: formProgress}"><span>Working...</span></div>
     <form name="newTypeForm" data-ng-submit="createType()" class="disabled" novalidate shift-form>
 
@@ -35,7 +35,7 @@
             required
             autofocus>
 
-          <ul class="errors" data-ng-show="newTypeForm.shift.fieldErrors('name')">
+          <ul class="errors" id="nameErrors" data-ng-show="newTypeForm.shift.fieldErrors('name')">
             <li data-ng-show="newTypeForm.name.$error.required">Name is required!</li>
             <li data-ng-show="newTypeForm.name.$error.minlength">Too short!</li>
             <li data-ng-repeat="error in newTypeForm.shift.backendErrors.name">{{error.message}}<span data-ng-hide="$last">,</span></li>
@@ -55,7 +55,7 @@
             data-ng-model="newType.description"
             data-ng-class="{invalid: newTypeForm.shift.fieldErrors('description')}">
 
-          <ul class="errors" data-ng-show="newTypeForm.shift.fieldErrors('description')">
+          <ul class="errors" id="descriptionErrors" data-ng-show="newTypeForm.shift.fieldErrors('description')">
             <li data-ng-repeat="error in newTypeForm.formErrors.description">{{error}}<span data-ng-hide="$last">,</span></li>
             <li data-ng-repeat="error in newTypeForm.shift.backendErrors.description">{{error.message}}<span data-ng-hide="$last">,</span></li>
           </ul>
@@ -70,8 +70,7 @@
 
         <div class="controls">
           <input type="submit" value="Add type">
-          <!--<input type="submit" value="Add type" data-ng-disabled="newTypeForm.$invalid">-->
-          <a href="" class="button inactive" data-ng-click="hideForm()">Cancel add</a>
+          <a href="" class="button inactive" data-ng-click="hideForm()">Discard</a>
         </div>
     </form>
 </div>

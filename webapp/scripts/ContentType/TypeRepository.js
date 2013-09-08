@@ -6,13 +6,13 @@ var app = angular.module('shiftContentApp');
  * Content types repository
  * Used to perform basic persistence operations by communicating with backend.
  */
-app.factory('TypeRepository', function ($http, $angularCacheFactory, $window) {
+app.factory('TypeRepository', function ($http, $angularCacheFactory, $window, $q, $timeout) {
 
   //configure cache
   $angularCacheFactory('contentTypes', {
     maxAge: 90000,
     cacheFlushInterval: 600000,
-    aggressiveDelete: true,
+    aggressiveDelete: false,
     storageMode: 'localStorage'
   });
 
@@ -34,10 +34,12 @@ app.factory('TypeRepository', function ($http, $angularCacheFactory, $window) {
     var id = type.id.toString();
     cache.put(id, type);
     if(cache.get('all')) {
-      cache.put('all', _.reject(cache.get('all'), function(e){
+      var list = cache.get('all');
+      list = _.reject(cache.get('all'), function(e){
         return e.id === type.id;
-      }));
-      cache.get('all').push(type);
+      });
+      list.push(type);
+      cache.put('all', list);
     }
   };
 
@@ -54,15 +56,31 @@ app.factory('TypeRepository', function ($http, $angularCacheFactory, $window) {
     var id = type.id.toString();
     cache.remove(id);
     if(cache.get('all')) {
-      cache.put('all', _.reject(cache.get('all'), function(e){
+      var list = cache.get('all');
+      list = _.reject(cache.get('all'), function(e){
         return e.id === type.id;
-      }));
+      });
+      cache.put('all', list);
     }
   };
 
   /*
    * Types CRUD
    */
+
+  Repository.test = function(){
+
+    if(cache.get('all')) {
+      return cache.get('all');
+    } else {
+      var promise = $http.get(baseUrl)
+        .then(function(response){
+          return response.data;
+        });
+
+      return promise;
+    }
+  };
 
 
   //get by id
@@ -83,13 +101,17 @@ app.factory('TypeRepository', function ($http, $angularCacheFactory, $window) {
 
   //query to get all
   Repository.query = function(){
+
     if(cache.get('all')) {
       return cache.get('all');
     } else {
-      return $http.get(baseUrl).then(function(response){
-        Repository.cache.list(response.data);
-        return response.data;
-      });
+      return $http.get(baseUrl)
+        .success(function(data){
+          Repository.cache.list(data);
+        })
+        .then(function(response){
+          return response.data;
+        });
     }
   };
 
