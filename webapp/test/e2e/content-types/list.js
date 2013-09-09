@@ -1,36 +1,4 @@
 'use strict';
-var po = function(protractor, map){
-
-  //external?
-  if(typeof map === 'string') {
-    var path = require('path');
-    map = require(path.resolve(__dirname, map));
-  }
-
-  var getter = function(by, what){
-    return function(){
-      return protractor.getInstance()
-        .findElement(protractor.By[by](what));
-    };
-  };
-
-  var traverse = function(map){
-    var po = {};
-    for(var property in map) {
-      var by = Object.keys(map[property])[0];
-      var what = map[property][by];
-      if(typeof what === 'string') {
-        po[property] = new getter(by, what);
-      } else if(typeof what === 'object') {
-        po[property] = traverse(map[property]);
-      }
-    }
-    return po;
-  };
-
-  return traverse(map);
-};
-
 describe('List: ', function() {
   var p, ptor;
 
@@ -53,24 +21,25 @@ describe('List: ', function() {
 
     var form;
 
-    //construct form object
+
     beforeEach(function(){
-      form = new po(ptor, 'map.json');
-//      var map = {
-//        container: {id: 'newTypeForm'},
-//        open: {partialLinkText: 'Add'},
-//        close: {partialLinkText: 'Cancel'},
-//        close2: {partialLinkText: 'Discard'},
-//        submit: {css: '#newTypeForm input[type="submit"]'},
-//        name: {
-//          input: {name: 'name'},
-//          errors: {id: 'nameErrors'}
-//        },
-//        description: {
-//          input: {name: 'description'},
-//          errors: {id: 'descriptionErrors'}
-//        }
-//      };
+      var map = {
+        container: {id: 'newTypeForm'},
+        open: {partialLinkText: 'Add'},
+        close: {partialLinkText: 'Cancel'},
+        close2: {partialLinkText: 'Discard'},
+        submit: {css: '#newTypeForm input[type="submit"]'},
+        name: {
+          input: {name: 'name'},
+          errors: {id: 'nameErrors'}
+        },
+        description: {
+          input: {name: 'description'},
+          errors: {id: 'descriptionErrors'}
+        }
+      };
+
+      form = ptor.po(map);
     });
 
 
@@ -96,9 +65,8 @@ describe('List: ', function() {
       form.submit().click();
 
       expect(form.name.errors().isDisplayed()).toBe(true);
-
-      var required = form.name.errors()
-        .findElement(ptor.By.css('li:first-child'));
+      var required = ptor.By.css('li:first-child');
+      required = form.name.errors().findElement(required);
       expect(required.isDisplayed()).toBe(true);
       expect(required.getText()).toContain('required');
 
