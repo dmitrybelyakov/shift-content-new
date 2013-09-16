@@ -192,7 +192,8 @@ module.exports = function (grunt) {
     },
     useminPrepare: {
       html: [
-        '<%= yo.dist %>/view-partials/*.html'
+        '<%= yo.dist %>/view-partials/*.html',
+        '<%= yo.dist %>/views/**/*.html'
       ],
       options: {
         dest: '<%= yo.dist %>'
@@ -201,7 +202,8 @@ module.exports = function (grunt) {
     usemin: {
       html: [
         '<%= yo.dist %>/{,*/}*.{html,phtml}',
-        '<%= yo.dist %>/view-partials/{,*/}*.{html,phtml}'
+        '<%= yo.dist %>/view-partials/{,*/}*.{html,phtml}',
+        '<%= yo.dist %>/views/{,*/}*.{html,phtml}'
       ],
       css: ['<%= yo.distTemp %>/css/{,*/}*.css'],
       options: {
