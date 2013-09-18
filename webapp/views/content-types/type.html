@@ -159,7 +159,7 @@
     </tr>
 </table>
 <!-- /Subsection: custom fields -->
-<img src="/modules/shift-content-new/img/test.png" alt=""/>
+
 <!-- Edit type form -->
 <div id="fieldMessages" shift-notifications></div>
 <div class="formContainer add" data-ng-show="fieldFormVisible">
@@ -171,13 +171,16 @@
         <label for="fieldType">Field type</label>
         <div>
           <shift-select
+            options = 'fields'
             name ="type"
             id="fieldTypeNew"
-            ng-model="newField.typeTypeNew"
-            ng-options="field.shortName as field.name for field in fieldTypes">
+            ng-model="newField.type">
             <option value="">Please select...</option>
           </shift-select>
         </div>
+        This is in model {{newField.type}}
+      </div>
+
 
       <!-- Field type-->
       <div class="field">

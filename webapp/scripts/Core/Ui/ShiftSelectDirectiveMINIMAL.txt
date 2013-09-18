@@ -21,11 +21,8 @@ app.directive('shiftSelect', function ($document, $timeout) {
       with actual values and binding is done in the linking function.
      */
 
-      $scope.modelValue = undefined;
-      //this is child scope (not the parent controller scope)
       $scope.logValue = function(){
         console.log('now log');
-        console.log($scope.modelValue);
       };
 
 
@@ -46,26 +43,13 @@ app.directive('shiftSelect', function ($document, $timeout) {
 
       // Specify how UI should be updated
       ngModel.$render = function() {
-        var value = ngModel.$viewValue || '';
-        editable.html(value);
-        scope.modelValue = value;
+        editable.html(ngModel.$viewValue || '');
       };
-
-      //watch for model changes
-      scope.$watch('modelValue', function(newValue, oldValue) {
-           if (newValue) {
-             //watch for controller changes here and update NgModel
-             console.log('I see dead people');
-           }
-
-       });
 
       // Listen for change events to enable binding
       editable.on('blur keyup change', function() {
         console.log('changed');
         scope.$apply(read);
-        scope.modelValue = ngModel.$viewValue; //reflect in local scope
-        scope.$apply('logValue()');
       });
 
 

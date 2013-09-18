@@ -1,0 +1,124 @@
+'use strict';
+var app = angular.module('shiftContentApp');
+
+/**
+ * ShiftSelect directive
+ * Replaces standard select for backend forms.
+ */
+app.directive('shiftSelect', function ($document, $timeout) {
+  return {
+    restrict: 'EA',
+    scope: {
+      content: '=options'
+    },
+    templateUrl: '/modules/shift-content-new/views/directives/form-select.html',
+    replace: true,
+    transclude: true,
+    require: '?ngModel',
+    controller: function($scope){
+
+      /*
+        Scope controls the behavior of the select replacement. All working
+        with actual values and binding is done in the linking function.
+       */
+
+      $scope.currentValue = '';
+      $scope.options = [];
+
+
+      $scope.optionsVisible = false;
+      $scope.toggleVisible = function(){
+        $scope.optionsVisible = !$scope.optionsVisible;
+      };
+
+      $scope.selectOption = function(option){
+        console.log('now select option');
+        console.log(option);
+      };
+
+
+    },
+    link: function(scope, element, attrs, ngModel) {
+      if(!ngModel) return; // do nothing if no ng-model
+
+      /*
+         Work with NgModel here to update bindings on the parent scope
+         and provide element validation with standard form validation means.
+
+         We can operate on NgModel directly rather than having a hidden
+         element.
+       */
+
+      var current = element.find('.current');
+      var hidden = element.find('.hidden');
+      var options = element.find('.options');
+
+      //on render
+//      ngModel.$render(function(){
+//        if(ngModel.$viewValue) {
+//          //scope.setValue(ngModel.$viewValue);
+//        }
+//      });
+
+
+      //show and calculate width, then hide
+      scope.toggleVisible();
+      $timeout(function(){
+        var width = Math.ceil(options.width());
+        current.width(width);
+        options.width(width);
+        scope.toggleVisible();
+      }, 200);
+
+      hidden.on('focus', function(){
+        scope.optionsVisible = true;
+        scope.$apply();
+      });
+
+      hidden.on('blur', function(){
+        $timeout(function(){
+          scope.optionsVisible = false;
+          scope.$apply();
+        }, 100);
+      });
+
+      current.on('click', function(){
+        hidden.trigger('focus');
+      });
+
+
+
+      //get transcluded options
+      $timeout(function() {
+
+
+
+        //add hardcoded
+        var hardcoded = options.find('option');
+        var el = angular.element(hardcoded[0]);
+          var option = {
+            name: el.html(),
+            value: null //hardcoded option with null value
+          };
+        scope.options.push(option);
+        hardcoded.each(function(i, el){
+          angular.element(el).remove();
+        });
+
+        //add from scope
+//        for(var i in scope.content) {
+//          var item = scope.content[i];
+//          var option = {
+//            name: item.name,
+//            value: item.id
+//          };
+//          scope.options.push(option);
+//        }
+
+      });
+
+
+
+    }
+  };
+});

@@ -331,6 +331,64 @@ div.content table.sectionHeader td.controls {
  * Select
  * HTML select replacement.
  */
+.shift-form-select {
+  position: relative;
+  display: inline-block;
+  width: auto;
+  cursor: pointer;
+  margin: 5px 0px;
 
+  .hidden {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 9px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    z-index: -1;
+  }
+
+  .current {
+    display: inline-block;
+    overflow: hidden;
+    display: inline-block;
+    border: 1px solid #cdcdcd;
+    background-color: #fff;
+    background-image: url('/modules/shift-kernel/img/backend/icon-picker-down.png');
+    background-position: right;
+    background-repeat: no-repeat;
+  }
+
+  .options {
+    position: absolute;
+    top: 24px;
+    left: 0px;
+    max-height: 200px;
+    overflow: scroll;
+    border: 1px solid #cdcdcd;
+  }
+
+  .option {
+    white-space: nowrap;
+    display: block;
+    background: #fff;
+    border: solid #cdcdcd;
+    border-width: 0px 0px 1px 0px;
+    &:hover {background: #4d9ae9; color: #fff}
+    &:last-of-type {border-bottom-width: 0px;}
+  }
+
+  .value {
+    display: block;
+    padding: 5px 35px 5px 5px;
+  }
+
+
+
+
+
+
+}
 
 

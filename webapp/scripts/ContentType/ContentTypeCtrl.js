@@ -118,14 +118,26 @@ app.controller('ContentTypeCtrl', function (
   /*
    * Manage fields
    */
-  $scope.fieldFormVisible = false;
+  $scope.fieldFormVisible = true;
   $scope.fieldFormProgress = false;
   $scope.fieldTypes = fieldTypes;
   $scope.newField = {
     name: undefined,
     property: undefined,
-    type: undefined
+    type: 'Some value'
   };
+
+
+
+  $scope.fields = [
+    {name: 'Some field', description: 'And some longer description', id: 1},
+    {name: 'Some field', description: 'And some longer description', id: 2},
+    {name: 'Some field', description: 'And some longer description', id: 3},
+    {name: 'Some field', description: 'And some longer description', id: 4},
+    {name: 'Some field', description: 'And some longer description', id: 5},
+    {name: 'Some field', description: 'And some longer description', id: 6},
+    {name: 'Some field', description: 'And some longer description', id: 7}
+  ];
 
   //show field form
   $scope.showFieldForm = function(){

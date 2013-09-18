@@ -1,0 +1,8 @@
+<div class="shift-form-select" contenteditable>
+  <span class="current">
+    <span class="value">123</span>
+  </span>
+  <div class="options" ng-show="optionsVisible" ng-transclude>
+    <div class="option" ng-repeat="option in options" ng-click="selectOption(option)"><span class="value">{{option.name}}</span></div>
+  </div>
+</div>
