@@ -1,4 +1,9 @@
-<div class="shift-form-select" ng-double-click="logValue()">
-  <div class="editable" contenteditable style="height: 100px; width: 500px; background: #fff"></div>
-  <a href="" ng-click="logValue()">now log</a>
+<div class="shift-form-select">
+  <span class="current">
+    <span class="value">123</span>
+  </span>
+  <input type="text" class="hidden">
+  <div class="options" ng-show="optionsVisible">
+    <div class="option" ng-repeat="option in options" ng-click="selectOption(option)"><span class="value">{{option.name}}</span></div>
+  </div>
 </div>

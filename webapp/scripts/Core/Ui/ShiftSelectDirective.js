@@ -28,6 +28,23 @@ app.directive('shiftSelect', function ($document, $timeout) {
         console.log($scope.modelValue);
       };
 
+      $scope.selectOption = function(option) {
+        $scope.modelValue = option.name;
+        console.log($scope.modelValue);
+      };
+
+      $scope.options = [
+        {name: 'Some field', description: 'And some longer description', id: 1},
+        {name: 'Some other', description: 'And some longer description', id: 2},
+        {name: 'Some another', description: 'And some longer description', id: 3},
+      ];
+
+      $scope.optionsVisible = false;
+      $scope.toggleVisible = function(){
+        $scope.optionsVisible = !$scope.optionsVisible;
+      };
+
+
 
     },
     link: function(scope, element, attrs, ngModel) {
@@ -41,6 +58,42 @@ app.directive('shiftSelect', function ($document, $timeout) {
          element.
        */
 
+      var current = element.find('.current');
+      var hidden = element.find('.hidden');
+      var options = element.find('.options');
+
+      //show and calculate width, then hide
+      scope.toggleVisible();
+      $timeout(function(){
+        var width = Math.ceil(options.width());
+        current.width(width);
+        options.width(width);
+        scope.toggleVisible();
+      }, 200);
+
+      hidden.on('focus', function(){
+        scope.optionsVisible = true;
+        scope.$apply();
+      });
+
+      hidden.on('blur', function(){
+        $timeout(function(){
+          scope.optionsVisible = false;
+          scope.$apply();
+        }, 100);
+      });
+
+      current.on('click', function(){
+        hidden.trigger('focus');
+      });
+
+
+      /*
+       Watch and update NgModel
+       */
+
+
+
       //get the editable
       var editable = element.find('.editable');
 
@@ -53,11 +106,8 @@ app.directive('shiftSelect', function ($document, $timeout) {
 
       //watch for model changes
       scope.$watch('modelValue', function(newValue, oldValue) {
-           if (newValue) {
-             //watch for controller changes here and update NgModel
-             console.log('I see dead people');
-           }
-
+        console.log('Detected model value update');
+        ngModel.$setViewValue(scope.modelValue);
        });
 
       // Listen for change events to enable binding
