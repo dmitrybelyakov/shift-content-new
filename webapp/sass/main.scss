@@ -362,11 +362,12 @@ div.content table.sectionHeader td.controls {
 
   .options {
     position: absolute;
-    top: 24px;
+    top: 31px;
     left: 0px;
     max-height: 200px;
     overflow: scroll;
     border: 1px solid #cdcdcd;
+    @include box-shadow(rgba(0,0,0,0.15) 1px 1px 2px);
   }
 
   .option {
@@ -375,13 +376,31 @@ div.content table.sectionHeader td.controls {
     background: #fff;
     border: solid #cdcdcd;
     border-width: 0px 0px 1px 0px;
-    &:hover {background: #4d9ae9; color: #fff}
+    padding: 7px 45px 5px 10px;
+    &:hover {background: #4d9ae9;}
     &:last-of-type {border-bottom-width: 0px;}
+  }
+
+  .current .value {
+    display: block;
+    padding: 7px 45px 7px 10px;
   }
 
   .value {
     display: block;
-    padding: 5px 35px 5px 5px;
+    margin-bottom: 2px;
+  }
+  .option:hover .value {
+    color: #fff;
+  }
+
+  .description {
+    display: block;
+    font-size: 11px;
+    color: #a7a7a7;
+  }
+  .option:hover .description {
+    color: rgba(255,255,255,0.5);
   }
 
 

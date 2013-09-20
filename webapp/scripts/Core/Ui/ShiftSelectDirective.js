@@ -22,6 +22,7 @@ app.directive('shiftSelect', function ($document, $timeout) {
      */
 
       $scope.modelValue = undefined;
+
       //this is child scope (not the parent controller scope)
       $scope.logValue = function(){
         console.log('now log');
@@ -33,10 +34,16 @@ app.directive('shiftSelect', function ($document, $timeout) {
         console.log($scope.modelValue);
       };
 
+      $scope.selectNullValue = function(){
+        $timeout(function(){
+          $scope.modelValue = $scope.options[0].name;
+        });
+      };
+
       $scope.options = [
-        {name: 'Some field', description: 'And some longer description', id: 1},
-        {name: 'Some other', description: 'And some longer description', id: 2},
-        {name: 'Some another', description: 'And some longer description', id: 3},
+        {name: 'Text field', description: 'And some longer description', id: 1},
+        {name: 'File field', description: 'And some longer description', id: 2},
+        {name: 'Media album field', description: 'And some longer description', id: 3}
       ];
 
       $scope.optionsVisible = false;
@@ -47,35 +54,48 @@ app.directive('shiftSelect', function ($document, $timeout) {
 
 
     },
+    /*
+     * Work with NgModel here to update bindings on the parent scope
+     * and provide element validation with standard form validation means.
+     *
+     * We can operate on NgModel directly rather than having a hidden
+     * element.
+     *
+     * Yet hidden element is useful for binding to its focus and blur events
+     * to show/hide options.
+     */
     link: function(scope, element, attrs, ngModel) {
       if(!ngModel) return; // do nothing if no ng-model
-
-      /*
-         Work with NgModel here to update bindings on the parent scope
-         and provide element validation with standard form validation means.
-
-         We can operate on NgModel directly rather than having a hidden
-         element.
-       */
 
       var current = element.find('.current');
       var hidden = element.find('.hidden');
       var options = element.find('.options');
 
-      //show and calculate width, then hide
-      scope.toggleVisible();
+      //push null value
       $timeout(function(){
-        var width = Math.ceil(options.width());
-        current.width(width);
-        options.width(width);
-        scope.toggleVisible();
-      }, 200);
 
+        var nullOption = element.find('option');
+        if(nullOption.length >= 1) {
+          var el = angular.element(nullOption[0]);
+          var option = {
+            name: el.html(),
+            value: null //hardcoded option with null value
+          };
+          scope.options.unshift(option);
+          nullOption.each(function(i, el){
+            angular.element(el).remove();
+          });
+        }
+      });
+
+
+      //show on focus
       hidden.on('focus', function(){
         scope.optionsVisible = true;
         scope.$apply();
       });
 
+      //hide on blur
       hidden.on('blur', function(){
         $timeout(function(){
           scope.optionsVisible = false;
@@ -83,25 +103,25 @@ app.directive('shiftSelect', function ($document, $timeout) {
         }, 100);
       });
 
+      //focus on click
       current.on('click', function(){
         hidden.trigger('focus');
       });
 
 
       /*
-       Watch and update NgModel
+       * Watch and update NgModel
        */
-
-
-
-      //get the editable
-      var editable = element.find('.editable');
 
       // Specify how UI should be updated
       ngModel.$render = function() {
+        console.log('Setup directive and render');
         var value = ngModel.$viewValue || '';
-        editable.html(value);
-        scope.modelValue = value;
+        if(!value) {
+          scope.selectNullValue();
+        } else {
+          scope.modelValue = value;
+        }
       };
 
       //watch for model changes
@@ -109,22 +129,6 @@ app.directive('shiftSelect', function ($document, $timeout) {
         console.log('Detected model value update');
         ngModel.$setViewValue(scope.modelValue);
        });
-
-      // Listen for change events to enable binding
-      editable.on('blur keyup change', function() {
-        console.log('changed');
-        scope.$apply(read);
-        scope.modelValue = ngModel.$viewValue; //reflect in local scope
-        scope.$apply('logValue()');
-      });
-
-
-      function read(){
-        var html = editable.html();
-        ngModel.$setViewValue(html);
-      };
-
-
 
 
 

@@ -118,13 +118,13 @@ app.controller('ContentTypeCtrl', function (
   /*
    * Manage fields
    */
-  $scope.fieldFormVisible = true;
+  $scope.fieldFormVisible = false;
   $scope.fieldFormProgress = false;
   $scope.fieldTypes = fieldTypes;
   $scope.newField = {
     name: undefined,
     property: undefined,
-    type: 'Some value'
+    type: undefined
   };
 
 

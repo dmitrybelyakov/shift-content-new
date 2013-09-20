@@ -1,9 +1,12 @@
-<div class="shift-form-select">
+<div class="shift-form-select" ng-transclude>
   <span class="current">
-    <span class="value">123</span>
+    <span class="value">{{modelValue}}</span>
   </span>
   <input type="text" class="hidden">
   <div class="options" ng-show="optionsVisible">
-    <div class="option" ng-repeat="option in options" ng-click="selectOption(option)"><span class="value">{{option.name}}</span></div>
+    <div class="option" ng-repeat="option in options" ng-click="selectOption(option)">
+      <span class="value">{{option.name}}</span>
+      <span class="description">{{option.description}}</span>
+    </div>
   </div>
 </div>
