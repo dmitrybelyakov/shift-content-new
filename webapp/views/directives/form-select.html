@@ -4,7 +4,7 @@
   </span>
   <input type="text" class="hidden">
   <div class="options" ng-show="optionsVisible">
-    <div class="option" ng-repeat="option in options" ng-click="selectOption(option)">
+    <div class="option" ng-repeat="option in options" ng-click="selectOption(option)" ng-class="{nulloption: option.isNullOption}">
       <span class="value">{{option.name}}</span>
       <span class="description">{{option.description}}</span>
     </div>

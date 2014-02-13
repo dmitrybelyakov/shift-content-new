@@ -367,6 +367,7 @@ div.content table.sectionHeader td.controls {
     max-height: 200px;
     overflow: scroll;
     border: 1px solid #cdcdcd;
+    background: #fff;
     @include box-shadow(rgba(0,0,0,0.15) 1px 1px 2px);
   }
 
@@ -377,8 +378,10 @@ div.content table.sectionHeader td.controls {
     border: solid #cdcdcd;
     border-width: 0px 0px 1px 0px;
     padding: 7px 45px 5px 10px;
-    &:hover {background: #4d9ae9;}
+    &:hover {background: #4d9ae9; @include animation(fadeIn 0.1s);}
     &:last-of-type {border-bottom-width: 0px;}
+    &.nulloption {background: #e3eef5}
+    &.nulloption:hover {background: #4d9ae9}
   }
 
   .current .value {

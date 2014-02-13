@@ -74,7 +74,7 @@ class UniqueNameValidatorTest extends TestCase
             ->andReturn($foundType);
 
         //mock locator
-        $locator = Mockery::mock('Zend\Di\Locator');
+        $locator = Mockery::mock('Zend\Di\Di');
         $locator->shouldReceive('get')
             ->with('ShiftContentNew\Type\TypeService')
             ->andReturn($service);
@@ -99,7 +99,7 @@ class UniqueNameValidatorTest extends TestCase
         $service->shouldReceive('getTypeByName')->with($name);
 
         //mock locator
-        $locator = Mockery::mock('Zend\Di\Locator');
+        $locator = Mockery::mock('Zend\Di\Di');
         $locator->shouldReceive('get')
             ->with('ShiftContentNew\Type\TypeService')
             ->andReturn($service);
@@ -134,7 +134,7 @@ class UniqueNameValidatorTest extends TestCase
             ->andReturn($foundType);
 
         //mock locator
-        $locator = Mockery::mock('Zend\Di\Locator');
+        $locator = Mockery::mock('Zend\Di\Di');
         $locator->shouldReceive('get')
             ->with('ShiftContentNew\Type\TypeService')
             ->andReturn($service);

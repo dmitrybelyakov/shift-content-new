@@ -26,7 +26,7 @@
 namespace ShiftContentNew\Type\Field\Attribute\Validator;
 use Zend\Validator\AbstractValidator;
 
-use Zend\Di\Locator;
+use Zend\Di\Di as Locator;
 
 /**
  * Attribute class validator

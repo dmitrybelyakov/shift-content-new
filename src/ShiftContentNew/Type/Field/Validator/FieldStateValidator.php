@@ -26,7 +26,7 @@
 namespace ShiftContentNew\Type\Field\Validator;
 use Zend\Validator\AbstractValidator;
 
-use Zend\Di\Locator;
+use Zend\Di\Di as Locator;
 use ShiftContentNew\Type\Field\Field;
 use ShiftContentNew\Exception\ConfigurationException;
 
@@ -44,7 +44,7 @@ class FieldStateValidator extends AbstractValidator
 {
     /**
      * Service locator instance
-     * @var \Zend\Di\Locator
+     * @var \Zend\Di\Di
      */
     protected $locator;
 
@@ -125,7 +125,7 @@ class FieldStateValidator extends AbstractValidator
      * Set locator
      * Sets service locator instance.
      *
-     * @param \Zend\Di\Locator $locator
+     * @param \Zend\Di\Di $locator
      * @return \ShiftContentNew\Type\Field\Validator\FieldSettingValidator
      */
     public function setLocator(Locator $locator)
@@ -138,7 +138,7 @@ class FieldStateValidator extends AbstractValidator
     /**
      * Get locator
      * Returns service locator instance.
-     * @return \Zend\Di\Locator
+     * @return \Zend\Di\Di
      */
     public function getLocator()
     {

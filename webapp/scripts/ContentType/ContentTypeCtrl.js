@@ -130,13 +130,13 @@ app.controller('ContentTypeCtrl', function (
 
 
   $scope.fields = [
-    {name: 'Some field', description: 'And some longer description', id: 1},
-    {name: 'Some field', description: 'And some longer description', id: 2},
-    {name: 'Some field', description: 'And some longer description', id: 3},
-    {name: 'Some field', description: 'And some longer description', id: 4},
-    {name: 'Some field', description: 'And some longer description', id: 5},
-    {name: 'Some field', description: 'And some longer description', id: 6},
-    {name: 'Some field', description: 'And some longer description', id: 7}
+    {name: 'Some field', description: 'And some longer description', value: 1},
+    {name: 'Some field', description: 'And some longer description', value: 2},
+    {name: 'Some field', description: 'And some longer description', value: 3},
+    {name: 'Some field', description: 'And some longer description', value: 4},
+    {name: 'Some field', description: 'And some longer description', value: 5},
+    {name: 'Some field', description: 'And some longer description', value: 6},
+    {name: 'Some field', description: 'And some longer description', value: 7}
   ];
 
   //show field form

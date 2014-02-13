@@ -25,7 +25,7 @@
  */
 namespace ShiftContentNew\Type;
 
-use Zend\Di\Locator;
+use Zend\Di\Di as Locator;
 use ShiftContentNew\Type\Type;
 use ShiftContentNew\Type\TypeRepository;
 use ShiftContentNew\Type\Field\Field;
@@ -43,7 +43,7 @@ class TypeService
 {
     /**
      * Service locator instance
-     * @var \Zend\Di\Locator
+     * @var \Zend\Di\Di
      */
     protected $locator;
 

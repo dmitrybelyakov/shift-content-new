@@ -26,7 +26,7 @@
 namespace ShiftContentNew\Type\Field\Attribute\Validator;
 use Zend\Validator\AbstractValidator;
 
-use Zend\Di\Locator;
+use Zend\Di\Di as Locator;
 
 /**
  * Attribute state validator
@@ -43,7 +43,7 @@ class AttributeStateValidator extends AbstractValidator
 
     /**
      * Service locator instance
-     * @var \Zend\Di\Locator
+     * @var \Zend\Di\Di
      */
     protected $locator;
 
@@ -137,7 +137,7 @@ class AttributeStateValidator extends AbstractValidator
      * Set locator
      * Allows you to inject arbitrary locator.
      *
-     * @param \Zend\Di\Locator $locator
+     * @param \Zend\Di\Di $locator
      * @return
      *  \ShiftContentNew\Type\Field\Attribute\Validator\AttributeStateValidator
      */
@@ -151,7 +151,7 @@ class AttributeStateValidator extends AbstractValidator
     /**
      * Get locator
      * Returns service locator instance.
-     * @return \Zend\Di\Locator
+     * @return \Zend\Di\Di
      */
     public function getLocator()
     {

@@ -101,7 +101,7 @@ class FieldTypeValidatorTest extends TestCase
             'test' => $validatorName
         ));
 
-        $locator = Mockery::mock('Zend\Di\Locator');
+        $locator = Mockery::mock('Zend\Di\Di');
         $locator->shouldReceive('get')->with($factoryName)->andReturn($factory);
 
         $validator = new FieldTypeValidator;

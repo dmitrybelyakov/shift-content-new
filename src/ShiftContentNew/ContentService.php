@@ -24,7 +24,7 @@
  */
 namespace ShiftContentNew;
 
-use Zend\Di\Locator;
+use Zend\Di\Di as Locator;
 use ShiftContentNew\Item\ItemRepository;
 
 
@@ -39,7 +39,7 @@ class ContentService
 {
     /**
      * Service locator instance
-     * @var \Zend\Di\Locator
+     * @var \Zend\Di\Di
      */
     protected $locator;
 
@@ -56,7 +56,7 @@ class ContentService
      * Instantiates content service.
      * Requires an instance of service locator.
      *
-     * @param \Zend\Di\Locator $locator
+     * @param \Zend\Di\Di $locator
      * @return void
      */
     public function __construct(Locator $locator)

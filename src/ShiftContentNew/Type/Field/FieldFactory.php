@@ -25,7 +25,7 @@
  */
 namespace ShiftContentNew\Type\Field;
 
-use Zend\Di\Locator;
+use Zend\Di\Di as Locator;
 use ShiftContentNew\Module;
 use ShiftContentNew\Exception\ConfigurationException;
 use ShiftContentNew\Type\Field\Field;
@@ -46,7 +46,7 @@ class FieldFactory
 
     /**
      * Service locator instance
-     * @var \Zend\Di\Locator
+     * @var \Zend\Di\Di
      */
     protected $locator;
 
@@ -67,7 +67,7 @@ class FieldFactory
      * Construct
      * Instantiates field factory. Requires an instance of service locator.
      *
-     * @param \Zend\Di\Locator $locator
+     * @param \Zend\Di\Di $locator
      * @return void
      */
     public function __construct(Locator $locator)

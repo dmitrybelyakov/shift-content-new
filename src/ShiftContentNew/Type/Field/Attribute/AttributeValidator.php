@@ -49,7 +49,7 @@ class AttributeValidator extends EntityValidator
 {
     /**
      * Service locator instance
-     * @var \Zend\Di\Locator
+     * @var \Zend\Di\Di
      */
     protected $locator;
 

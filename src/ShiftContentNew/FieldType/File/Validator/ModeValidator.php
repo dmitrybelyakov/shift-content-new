@@ -26,7 +26,7 @@
 namespace ShiftContentNew\FieldType\File\Validator;
 use Zend\Validator\AbstractValidator;
 
-use Zend\Di\Locator;
+use Zend\Di\Di as Locator;
 
 /**
  * Mode validator

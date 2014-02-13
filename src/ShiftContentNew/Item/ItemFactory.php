@@ -25,7 +25,7 @@
  */
 namespace ShiftContentNew\Item;
 
-use Zend\Di\Locator;
+use Zend\Di\Di as Locator;
 use ShiftContentNew\Type\Type;
 use ShiftContentNew\Type\TypeService;
 use ShiftContentNew\Item\Item;
@@ -45,7 +45,7 @@ class ItemFactory
 {
     /**
      * Service locator instance
-     * @var \Zend\Di\Locator
+     * @var \Zend\Di\Di
      */
     protected $locator;
 
@@ -66,7 +66,7 @@ class ItemFactory
      * Construct
      * Instantiates factory service. Requires an instance of service locator.
      *
-     * @param \Zend\Di\Locator $locator
+     * @param \Zend\Di\Di $locator
      * @return void
      */
     public function __construct(Locator $locator)

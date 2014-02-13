@@ -26,7 +26,7 @@
 namespace ShiftContentNew\Type\Validator;
 use Zend\Validator\AbstractValidator;
 
-use Zend\Di\Locator;
+use Zend\Di\Di as Locator;
 
 /**
  * Unique content type name validator
@@ -42,7 +42,7 @@ class UniqueNameValidator extends AbstractValidator
 
     /**
      * Service locator instance
-     * @var \Zend\Di\Locator
+     * @var \Zend\Di\Di
      */
     protected $locator;
 
@@ -105,7 +105,7 @@ class UniqueNameValidator extends AbstractValidator
      * Set locator
      * Sets service locator instance.
      *
-     * @param \Zend\Di\Locator $locator
+     * @param \Zend\Di\Di $locator
      * @return \ShiftContentNew\Type\Validator\UniqueName
      */
     public function setLocator(Locator $locator)

@@ -14,12 +14,13 @@ app.directive('shiftSelect', function ($document, $timeout) {
     transclude: true,
     require: '?ngModel',
     scope: true, //ngModel unable to work in isolate scope
-    controller: function($scope){
 
     /*
-      Scope controls the behavior of the select replacement. All working
-      with actual values and binding is done in the linking function.
+     * Scope controls the behavior of the select replacement. All working
+     * with actual values and binding is done in the linking function.
      */
+    controller: function($scope){
+
 
       $scope.modelValue = undefined;
 
@@ -40,11 +41,8 @@ app.directive('shiftSelect', function ($document, $timeout) {
         });
       };
 
-      $scope.options = [
-        {name: 'Text field', description: 'And some longer description', id: 1},
-        {name: 'File field', description: 'And some longer description', id: 2},
-        {name: 'Media album field', description: 'And some longer description', id: 3}
-      ];
+      var fields = $scope.fieldTypes;
+      $scope.options = fields;
 
       $scope.optionsVisible = false;
       $scope.toggleVisible = function(){
@@ -79,7 +77,8 @@ app.directive('shiftSelect', function ($document, $timeout) {
           var el = angular.element(nullOption[0]);
           var option = {
             name: el.html(),
-            value: null //hardcoded option with null value
+            value: null, //hardcoded option with null value
+            isNullOption: true
           };
           scope.options.unshift(option);
           nullOption.each(function(i, el){

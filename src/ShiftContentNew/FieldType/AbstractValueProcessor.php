@@ -25,7 +25,7 @@
  */
 namespace ShiftContentNew\FieldType;
 
-use Zend\Di\Locator;
+use Zend\Di\Di as Locator;
 use ShiftContentNew\FieldType\AbstractSettings;
 
 /**
@@ -40,7 +40,7 @@ abstract class AbstractValueProcessor
 
     /**
      * Service locator instance
-     * @var \Zend\Di\Locator
+     * @var \Zend\Di\Di
      */
     protected $locator;
 
