@@ -59,7 +59,7 @@ class ItemRepositoryTest extends TestCase
         $this->getDbHelper();
 
         //set entity manager
-        $doctrine = $this->getLocator()->get('Doctrine');
+        $doctrine = $this->getLocator()->get('ShiftDoctrine\Container');
         $this->em = $doctrine->getEntityManager();
     }
 

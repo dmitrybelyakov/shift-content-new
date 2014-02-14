@@ -56,7 +56,7 @@ class DiscriminatorSubscriberTest extends TestCase
         parent::setUp();
 
         //set entity manager
-        $doctrine = $this->getLocator()->get('Doctrine');
+        $doctrine = $this->getLocator()->get('ShiftDoctrine\Container');
         $this->em = $doctrine->getEntityManager();
     }
 

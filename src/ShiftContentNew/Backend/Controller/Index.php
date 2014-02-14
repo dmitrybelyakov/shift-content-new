@@ -24,7 +24,7 @@
  * @namespace
  */
 namespace ShiftContentNew\Backend\Controller;
-use Zend\Mvc\Controller\ActionController;
+use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 use ShiftContentNew\Backend\Abstracts\BackendControllerInterface;
 
@@ -36,7 +36,7 @@ use ShiftContentNew\Backend\Abstracts\BackendControllerInterface;
  * @package     ShiftContentNew
  * @subpackage  Controller
  */
-class Index extends ActionController implements BackendControllerInterface
+class Index extends AbstractActionController implements BackendControllerInterface
 {
     /**
      * Index controller

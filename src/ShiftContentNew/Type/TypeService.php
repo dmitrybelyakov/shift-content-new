@@ -195,7 +195,7 @@ class TypeService
     {
         if(!$this->repository)
         {
-            $em = $this->locator->get('Doctrine')->getEntityManager();
+            $em = $this->locator->get('ShiftDoctrine\Container')->getEntityManager();
             $this->repository = $em->getRepository('ShiftContentNew\Type\Type');
         }
 
