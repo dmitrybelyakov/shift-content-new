@@ -54,7 +54,7 @@ class FieldPropertyValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::INVALID_PROPERTY_NAME => "Property name is invalid",
     );
 

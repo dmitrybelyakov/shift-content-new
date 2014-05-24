@@ -55,7 +55,7 @@ class OptionVariableValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::INVALID_VARIABLE_NAME => "Invalid variable name for option"
     );
 

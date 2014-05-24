@@ -54,7 +54,7 @@ class AttributeTypeValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::ATTRIBUTE_TYPE_INVALID =>
             "Attribute type must be either 'filter' or 'validator'"
     );

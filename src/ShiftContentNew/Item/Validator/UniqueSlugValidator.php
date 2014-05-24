@@ -71,7 +71,7 @@ class UniqueSlugValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::SLUG_NOT_UNIQUE => "This slug is already in use",
     );
 

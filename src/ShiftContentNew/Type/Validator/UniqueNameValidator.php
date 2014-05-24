@@ -62,7 +62,7 @@ class UniqueNameValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::NAME_NOT_UNIQUE => "Such content type already exists"
     );
 

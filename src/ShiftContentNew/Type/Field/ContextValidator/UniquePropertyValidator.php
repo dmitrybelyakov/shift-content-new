@@ -57,7 +57,7 @@ class UniquePropertyValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::FIELD_PROPERTY_NOT_UNIQUE => "Field property is not unique"
     );
 

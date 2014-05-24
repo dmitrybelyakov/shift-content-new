@@ -56,7 +56,7 @@ class AttributeClassValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::ATTRIBUTE_CLASS_INVALID =>
             "Attribute class does not exist"
     );

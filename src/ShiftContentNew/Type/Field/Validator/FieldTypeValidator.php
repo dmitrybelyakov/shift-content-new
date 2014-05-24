@@ -62,7 +62,7 @@ class FieldTypeValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::NO_FIELD_TYPE => "Field type class does not exist",
         self::FIELD_TYPE_NOT_CONFIGURED =>"That is not a configured field type",
     );

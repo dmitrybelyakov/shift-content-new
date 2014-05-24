@@ -54,7 +54,7 @@ class DateValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::ITEM_DATE_INVALID => "This is not a valid date",
         self::ITEM_DATE_NOT_UTC => "Date must be in UTC timezone",
     );

@@ -56,7 +56,7 @@ class ModeValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::UPLOAD_MODE_INVALID => "This is not a valid upload mode"
     );
 

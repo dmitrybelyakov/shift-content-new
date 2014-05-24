@@ -57,7 +57,7 @@ class UniqueNameValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::FIELD_NAME_NOT_UNIQUE => "Field name is not unique"
     );
 

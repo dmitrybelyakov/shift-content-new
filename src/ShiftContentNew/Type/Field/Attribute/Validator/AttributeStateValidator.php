@@ -66,7 +66,7 @@ class AttributeStateValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::NO_CONFIG_FOR_CLASS =>
             "Unable to find configuration for attribute class",
         self::ATTRIBUTE_MISCONFIGURED =>

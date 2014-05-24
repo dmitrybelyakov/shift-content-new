@@ -58,7 +58,7 @@ class DestinationValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::DEST_UNWRITABLE => "Destination is not writable",
         self::PARENT_UNWRITABLE => "Destination parent is not writable",
         self::PARENT_NOT_EXIST => "Destination parent does not exist",

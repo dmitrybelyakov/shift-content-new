@@ -55,7 +55,7 @@ class OptionTypeValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::INVALID_VARIABLE_TYPE =>
             "Variable type must be either 'bool', 'int' or 'string'"
     );

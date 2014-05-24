@@ -65,7 +65,7 @@ class FieldStateValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::FIELD_SETTINGS_MISCONFIGURED => "Field settings misconfigured.",
         self::FIELD_MISCONFIGURED =>
             "Field misconfigured. Please create fields with FieldFactory",

@@ -53,7 +53,7 @@ class StatusValidator extends AbstractValidator
      * Error message templates
      * @var array
      */
-    protected $_messageTemplates = array(
+    protected $messageTemplates = array(
         self::ITEM_STATUS_INVALID => "Such item status is not allowed"
     );
 
