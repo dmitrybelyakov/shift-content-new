@@ -61,11 +61,6 @@ return array(
                         'contentNewListener' => 'ShiftContentNew\Doctrine\DiscriminatorSubscriber'
                     ),
                 ),
-                'reader' => array(
-                    'eventSubscribers' => array(
-                        'contentNewListener' => 'ShiftContentNew\Doctrine\DiscriminatorSubscriber'
-                    ),
-                ),
             )
         ),
 
