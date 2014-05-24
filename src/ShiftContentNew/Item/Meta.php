@@ -94,6 +94,27 @@ abstract class Meta
     protected $publicationDate;
 
     /**
+     * Publication date
+     * @ORM\Column(type="datetime", nullable=false)
+     * @var \DateTime
+     */
+    protected $lastUpdated;
+
+    /**
+     * Latitude
+     * @ORM\Column(type="string", length=20, nullable=false)
+     * @var \DateTime
+     */
+    protected $latitude;
+
+    /**
+     * Longitude
+     * @ORM\Column(type="string", length=20, nullable=false)
+     * @var \DateTime
+     */
+    protected $longitude;
+
+    /**
      * Item title
      * @ORM\Column(type="string", nullable=false)
      * @var string
