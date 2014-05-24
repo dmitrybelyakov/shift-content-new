@@ -64,7 +64,7 @@ class TypeRepositoryTest extends TestCase
         $this->getDbHelper();
 
         //set entity manager
-        $doctrine = $this->getLocator()->get('ShiftDoctrine\Container');
+        $doctrine = $this->sm()->get('ShiftDoctrine\Container');
         $this->em = $doctrine->getEntityManager();
     }
 
@@ -217,7 +217,7 @@ class TypeRepositoryTest extends TestCase
         $type = new Type;
         $type->setName('Test name');
 
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $field = $factory->createField('file');
         $field->setName('First field');
         $field->setProperty('first');
@@ -298,7 +298,7 @@ class TypeRepositoryTest extends TestCase
 
         //get factory
         $attrFactory = 'ShiftContentNew\Type\Field\Attribute\AttributeFactory';
-        $attributeFactory = $this->getLocator()->get($attrFactory);
+        $attributeFactory = $this->sm()->get($attrFactory);
 
         //add filter to field
         $alnum = $attributeFactory->createFilter('Alnum');
@@ -350,7 +350,7 @@ class TypeRepositoryTest extends TestCase
 
         //get factory
         $attrFactory = 'ShiftContentNew\Type\Field\Attribute\AttributeFactory';
-        $attributeFactory = $this->getLocator()->get($attrFactory);
+        $attributeFactory = $this->sm()->get($attrFactory);
 
         //add filter to field
         $alnum = $attributeFactory->createFilter('Alnum');
@@ -411,7 +411,7 @@ class TypeRepositoryTest extends TestCase
 
         //get factory
         $attrFactory = 'ShiftContentNew\Type\Field\Attribute\AttributeFactory';
-        $attributeFactory = $this->getLocator()->get($attrFactory);
+        $attributeFactory = $this->sm()->get($attrFactory);
 
         //add filter to field
         $alnum = $attributeFactory->createFilter('Alnum');
@@ -456,7 +456,7 @@ class TypeRepositoryTest extends TestCase
         $type->addField($field);
 
         $attrFactory = 'ShiftContentNew\Type\Field\Attribute\AttributeFactory';
-        $attributeFactory = $this->getLocator()->get($attrFactory);
+        $attributeFactory = $this->sm()->get($attrFactory);
 
         //add filter to field
         $alnum = $attributeFactory->createFilter('Alnum');

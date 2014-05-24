@@ -5,10 +5,10 @@ return array(
      * API routes
      * This holds routes to content api controllers
      */
-    'api-content' => array(
+    'api-content-new' => array(
         'type' => 'Zend\Mvc\Router\Http\Segment',
         'options' => array(
-            'route' => '/api/content/',
+            'route' => '/api/content-new/',
             'defaults' => array(
                 'controller' => 'ShiftContentNew\Api\Api',
                 'action' => 'index'

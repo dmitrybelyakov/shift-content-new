@@ -50,7 +50,7 @@ class FieldSettingsValidatorTest extends TestCase
      */
     public function canInstantiateValidator()
     {
-        $validator = new FieldSettingsValidator($this->getLocator());
+        $validator = new FieldSettingsValidator($this->sm());
         $this->assertInstanceOf(
             'ShiftContentNew\Type\Field\Validator\FieldSettingsValidator',
             $validator
@@ -64,7 +64,7 @@ class FieldSettingsValidatorTest extends TestCase
     public function canInjectFieldTypeFactory()
     {
         $factory = Mockery::mock('ShiftContentNew\FieldType\FieldTypeFactory');
-        $validator = new FieldSettingsValidator($this->getLocator());
+        $validator = new FieldSettingsValidator($this->sm());
         $validator->setFieldTypeFactory($factory);
         $this->assertEquals($factory, $validator->getFieldTypeFactory());
     }
@@ -77,7 +77,7 @@ class FieldSettingsValidatorTest extends TestCase
      */
     public function getFieldTypeFactoryFromLocatorIfNoneInjected()
     {
-        $validator = new FieldSettingsValidator($this->getLocator());
+        $validator = new FieldSettingsValidator($this->sm());
         $factory = $validator->getFieldTypeFactory();
         $this->assertInstanceOf(
             'ShiftContentNew\FieldType\FieldTypeFactory',
@@ -97,10 +97,10 @@ class FieldSettingsValidatorTest extends TestCase
     public function throwExceptionIfValidatingWithoutFieldContext()
     {
         $fieldFactory = 'ShiftContentNew\Type\Field\FieldFactory';
-        $fieldFactory = $this->getLocator()->get($fieldFactory);
+        $fieldFactory = $this->sm()->get($fieldFactory);
 
         $settings = $fieldFactory->createField('file')->getSettings();
-        $validator = new FieldSettingsValidator($this->getLocator());
+        $validator = new FieldSettingsValidator($this->sm());
         $validator->validate($settings);
     }
 
@@ -112,11 +112,11 @@ class FieldSettingsValidatorTest extends TestCase
     public function silentlyPassIfFieldHasNoType()
     {
         $fieldFactory = 'ShiftContentNew\Type\Field\FieldFactory';
-        $fieldFactory = $this->getLocator()->get($fieldFactory);
+        $fieldFactory = $this->sm()->get($fieldFactory);
         $field = $fieldFactory->createField('file');
         $field->setFieldType(null);
 
-        $validator = new FieldSettingsValidator($this->getLocator());
+        $validator = new FieldSettingsValidator($this->sm());
         $result = $validator->validate(null, $field);
         $this->assertTrue($result->isValid());
     }
@@ -129,10 +129,10 @@ class FieldSettingsValidatorTest extends TestCase
     public function passValidationIfFieldTypeHasNoSettings()
     {
         $fieldFactory = 'ShiftContentNew\Type\Field\FieldFactory';
-        $fieldFactory = $this->getLocator()->get($fieldFactory);
+        $fieldFactory = $this->sm()->get($fieldFactory);
         $field = $fieldFactory->createField('string');
 
-        $validator = new FieldSettingsValidator($this->getLocator());
+        $validator = new FieldSettingsValidator($this->sm());
         $result = $validator->validate(null, $field);
         $this->assertTrue($result->isValid());
     }
@@ -145,10 +145,10 @@ class FieldSettingsValidatorTest extends TestCase
     public function failValidationIfSettingsAreMissing()
     {
         $fieldFactory = 'ShiftContentNew\Type\Field\FieldFactory';
-        $fieldFactory = $this->getLocator()->get($fieldFactory);
+        $fieldFactory = $this->sm()->get($fieldFactory);
         $field = $fieldFactory->createField('file');
 
-        $validator = new FieldSettingsValidator($this->getLocator());
+        $validator = new FieldSettingsValidator($this->sm());
         $result = $validator->validate(null, $field);
         $this->assertFalse($result->isValid());
 
@@ -164,12 +164,12 @@ class FieldSettingsValidatorTest extends TestCase
     public function failIfSettingsAreInvalid()
     {
         $fieldFactory = 'ShiftContentNew\Type\Field\FieldFactory';
-        $fieldFactory = $this->getLocator()->get($fieldFactory);
+        $fieldFactory = $this->sm()->get($fieldFactory);
 
         $field = $fieldFactory->createField('file');
         $settings = $field->getSettings();
 
-        $validator = new FieldSettingsValidator($this->getLocator());
+        $validator = new FieldSettingsValidator($this->sm());
         $result = $validator->validate($settings, $field);
         $this->assertFalse($result->isValid());
 
@@ -186,13 +186,13 @@ class FieldSettingsValidatorTest extends TestCase
     public function canValidateSettingsAndPass()
     {
         $fieldFactory = 'ShiftContentNew\Type\Field\FieldFactory';
-        $fieldFactory = $this->getLocator()->get($fieldFactory);
+        $fieldFactory = $this->sm()->get($fieldFactory);
 
         $field = $fieldFactory->createField('file');
         $settings = $field->getSettings();
         $settings->setDestination('data/temp');
 
-        $validator = new FieldSettingsValidator($this->getLocator());
+        $validator = new FieldSettingsValidator($this->sm());
         $result = $validator->validate($settings, $field);
         $this->assertTrue($result->isValid());
     }

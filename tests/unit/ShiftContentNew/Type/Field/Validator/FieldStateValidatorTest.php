@@ -79,12 +79,12 @@ class FieldStateValidatorTest extends TestCase
      */
     public function canValidateFieldStateAndPass()
     {
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $types = $factory->getFieldTypes();
         $field = $factory->createFieldOfType($types['file']);
 
         $validator = 'ShiftContentNew\Type\Field\Validator\FieldStateValidator';
-        $validator = $this->getLocator()->get($validator);
+        $validator = $this->sm()->get($validator);
 
         $this->assertTrue($validator->isValid($field));
     }
@@ -96,7 +96,7 @@ class FieldStateValidatorTest extends TestCase
      */
     public function failValidationIfFieldMissesType()
     {
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $types = $factory->getFieldTypes();
         $field = $factory->createFieldOfType($types['file']);
         $field->setFieldType(null);
@@ -117,13 +117,13 @@ class FieldStateValidatorTest extends TestCase
      */
     public function failValidationIfFieldSettingsMisconfigured()
     {
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $types = $factory->getFieldTypes();
         $field = $factory->createFieldOfType($types['file']);
         $field->setSettings(null);
 
         $validator = 'ShiftContentNew\Type\Field\Validator\FieldStateValidator';
-        $validator = $this->getLocator()->get($validator);
+        $validator = $this->sm()->get($validator);
         $this->assertFalse($validator->isValid($field));
 
         $errors = $validator->getMessages();

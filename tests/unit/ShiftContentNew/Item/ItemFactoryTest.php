@@ -60,7 +60,7 @@ class ItemFactoryTest extends TestCase
      */
     public function canInstantiateFactory()
     {
-        $factory = new ItemFactory($this->getLocator());
+        $factory = new ItemFactory($this->sm());
         $this->assertInstanceOf('ShiftContentNew\Item\ItemFactory', $factory);
     }
 
@@ -72,7 +72,7 @@ class ItemFactoryTest extends TestCase
     public function canInjectTypeService()
     {
         $typeService = Mockery::mock('ShiftContentNew\Type\TypeService');
-        $factory = new ItemFactory($this->getLocator());
+        $factory = new ItemFactory($this->sm());
         $factory->setTypeService($typeService);
         $this->assertEquals($typeService, $factory->getTypeService());
     }
@@ -84,7 +84,7 @@ class ItemFactoryTest extends TestCase
      */
     public function getTypeServiceFromLocatorIfNoneInjected()
     {
-        $factory = new ItemFactory($this->getLocator());
+        $factory = new ItemFactory($this->sm());
         $typeService = $factory->getTypeService();
         $this->assertInstanceOf(
             'ShiftContentNew\Type\TypeService',
@@ -101,7 +101,7 @@ class ItemFactoryTest extends TestCase
     {
         $fieldTypeFactory = 'ShiftContentNew\FieldType\FieldTypeFactory';
         $fieldTypeFactory = Mockery::mock($fieldTypeFactory);
-        $factory = new ItemFactory($this->getLocator());
+        $factory = new ItemFactory($this->sm());
         $factory->setFieldTypeFactory($fieldTypeFactory);
         $this->assertEquals($fieldTypeFactory, $factory->getFieldTypeFactory());
     }
@@ -113,7 +113,7 @@ class ItemFactoryTest extends TestCase
      */
     public function getFieldTypeFactoryFromLocatorIfNoneInjected()
     {
-        $factory = new ItemFactory($this->getLocator());
+        $factory = new ItemFactory($this->sm());
         $fieldTypeFactory = $factory->getFieldTypeFactory();
         $this->assertInstanceOf(
             'ShiftContentNew\FieldType\FieldTypeFactory',

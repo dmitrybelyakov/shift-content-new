@@ -66,7 +66,7 @@ class ItemFactoryTest extends TestCase
             'description' => 'Tis type is used for testing',
         ));
 
-        $fieldFactory = new FieldFactory($this->getLocator());
+        $fieldFactory = new FieldFactory($this->sm());
         $attributeFactory = new AttributeFactory;
 
         //field 1
@@ -126,7 +126,7 @@ class ItemFactoryTest extends TestCase
     public function canGetServiceFromLocator()
     {
         $factoryName = 'ShiftContentNew\Item\ItemFactory';
-        $factory = $this->getLocator()->get($factoryName);
+        $factory = $this->sm()->get($factoryName);
         $this->assertInstanceOf($factoryName, $factory);
     }
 
@@ -145,7 +145,7 @@ class ItemFactoryTest extends TestCase
         $typeService = Mockery::mock('ShiftContentNew\Type\TypeService');
         $typeService->shouldReceive('getType')->andReturn(null);
 
-        $factory = new ItemFactory($this->getLocator());
+        $factory = new ItemFactory($this->sm());
         $factory->setTypeService($typeService);
         $factory->createItemOfType(1);
     }
@@ -164,7 +164,7 @@ class ItemFactoryTest extends TestCase
         ));
 
         //then some fields
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
 
         $field1 = $factory->createField('file', array(
             'name' => 'File field',
@@ -185,7 +185,7 @@ class ItemFactoryTest extends TestCase
             ->addField($field3);
 
         //now create item of this type
-        $factory = new ItemFactory($this->getLocator());
+        $factory = new ItemFactory($this->sm());
         $item = $factory->createItemOfType($type);
 
         //assert properties added
@@ -217,7 +217,7 @@ class ItemFactoryTest extends TestCase
         $typeService = Mockery::mock('ShiftContentNew\Type\TypeService');
         $typeService->shouldReceive('getType')->andReturn(null);
 
-        $factory = new ItemFactory($this->getLocator());
+        $factory = new ItemFactory($this->sm());
         $factory->setTypeService($typeService);
         $factory->createValidatorOfType(1);
     }
@@ -233,7 +233,7 @@ class ItemFactoryTest extends TestCase
      */
     public function throwExceptionIfCreatingValidatorForAnItemWithoutType()
     {
-        $factory = new ItemFactory($this->getLocator());
+        $factory = new ItemFactory($this->sm());
         $factory->createValidatorForItem(new Item);
     }
 
@@ -247,7 +247,7 @@ class ItemFactoryTest extends TestCase
         $item = new Item;
         $item->setContentType(new Type);
 
-        $factory = new ItemFactory($this->getLocator());
+        $factory = new ItemFactory($this->sm());
         $validator = $factory->createValidatorForItem($item);
         $this->assertInstanceOf(
             'ShiftContentNew\Item\ItemValidator',
@@ -265,7 +265,7 @@ class ItemFactoryTest extends TestCase
         $item = new Item;
         $item->setContentType(new Type);
 
-        $factory = new ItemFactory($this->getLocator());
+        $factory = new ItemFactory($this->sm());
         $validator = $factory->createValidatorForItem($item);
 
         $item->setContentType(null);
@@ -297,7 +297,7 @@ class ItemFactoryTest extends TestCase
             'author' => Mockery::mock('ShiftUser\User\BaseUser'),
         ));
 
-        $factory = new ItemFactory($this->getLocator());
+        $factory = new ItemFactory($this->sm());
         $validator = $factory->createValidatorForItem($item);
         $this->assertTrue($validator->validate($item)->isValid());
     }
@@ -313,7 +313,7 @@ class ItemFactoryTest extends TestCase
         $type = $this->createTypeWithFieldsAndAttributes();
 
         //now create validator from type
-        $itemFactory = new ItemFactory($this->getLocator());
+        $itemFactory = new ItemFactory($this->sm());
         $validator = $itemFactory->createValidatorOfType($type);
         $this->assertInstanceOf(
             'ShiftCommon\Model\Entity\EntityValidator',
@@ -384,7 +384,7 @@ class ItemFactoryTest extends TestCase
     public function canValidateCustomItemPropertiesAndFail()
     {
         $type = $this->createTypeWithFieldsAndAttributes();
-        $itemFactory = new ItemFactory($this->getLocator());
+        $itemFactory = new ItemFactory($this->sm());
 
         $item = $itemFactory->createItemOfType($type);
         $validator = $itemFactory->createValidatorForItem($item);

@@ -24,9 +24,7 @@
  * @namespace
  */
 namespace ShiftContentNew\Backend\Controller;
-use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
-use ShiftContentNew\Backend\Abstracts\BackendControllerInterface;
 
 
 /**
@@ -36,7 +34,7 @@ use ShiftContentNew\Backend\Abstracts\BackendControllerInterface;
  * @package     ShiftContentNew
  * @subpackage  Controller
  */
-class Index extends AbstractActionController implements BackendControllerInterface
+class Index extends AbstractContentBackend
 {
     /**
      * Index controller
@@ -45,9 +43,6 @@ class Index extends AbstractActionController implements BackendControllerInterfa
      */
     public function indexAction()
     {
-        $layout = $this->layout()->setTemplate();
-
-        die(get_class($layout));
         $vm = new ViewModel;
         $vm->setTemplate('shiftcontent-new.view.empty');
         return $vm;

@@ -51,7 +51,7 @@ class TypeValidatorTest extends TestCase
      */
     public function canInstantiateType()
     {
-        $validator = new TypeValidator($this->getLocator());
+        $validator = new TypeValidator($this->sm());
         $this->assertInstanceOf(
             'ShiftContentNew\Type\TypeValidator',
             $validator
@@ -66,7 +66,7 @@ class TypeValidatorTest extends TestCase
     public function canValidateTypeAndPass()
     {
         $type = new Type(array('name' => 'A test type'));
-        $validator = new TypeValidator($this->getLocator());
+        $validator = new TypeValidator($this->sm());
         $result = $validator->validate($type);
         $this->assertTrue($result->isValid());
     }
@@ -79,7 +79,7 @@ class TypeValidatorTest extends TestCase
     public function canValidateTypeAndFail()
     {
         $type = new Type;
-        $validator = new TypeValidator($this->getLocator());
+        $validator = new TypeValidator($this->sm());
         $result = $validator->validate($type);
         $this->assertFalse($result->isValid());
 

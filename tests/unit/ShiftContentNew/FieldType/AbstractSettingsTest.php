@@ -62,7 +62,6 @@ class AbstractSettingsTest extends TestCase
      */
     public function canPopulateFromArrayAtInstantiation()
     {
-
         $settings = new Settings(array('concreteProperty' => true));
         $this->assertTrue($settings->getConcreteProperty());
     }

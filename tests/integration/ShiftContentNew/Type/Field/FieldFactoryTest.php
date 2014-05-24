@@ -60,7 +60,7 @@ class FieldFactoryTest extends TestCase
      */
     public function canInstantiateFactory()
     {
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $this->assertInstanceOf(
             'ShiftContentNew\Type\Field\FieldFactory',
             $factory
@@ -77,7 +77,7 @@ class FieldFactoryTest extends TestCase
     public function canInjectArbitraryConfig()
     {
         $config = array('me-is-config');
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $factory->setConfig($config);
         $this->assertEquals($config, $factory->getConfig());
     }
@@ -93,7 +93,7 @@ class FieldFactoryTest extends TestCase
         $fieldTypeFactory = Mockery::mock(
             'ShiftContentNew\FieldType\FieldTypeFactory'
         );
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $factory->setFieldTypeFactory($fieldTypeFactory);
 
         $this->assertEquals($fieldTypeFactory, $factory->getFieldTypeFactory());
@@ -106,7 +106,7 @@ class FieldFactoryTest extends TestCase
      */
     public function getConfigFromModuleBootstrapIfNoneInjected()
     {
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $config = $factory->getConfig();
 
         $this->assertTrue(is_array($config));
@@ -120,7 +120,7 @@ class FieldFactoryTest extends TestCase
      */
     public function canGetFieldTypes()
     {
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $types = $factory->getFieldTypes();
         $this->assertTrue(is_array($types));
         $this->assertFalse(empty($types));
@@ -134,7 +134,7 @@ class FieldFactoryTest extends TestCase
      */
     public function canGetFieldType()
     {
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $this->assertNull($factory->getFieldType('Not\Exists'));
 
         $type = $factory->getFieldType(
@@ -158,7 +158,7 @@ class FieldFactoryTest extends TestCase
      */
     public function throwExceptionWhenTryingToCreateFieldThatIsNotConfigured()
     {
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $factory->createFieldOfType('Non\Existent');
     }
 
@@ -169,7 +169,7 @@ class FieldFactoryTest extends TestCase
      */
     public function canCreateFieldByClassName()
     {
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $types = $factory->getFieldTypes();
         $type = $factory->getFieldType($types['file']);
 
@@ -188,7 +188,7 @@ class FieldFactoryTest extends TestCase
      */
     public function canCreateFieldByShortName()
     {
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $field = $factory->createField('file');
         $this->assertInstanceOf('ShiftContentNew\Type\Field\Field', $field);
 
@@ -208,7 +208,7 @@ class FieldFactoryTest extends TestCase
             'property' => 'testField'
         );
 
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $field = $factory->createField('file', $data);
         $this->assertEquals($data['name'], $field->getName());
         $this->assertEquals($data['property'], $field->getProperty());

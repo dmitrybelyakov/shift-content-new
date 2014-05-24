@@ -59,7 +59,7 @@ class TypeApiServiceTest extends TestCase
     public function canGetServiceFromLocator()
     {
         $serviceName = 'ShiftContentNew\Type\TypeApiService';
-        $service = $this->getLocator()->get($serviceName);
+        $service = $this->sm()->get($serviceName);
         $this->assertInstanceOf($serviceName, $service);
     }
 
@@ -71,7 +71,7 @@ class TypeApiServiceTest extends TestCase
     public function canInjectArbitraryTypeService()
     {
         $typeService = Mockery::mock('ShiftContentNew\Type\TypeService');
-        $service = new TypeApiService($this->getLocator());
+        $service = new TypeApiService($this->sm());
         $service->setTypeService($typeService);
         $this->assertEquals($typeService, $service->getTypeService());
     }
@@ -83,7 +83,7 @@ class TypeApiServiceTest extends TestCase
      */
     public function getTypeServiceFromLocatorIfNoneInjected()
     {
-        $service = new TypeApiService($this->getLocator());
+        $service = new TypeApiService($this->sm());
         $typeService = $service->getTypeService();
         $this->assertInstanceOf(
             'ShiftContentNew\Type\TypeService',

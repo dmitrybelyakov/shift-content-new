@@ -65,9 +65,9 @@ class FieldTypeValidatorTest extends TestCase
     public function canGetValidatorFromLocator()
     {
         $name = 'ShiftContentNew\Type\Field\Validator\FieldTypeValidator';
-        $validator = $this->getLocator()->get($name);
+        $validator = $this->sm()->get($name);
         $this->assertInstanceOf($name, $validator);
-        $this->assertNotNull($validator->getLocator());
+        $this->assertNotNull($validator->sm());
     }
 
 
@@ -79,7 +79,7 @@ class FieldTypeValidatorTest extends TestCase
     public function failValidationForNotConfiguredFieldType()
     {
         $name = 'ShiftContentNew\Type\Field\Validator\FieldTypeValidator';
-        $validator = $this->getLocator()->get($name);
+        $validator = $this->sm()->get($name);
         $this->assertFalse($validator->isValid('Not\Configured'));
 
         $errors = $validator->getMessages();
@@ -120,7 +120,7 @@ class FieldTypeValidatorTest extends TestCase
     public function existingFieldTypePassesValidation()
     {
         $name = 'ShiftContentNew\Type\Field\Validator\FieldTypeValidator';
-        $validator = $this->getLocator()->get($name);
+        $validator = $this->sm()->get($name);
         $this->assertTrue($validator->isValid(
             'ShiftContentNew\FieldType\File\FileType'
         ));

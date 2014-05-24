@@ -61,7 +61,7 @@ class FileSettingsValidatorTest extends TestCase
     public function canInstantiateValidator()
     {
 
-        $validator = new FileSettingsValidator($this->getLocator());
+        $validator = new FileSettingsValidator($this->sm());
         $this->assertInstanceOf(
             'ShiftContentNew\FieldType\File\FileSettingsValidator',
             $validator
@@ -78,7 +78,7 @@ class FileSettingsValidatorTest extends TestCase
         $settings = new FileSettings;
         $settings->setMode('BAD');
 
-        $validator = new FileSettingsValidator($this->getLocator());
+        $validator = new FileSettingsValidator($this->sm());
         $result = $validator->validate($settings);
         $this->assertFalse($result->isValid());
 
@@ -97,7 +97,7 @@ class FileSettingsValidatorTest extends TestCase
         $settings = new FileSettings;
         $settings->setDestination('data/temp/will-be-created');
 
-        $validator = new FileSettingsValidator($this->getLocator());
+        $validator = new FileSettingsValidator($this->sm());
         $result = $validator->validate($settings);
         $this->assertTrue($result->isValid());
     }

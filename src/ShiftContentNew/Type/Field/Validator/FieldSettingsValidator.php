@@ -143,7 +143,7 @@ class FieldSettingsValidator extends EntityValidator
     {
         if(!$this->fieldTypeFactory)
         {
-            $this->fieldTypeFactory = $this->locator->get(
+            $this->fieldTypeFactory = $this->sm->get(
                 'ShiftContentNew\FieldType\FieldTypeFactory'
             );
         }

@@ -62,7 +62,7 @@ class TypeAggregateValidationTest extends TestCase
         ));
 
         //add some fields
-        $fieldFactory = new FieldFactory($this->getLocator());
+        $fieldFactory = new FieldFactory($this->sm());
 
         $field1 = $fieldFactory->createField('file');
         $field1->setName('A file field');
@@ -76,7 +76,7 @@ class TypeAggregateValidationTest extends TestCase
         $type->addField($field2);
 
         //add attributes to fields
-        $attributeFactory = new AttributeFactory($this->getLocator());
+        $attributeFactory = new AttributeFactory($this->sm());
         $type->getField('file')->addValidator(
             $attributeFactory->createValidator('NotEmpty')
         );
@@ -98,7 +98,7 @@ class TypeAggregateValidationTest extends TestCase
     public function canValidateTypeAggregateAndPass()
     {
         $type = $this->createAggregate();
-        $validator = new TypeValidator($this->getLocator());
+        $validator = new TypeValidator($this->sm());
         $result = $validator->validate($type);
         $this->assertTrue($result->isValid());
     }
@@ -116,7 +116,7 @@ class TypeAggregateValidationTest extends TestCase
         $type->setName(null);
 
         //validate
-        $validator = new TypeValidator($this->getLocator());
+        $validator = new TypeValidator($this->sm());
         $this->assertFalse($validator->validate($type)->isValid());
     }
 
@@ -133,7 +133,7 @@ class TypeAggregateValidationTest extends TestCase
         $type->getField('text')->setProperty(null);
 
         //validate
-        $validator = new TypeValidator($this->getLocator());
+        $validator = new TypeValidator($this->sm());
         $this->assertFalse($validator->validate($type)->isValid());
     }
 
@@ -150,7 +150,7 @@ class TypeAggregateValidationTest extends TestCase
         $type->getField('file')->getSettings()->setDestination(null);
 
         //validate
-        $validator = new TypeValidator($this->getLocator());
+        $validator = new TypeValidator($this->sm());
         $this->assertFalse($validator->validate($type)->isValid());
     }
 
@@ -166,7 +166,7 @@ class TypeAggregateValidationTest extends TestCase
         $type->getField('file')->setSettings(null);
 
         //validate
-        $validator = new TypeValidator($this->getLocator());
+        $validator = new TypeValidator($this->sm());
         $this->assertFalse($validator->validate($type)->isValid());
     }
 
@@ -184,7 +184,7 @@ class TypeAggregateValidationTest extends TestCase
         $type->getField('text')->setProperty('property');
 
         //validate
-        $validator = new TypeValidator($this->getLocator());
+        $validator = new TypeValidator($this->sm());
         $this->assertFalse($validator->validate($type)->isValid());
     }
 
@@ -198,14 +198,14 @@ class TypeAggregateValidationTest extends TestCase
         $type = $this->createAggregate();
 
         //break the type
-        $attributeFactory = new AttributeFactory($this->getLocator());
+        $attributeFactory = new AttributeFactory($this->sm());
         $filter = $attributeFactory->createFilter('Alnum');
         $filter->setClassName(null);
         $type->getField('text')->addFilter($filter);
 
 
         //validate
-        $validator = new TypeValidator($this->getLocator());
+        $validator = new TypeValidator($this->sm());
         $this->assertFalse($validator->validate($type)->isValid());
     }
 

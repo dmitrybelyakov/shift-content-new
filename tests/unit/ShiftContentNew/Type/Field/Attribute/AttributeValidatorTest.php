@@ -69,7 +69,7 @@ class AttributeValidatorTest extends TestCase
      */
     public function canInstantiateValidator()
     {
-        $validator = new AttributeValidator($this->getLocator());
+        $validator = new AttributeValidator($this->sm());
         $this->assertInstanceOf(
             'ShiftContentNew\Type\Field\Attribute\AttributeValidator',
             $validator
@@ -93,7 +93,7 @@ class AttributeValidatorTest extends TestCase
         $field = Mockery::mock('ShiftContentNew\Type\Field\Field');
         $attribute->setField($field);
 
-        $validator = new AttributeValidator($this->getLocator());
+        $validator = new AttributeValidator($this->sm());
         $result = $validator->validate($attribute);
         $this->assertTrue($result->isValid());
     }
@@ -122,7 +122,7 @@ class AttributeValidatorTest extends TestCase
             $attribute->addOption($option);
         }
 
-        $validator = new AttributeValidator($this->getLocator());
+        $validator = new AttributeValidator($this->sm());
         $result = $validator->validate($attribute);
         $errors = $result->getErrors();
 
@@ -147,7 +147,7 @@ class AttributeValidatorTest extends TestCase
         $attribute->setType('validator');
         $attribute->setField(Mockery::mock('ShiftContentNew\Type\Field\Field'));
 
-        $validator = new AttributeValidator($this->getLocator());
+        $validator = new AttributeValidator($this->sm());
         $result = $validator->validate($attribute);
         $errors = $result->getErrors();
 

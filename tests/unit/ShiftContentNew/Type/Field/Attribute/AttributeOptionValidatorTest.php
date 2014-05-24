@@ -67,7 +67,7 @@ class AttributeOptionValidatorTest extends TestCase
      */
     public function canInstantiateValidator()
     {
-        $validator = new AttributeOptionValidator($this->getLocator());
+        $validator = new AttributeOptionValidator($this->sm());
         $this->assertInstanceOf(
             'ShiftContentNew\Type\Field\Attribute\AttributeOptionValidator',
             $validator
@@ -90,7 +90,7 @@ class AttributeOptionValidatorTest extends TestCase
         $option->setVariable('anOption');
         $option->setType('string');
 
-        $validator = new AttributeOptionValidator($this->getLocator());
+        $validator = new AttributeOptionValidator($this->sm());
         $result = $validator->validate($option);
         $this->assertTrue($result->isValid());
     }
@@ -102,7 +102,7 @@ class AttributeOptionValidatorTest extends TestCase
      */
     public function canValidateOptionAndFail()
     {
-        $validator = new AttributeOptionValidator($this->getLocator());
+        $validator = new AttributeOptionValidator($this->sm());
         $option = new AttributeOption;
 
         $result = $validator->validate($option);

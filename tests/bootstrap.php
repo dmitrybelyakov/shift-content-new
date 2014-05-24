@@ -1,15 +1,10 @@
 <?php
 chdir(dirname(__DIR__) . '/../../../');
+include 'vendor/autoload.php';
 
-/**
- * Set up application environment options
- */
-$options = array();
-$options['environment']         = 'testing';
-$options['publicDirectory']     = 'public';
+if(!defined('APPLICATION_ENV')) define('APPLICATION_ENV', 'testing');
 
-/**
- * Run the application
- */
-require_once 'vendor/autoload.php';
-$runHelper = new ShiftCommon\Application\RunHelper($options);
+//load testing config on top
+$config = include 'config/application.config.php';
+$config['module_listener_options']['config_glob_paths'][] = 'config/autoload/{,*.}testing.php';
+$application = Zend\Mvc\Application::init($config);

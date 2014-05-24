@@ -24,9 +24,8 @@
  */
 namespace ShiftContentNew;
 
-use Zend\Module\Consumer\AutoloaderProvider;
-use Zend\Module\Manager;
-use Zend\Module\ModuleEvent;
+use Zend\ModuleManager\ModuleManager;
+use Zend\ModuleManager\ModuleEvent;
 use Zend\EventManager\StaticEventManager;
 use Zend\EventManager\Event;
 
@@ -39,7 +38,7 @@ use Zend\EventManager\Event;
  * @category    Projectshift
  * @package     ShiftContentNew
  */
-class Module implements AutoloaderProvider
+class Module
 {
     /**
      * Module config
@@ -76,31 +75,41 @@ class Module implements AutoloaderProvider
      */
     public function getConfig()
     {
-        $config = require __DIR__ . '/config/module.config.php';
+        $path = __DIR__ . '/config/';
 
-        //add routes
-        $routes = require_once __DIR__ . '/config/routes.config.php';
-        $backendRoutes = require_once __DIR__ . '/config/backend.routes.php';
-        $apiRoutes = require_once __DIR__ . '/config/api.routes.php';
-        $routes = array_merge_recursive($routes, $backendRoutes, $apiRoutes);
+        //kernel
+        $module = include $path . 'module.config.php';
+        $controllers = include $path . 'controllers.config.php';
+        $viewManager = include $path . 'view-manager.config.php';
 
-        $router = 'Zend\Mvc\Router\RouteStack';
-        $routerParams = array('parameters' => array('routes' => $routes));
-        $config['di']['instance'][$router] = $routerParams;
+        //navigation
+        $backend = include $path . 'navigation/backend.config.php';
+        $backend = array('ShiftKernel' => array(
+            'backendNavigation' => $backend
+        ));
+        $navigation = $backend;
 
-        //add templates
-        $map = require_once __DIR__ . '/config/views.config.php';
-        $resolverParams = array('parameters' => array('map' => $map));
-        $resolver = 'Zend\View\Resolver\TemplateMapResolver';
-        $config['di']['instance'][$resolver] = $resolverParams;
+        //modules
+        $kernel_module = include $path . 'module.kernel.config.php';
+        $doctrine_module = include $path . 'module.doctrine.config.php';
 
-        //add content fields
-        $attributes = require_once __DIR__ . '/config/content-fields.php';
-        $config['ShiftContentNew']['contentFields'] = $attributes;
+        //routes
+        $frontend = include $path . 'routes/frontend.config.php';
+        $backend = include $path . 'routes/backend.config.php';
+        $api = include $path . 'routes/api.config.php';
+        $routes = array_merge_recursive($frontend, $backend, $api);
+        $routes = array('router' => array('routes' => $routes));
 
-        //add content field attributes
-        $attributes = require_once __DIR__ . '/config/field-attributes.php';
-        $config['ShiftContentNew']['fieldAttributes'] = $attributes;
+        $config = array_merge_recursive(
+            $controllers,
+            $viewManager,
+            $routes,
+            $module,
+            $navigation,
+            $doctrine_module,
+            $kernel_module
+        );
+
 
 		//return config
 		return $config;
@@ -110,13 +119,13 @@ class Module implements AutoloaderProvider
      * Initialize module
      * Perform some setup tasks like attaching listeners to events.
      *
-     * @param \Zend\Module\Manager $moduleManager
+     * @param \Zend\ModuleManager\ModuleManager $moduleManager
      * @return void
      */
-    public function init(Manager $moduleManager)
+    public function init(ModuleManager $moduleManager)
     {
         //initialize config
-        $moduleManager->events()->attach(
+        $moduleManager->getEventManager()->attach(
             'loadModules.post',
             array($this, 'initializeConfig')
         );
@@ -135,7 +144,7 @@ class Module implements AutoloaderProvider
      * This handler gets run once all application modules are loaded to
      * grab merged configuration
      *
-     * @param \Zend\Module\ModuleEvent $moduleEvent
+     * @param \Zend\ModuleManager\ModuleEvent $moduleEvent
      * @return void
      */
     public function initializeConfig(ModuleEvent $moduleEvent)
@@ -167,15 +176,6 @@ class Module implements AutoloaderProvider
      */
     public function onBootstrap(Event $event)
     {
-        $locator = $event->getParam('application')->getLocator();
-
-        //attach layout listener
-        $backendLayout = $locator->get(
-            'ShiftContentNew\Listener\BackendLayoutListener'
-        );
-        $event->getParam('application')
-            ->events()
-            ->attachAggregate($backendLayout);
     }
 
 

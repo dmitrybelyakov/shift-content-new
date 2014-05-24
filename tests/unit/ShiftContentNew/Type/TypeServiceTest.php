@@ -65,7 +65,7 @@ class TypeServiceTest extends TestCase
     public function canInjectArbitraryRepository()
     {
         $repo = Mockery::mock('ShiftContentNew\Type\TypeRepository');
-        $service = new TypeService($this->getLocator());
+        $service = new TypeService($this->sm());
         $service->setRepository($repo);
         $this->assertEquals($repo, $service->getRepository());
     }
@@ -78,7 +78,7 @@ class TypeServiceTest extends TestCase
      */
     public function getRepositoryFromDoctrineIfNoneInjected()
     {
-        $service = new TypeService($this->getLocator());
+        $service = new TypeService($this->sm());
         $repo = $service->getRepository();
         $this->assertInstanceOf('ShiftContentNew\Type\TypeRepository', $repo);
     }
@@ -97,7 +97,7 @@ class TypeServiceTest extends TestCase
     public function canGetServiceFromLocator()
     {
         $serviceName = 'ShiftContentNew\Type\TypeService';
-        $service = $this->getLocator()->get($serviceName);
+        $service = $this->sm()->get($serviceName);
         $this->assertInstanceOf($serviceName, $service);
     }
 
@@ -112,7 +112,7 @@ class TypeServiceTest extends TestCase
         $repo = Mockery::mock('ShiftContentNew\Type\TypeRepository');
         $repo->shouldReceive('findAll')->andReturn($types);
 
-        $service = new TypeService($this->getLocator());
+        $service = new TypeService($this->sm());
         $service->setRepository($repo);
         $this->assertEquals($types, $service->getTypes());
     }
@@ -133,7 +133,7 @@ class TypeServiceTest extends TestCase
             ->andReturn($type);
 
 
-        $service = new TypeService($this->getLocator());
+        $service = new TypeService($this->sm());
         $service->setRepository($repo);
         $this->assertEquals($type, $service->getType($id));
     }
@@ -154,7 +154,7 @@ class TypeServiceTest extends TestCase
             ->andReturn($type);
 
 
-        $service = new TypeService($this->getLocator());
+        $service = new TypeService($this->sm());
         $service->setRepository($repo);
         $this->assertEquals($type, $service->getTypeByName($name));
     }
@@ -167,7 +167,7 @@ class TypeServiceTest extends TestCase
      */
     public function returnErrorsIfTypeFailsValidationOnSave()
     {
-        $service = new TypeService($this->getLocator());
+        $service = new TypeService($this->sm());
         $result = $service->saveType(new Type);
         $this->assertInstanceOf('ShiftCommon\Model\Validation\Result', $result);
     }
@@ -186,7 +186,7 @@ class TypeServiceTest extends TestCase
         $repo = Mockery::mock('ShiftContentNew\Type\TypeRepository');
         $repo->shouldReceive('save')->andReturn($saveResult);
 
-        $service = new TypeService($this->getLocator());
+        $service = new TypeService($this->sm());
         $service->setRepository($repo);
         $result = $service->saveType($type);
         $this->assertEquals($saveResult, $result);
@@ -205,7 +205,7 @@ class TypeServiceTest extends TestCase
         $repo = Mockery::mock('ShiftContentNew\Type\TypeRepository');
         $repo->shouldReceive('delete')->andReturn($deleteResult);
 
-        $service = new TypeService($this->getLocator());
+        $service = new TypeService($this->sm());
         $service->setRepository($repo);
         $this->assertEquals($deleteResult, $service->deleteType($type));
     }

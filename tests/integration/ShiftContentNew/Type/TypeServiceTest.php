@@ -62,7 +62,7 @@ class TypeServiceTest extends TestCase
     public function canValidateContentType()
     {
         $type = new Type;
-        $service = new TypeService($this->getLocator());
+        $service = new TypeService($this->sm());
         $service->validateTypeAggregate($type);
     }
 

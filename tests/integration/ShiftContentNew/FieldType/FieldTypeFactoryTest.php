@@ -83,7 +83,7 @@ class FieldTypeFactoryTest extends TestCase
      */
     public function canInstantiateValue()
     {
-        $factory = new FieldTypeFactory($this->getLocator());
+        $factory = new FieldTypeFactory($this->sm());
         $type = new Type;
 
         $class = $this->data['valueClass'];
@@ -102,7 +102,7 @@ class FieldTypeFactoryTest extends TestCase
     public function throwExceptionIfValueClassIsOfBadType()
     {
         $type = new Type;
-        $factory = new FieldTypeFactory($this->getLocator());
+        $factory = new FieldTypeFactory($this->sm());
 
         $type->setValueClass('Exception'); //just to test
         $factory->getValue($type);
@@ -116,7 +116,7 @@ class FieldTypeFactoryTest extends TestCase
     public function canInstantiateSettings()
     {
         $type = new Type;
-        $factory = new FieldTypeFactory($this->getLocator());
+        $factory = new FieldTypeFactory($this->sm());
         $class = $this->data['settingsClass'];
         $this->assertInstanceOf($class, $factory->getSettings($type));
     }
@@ -133,7 +133,7 @@ class FieldTypeFactoryTest extends TestCase
     public function throwExceptionIfSettingsClassIsOfBadType()
     {
         $type = new Type;
-        $factory = new FieldTypeFactory($this->getLocator());
+        $factory = new FieldTypeFactory($this->sm());
         $type->setSettingsClass('Exception'); //just to test
         $factory->getSettings($type);
     }
@@ -146,7 +146,7 @@ class FieldTypeFactoryTest extends TestCase
     public function canInstantiateSettingsValidator()
     {
         $type = new Type;
-        $factory = new FieldTypeFactory($this->getLocator());
+        $factory = new FieldTypeFactory($this->sm());
         $class = $this->data['settingsValidatorClass'];
         $this->assertInstanceOf($class, $factory->getSettingsValidator($type));
     }
@@ -162,7 +162,7 @@ class FieldTypeFactoryTest extends TestCase
     public function throwExceptionIfSettingsValidatorClassIsOfBadType()
     {
         $type = new Type;
-        $factory = new FieldTypeFactory($this->getLocator());
+        $factory = new FieldTypeFactory($this->sm());
         $type->setSettingsValidatorClass('Exception'); //just to test
         $factory->getSettingsValidator($type);
     }
@@ -175,7 +175,7 @@ class FieldTypeFactoryTest extends TestCase
     public function canInstantiateEditor()
     {
         $type = new Type;
-        $factory = new FieldTypeFactory($this->getLocator());
+        $factory = new FieldTypeFactory($this->sm());
         $class = $this->data['editorClass'];
         $this->assertInstanceOf($class, $factory->getEditor($type));
     }
@@ -192,7 +192,7 @@ class FieldTypeFactoryTest extends TestCase
     public function throwExceptionIfEditorClassIsOfBadType()
     {
         $type = new Type;
-        $factory = new FieldTypeFactory($this->getLocator());
+        $factory = new FieldTypeFactory($this->sm());
         $type->setEditorClass('Exception'); //just to test
         $factory->getEditor($type);
     }
@@ -205,7 +205,7 @@ class FieldTypeFactoryTest extends TestCase
     public function canInstantiateValueProcessor()
     {
         $type = new Type;
-        $factory = new FieldTypeFactory($this->getLocator());
+        $factory = new FieldTypeFactory($this->sm());
         $class = $this->data['valueProcessorClass'];
         $this->assertInstanceOf($class, $factory->getValueProcessor($type));
     }
@@ -223,7 +223,7 @@ class FieldTypeFactoryTest extends TestCase
     public function throwExceptionIfValueProcessorClassIsOfBadType()
     {
         $type = new Type;
-        $factory = new FieldTypeFactory($this->getLocator());
+        $factory = new FieldTypeFactory($this->sm());
         $type->setValueProcessorClass('Exception'); //just to test
         $factory->getValueProcessor($type);
     }

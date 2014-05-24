@@ -64,7 +64,7 @@ class ContentServiceTest extends TestCase
     public function canGetServiceFromLocator()
     {
         $serviceName = 'ShiftContentNew\ContentService';
-        $service = $this->getLocator()->get($serviceName);
+        $service = $this->sm()->get($serviceName);
         $this->assertInstanceOf($serviceName, $service);
     }
 

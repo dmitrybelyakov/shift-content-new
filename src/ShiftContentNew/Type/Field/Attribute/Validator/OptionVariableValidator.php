@@ -25,7 +25,7 @@
  */
 namespace ShiftContentNew\Type\Field\Attribute\Validator;
 use Zend\Validator\AbstractValidator;
-use Zend\Filter\Alnum;
+use Zend\I18n\Filter\Alnum;
 
 /**
  * Option variable validator

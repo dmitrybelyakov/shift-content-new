@@ -48,7 +48,7 @@ class FieldTypeFactoryTest extends TestCase
      */
     public function canInstantiateFactory()
     {
-        $factory = new FieldTypeFactory($this->getLocator());
+        $factory = new FieldTypeFactory($this->sm());
         $this->assertInstanceOf(
             'ShiftContentNew\FieldType\FieldTypeFactory',
             $factory
@@ -62,7 +62,7 @@ class FieldTypeFactoryTest extends TestCase
     public function canInjectConfig()
     {
         $config = array('me-is-config');
-        $factory = new FieldTypeFactory($this->getLocator());
+        $factory = new FieldTypeFactory($this->sm());
         $factory->setConfig($config);
         $this->assertEquals($config, $factory->getConfig());
     }
@@ -74,7 +74,7 @@ class FieldTypeFactoryTest extends TestCase
      */
     public function obtainConfigFromModuleIfNoneInjected()
     {
-        $factory = new FieldTypeFactory($this->getLocator());
+        $factory = new FieldTypeFactory($this->sm());
         $config = $factory->getConfig();
         $this->assertTrue(is_array($config));
         $this->assertFalse(empty($config));
@@ -87,7 +87,7 @@ class FieldTypeFactoryTest extends TestCase
      */
     public function canGetRegisteredFields()
     {
-        $factory = new FieldTypeFactory($this->getLocator());
+        $factory = new FieldTypeFactory($this->sm());
         $types = $factory->getFieldTypes();
 
         $this->assertTrue(is_array($types));

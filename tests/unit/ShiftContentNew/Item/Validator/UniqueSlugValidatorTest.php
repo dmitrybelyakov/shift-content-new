@@ -88,7 +88,7 @@ class UniqueSlugValidatorTest extends TestCase
     public function obtainContentServiceFromLocatorIfNoneInjected()
     {
         $validator = new UniqueSlugValidator;
-        $validator->setLocator($this->getLocator());
+        $validator->setLocator($this->sm());
         $contentService = $validator->getContentService();
         $this->assertInstanceOf(
             'ShiftContentNew\ContentService',

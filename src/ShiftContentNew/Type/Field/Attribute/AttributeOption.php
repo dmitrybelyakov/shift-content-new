@@ -26,8 +26,7 @@
 namespace ShiftContentNew\Type\Field\Attribute;
 
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\ArrayCollection;
-use Zend\Filter\Alnum as VariableFilter;
+use Zend\I18n\Filter\Alnum as VariableFilter;
 use ShiftContentNew\Exception\DomainException;
 
 /**

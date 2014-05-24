@@ -43,24 +43,13 @@ use ShiftContentNew\ContentService;
 class ContentServiceTest extends TestCase
 {
     /**
-     * Set up environment to run our tests
-     */
-    public function setUp()
-    {
-        parent::setUp();
-    }
-
-    // ------------------------------------------------------------------------
-
-
-    /**
      * Test that we can obtain service from locator.
      * @test
      */
     public function canGetServiceFromLocator()
     {
         $serviceName = 'ShiftContentNew\ContentService';
-        $service = $this->getLocator()->get($serviceName);
+        $service = $this->sm()->get($serviceName);
         $this->assertInstanceOf($serviceName, $service);
     }
 
@@ -73,7 +62,7 @@ class ContentServiceTest extends TestCase
     public function canInjectArbitraryRepository()
     {
         $repo = Mockery::mock('ShiftContentNew\Item\ItemRepository');
-        $service = new ContentService($this->getLocator());
+        $service = new ContentService($this->sm());
         $service->setRepository($repo);
         $this->assertEquals($repo, $service->getRepository());
     }
@@ -86,7 +75,7 @@ class ContentServiceTest extends TestCase
      */
     public function getRepositoryFromDoctrineIfNoneInjected()
     {
-        $service = new ContentService($this->getLocator());
+        $service = new ContentService($this->sm());
         $repo = $service->getRepository();
         $this->assertInstanceOf('ShiftContentNew\Item\ItemRepository', $repo);
     }

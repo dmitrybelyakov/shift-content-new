@@ -61,7 +61,7 @@ class AttributeFactoryTest extends TestCase
     public function canInstantiateFactory()
     {
         $factoryName = 'ShiftContentNew\Type\Field\Attribute\AttributeFactory';
-        $factory = $this->getLocator()->get($factoryName);
+        $factory = $this->sm()->get($factoryName);
         $this->assertInstanceOf($factoryName, $factory);
     }
 

@@ -69,7 +69,7 @@ class FieldValidatorTest extends TestCase
      */
     public function canInstantiateValidator()
     {
-        $validator = new FieldValidator($this->getLocator());
+        $validator = new FieldValidator($this->sm());
         $this->assertInstanceOf(
             'ShiftContentNew\Type\Field\FieldValidator',
             $validator
@@ -82,7 +82,7 @@ class FieldValidatorTest extends TestCase
      */
     public function canValidateFieldAndPass()
     {
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $field = $factory->createField('file');
 
         $field->setType(Mockery::mock('ShiftContentNew\Type\Type'));
@@ -90,7 +90,7 @@ class FieldValidatorTest extends TestCase
         $field->setProperty('aProperty');
         $field->getSettings()->setDestination('data/temp');
 
-        $validator = new FieldValidator($this->getLocator());
+        $validator = new FieldValidator($this->sm());
         $result = $validator->validate($field);
         $this->assertTrue($result->isValid());
     }
@@ -105,7 +105,7 @@ class FieldValidatorTest extends TestCase
         $field = new Field;
         $field->addFilter(new Attribute(array('type' => 'filter')));
 
-        $validator = new FieldValidator($this->getLocator());
+        $validator = new FieldValidator($this->sm());
         $result = $validator->validate($field);
         $this->assertFalse($result->isValid());
 
@@ -133,7 +133,7 @@ class FieldValidatorTest extends TestCase
      */
     public function canValidateFieldNameUniqueness()
     {
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $types = $factory->getFieldTypes();
 
         $field1 = $factory->createFieldOfType($types['file']);
@@ -149,7 +149,7 @@ class FieldValidatorTest extends TestCase
         $type->addField($field1);
         $type->addField($field2);
 
-        $validator = new FieldValidator($this->getLocator());
+        $validator = new FieldValidator($this->sm());
         $result = $validator->validate($field1, $type);
         $this->assertFalse($result->isValid());
 
@@ -165,7 +165,7 @@ class FieldValidatorTest extends TestCase
      */
     public function canValidateFieldPropertyUniqueness()
     {
-        $factory = new FieldFactory($this->getLocator());
+        $factory = new FieldFactory($this->sm());
         $types = $factory->getFieldTypes();
 
         $field1 = $factory->createFieldOfType($types['file']);
@@ -181,7 +181,7 @@ class FieldValidatorTest extends TestCase
         $type->addField($field1);
         $type->addField($field2);
 
-        $validator = new FieldValidator($this->getLocator());
+        $validator = new FieldValidator($this->sm());
         $result = $validator->validate($field1, $type);
         $this->assertFalse($result->isValid());
 

@@ -67,11 +67,11 @@ class AttributeStateValidatorTest extends TestCase
         $class = 'ShiftContentNew\Type\Field\Attribute\Validator';
         $class .= '\AttributeStateValidator';
 
-        $validator = $this->getLocator()->get($class);
+        $validator = $this->sm()->get($class);
         $this->assertInstanceOf($class, $validator);
 
         //assert locator injected
-        $this->assertNotNull($validator->getLocator());
+        $this->assertNotNull($validator->sm());
     }
 
 
@@ -83,7 +83,7 @@ class AttributeStateValidatorTest extends TestCase
     {
         //get factory
         $factory = 'ShiftContentNew\Type\Field\Attribute\AttributeFactory';
-        $factory = $this->getLocator()->get($factory);
+        $factory = $this->sm()->get($factory);
 
         //use factory to create valid attribute
         $validators = $factory->getValidatorTypes();
@@ -92,7 +92,7 @@ class AttributeStateValidatorTest extends TestCase
 
         $class = 'ShiftContentNew\Type\Field\Attribute\Validator';
         $class .= '\AttributeStateValidator';
-        $validator = $this->getLocator()->get($class);
+        $validator = $this->sm()->get($class);
         $this->assertTrue($validator->isValid($attribute));
     }
 
@@ -105,7 +105,7 @@ class AttributeStateValidatorTest extends TestCase
     {
         $class = 'ShiftContentNew\Type\Field\Attribute\Validator';
         $class .= '\AttributeStateValidator';
-        $validator = $this->getLocator()->get($class);
+        $validator = $this->sm()->get($class);
 
         $this->assertFalse($validator->isValid(new Attribute));
 
@@ -123,7 +123,7 @@ class AttributeStateValidatorTest extends TestCase
     {
         $class = 'ShiftContentNew\Type\Field\Attribute\Validator';
         $class .= '\AttributeStateValidator';
-        $validator = $this->getLocator()->get($class);
+        $validator = $this->sm()->get($class);
 
         $attribute = new Attribute;
         $attribute->setClassName('Exception');
@@ -142,7 +142,7 @@ class AttributeStateValidatorTest extends TestCase
     {
         //get factory
         $factory = 'ShiftContentNew\Type\Field\Attribute\AttributeFactory';
-        $factory = $this->getLocator()->get($factory);
+        $factory = $this->sm()->get($factory);
 
         //use factory to create valid attribute
         $validators = $factory->getValidatorTypes();
@@ -175,7 +175,7 @@ class AttributeStateValidatorTest extends TestCase
     {
         //get factory
         $factory = 'ShiftContentNew\Type\Field\Attribute\AttributeFactory';
-        $factory = $this->getLocator()->get($factory);
+        $factory = $this->sm()->get($factory);
 
         //use factory to create valid attribute
         $validators = $factory->getValidatorTypes();
