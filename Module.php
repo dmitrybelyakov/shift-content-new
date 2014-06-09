@@ -77,10 +77,16 @@ class Module
     {
         $path = __DIR__ . '/config/';
 
-        //kernel
+        //module
         $module = include $path . 'module.config.php';
         $controllers = include $path . 'controllers.config.php';
         $viewManager = include $path . 'view-manager.config.php';
+
+        //module mappings
+        $fieldAttributes = include $path . '/content/field-attributes.php';
+        $contentFields = include $path . '/content/content-fields.php';
+        $module['ShiftContentNew']['fieldAttributes'] = $fieldAttributes;
+        $module['ShiftContentNew']['contentFields'] = $contentFields;
 
         //navigation
         $backend = include $path . 'navigation/backend.config.php';
@@ -176,6 +182,19 @@ class Module
      */
     public function onBootstrap(Event $event)
     {
+    }
+
+
+    /**
+     * Get service config
+     * Returns configuration array for module service
+     * @return array
+     */
+    public function getServiceConfig()
+    {
+        $path = __DIR__ . '/config/servicemanager/';
+        $config = include $path . 'services.config.php';
+        return $config;
     }
 
 

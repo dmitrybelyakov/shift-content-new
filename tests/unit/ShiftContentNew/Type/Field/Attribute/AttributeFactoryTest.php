@@ -342,7 +342,7 @@ class AttributeFactoryTest extends TestCase
                     'Alpha' => array(
                         'name' => 'Alphabetic',
                         'description' => 'Checks that input contains alphas',
-                        'class' => 'Zend\Validator\Alpha',
+                        'class' => 'Zend\I18n\Validator\Alpha',
                         'options' => array(
                             'allowWhitespace' => array(
                                 'name' => 'Allow whitespaces',
@@ -357,7 +357,7 @@ class AttributeFactoryTest extends TestCase
         $factory = new AttributeFactory;
         $factory->setConfig($config);
         $validator = $factory->createValidatorByClassName(
-            'Zend\Validator\Alpha'
+            'Zend\I18n\Validator\Alpha'
         );
 
         $this->assertInstanceOf(
@@ -385,7 +385,7 @@ class AttributeFactoryTest extends TestCase
                     'Alpha' => array(
                         'name' => 'Alphabetic',
                         'description' => 'Checks that input contains alphas',
-                        'class' => 'Zend\Validator\Alpha',
+                        'class' => 'Zend\I18n\Validator\Alpha',
                         'options' => array(
                             'allowWhitespace' => array(
                                 'name' => 'Allow whitespaces',
@@ -424,7 +424,7 @@ class AttributeFactoryTest extends TestCase
                     'Alpha' => array(
                         'name' => 'Alphabetic',
                         'description' => 'Checks that input contains alphas',
-                        'class' => 'Zend\Validator\Alpha',
+                        'class' => 'Zend\I18n\Validator\Alpha',
                         'options' => array(
                             'allowWhitespace' => array(
                                 'name' => 'Allow whitespaces',

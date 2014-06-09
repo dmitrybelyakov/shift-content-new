@@ -67,7 +67,6 @@ class FieldTypeValidatorTest extends TestCase
         $name = 'ShiftContentNew\Type\Field\Validator\FieldTypeValidator';
         $validator = $this->sm()->get($name);
         $this->assertInstanceOf($name, $validator);
-        $this->assertNotNull($validator->sm());
     }
 
 
@@ -101,11 +100,11 @@ class FieldTypeValidatorTest extends TestCase
             'test' => $validatorName
         ));
 
-        $locator = Mockery::mock('Zend\Di\Di');
-        $locator->shouldReceive('get')->with($factoryName)->andReturn($factory);
+        $sm = Mockery::mock('Zend\ServiceManager\ServiceManager');
+        $sm->shouldReceive('get')->with($factoryName)->andReturn($factory);
 
         $validator = new FieldTypeValidator;
-        $validator->setLocator($locator);
+        $validator->setServiceManager($sm);
         $this->assertFalse($validator->isValid($validatorName));
 
         $errors = $validator->getMessages();

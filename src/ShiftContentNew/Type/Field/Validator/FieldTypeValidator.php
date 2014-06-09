@@ -26,7 +26,7 @@
 namespace ShiftContentNew\Type\Field\Validator;
 use Zend\Validator\AbstractValidator;
 
-use Zend\Di\Di as Locator;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * Field type validator
@@ -40,10 +40,10 @@ use Zend\Di\Di as Locator;
 class FieldTypeValidator extends AbstractValidator
 {
     /**
-     * Service locator instance
-     * @var \Zend\Di\Di
+     * Service manager instance
+     * @var \Zend\ServiceManager\ServiceManager
      */
-    protected $locator;
+    protected $sm;
 
     /**
      * Error message container
@@ -69,6 +69,18 @@ class FieldTypeValidator extends AbstractValidator
 
 
     /**
+     * Set service manager
+     * Sets service manager instance
+     * @param \Zend\ServiceManager\ServiceManager $sm
+     * @return void
+     */
+    public function setServiceManager(ServiceManager $sm)
+    {
+        $this->sm = $sm;
+    }
+
+
+    /**
      * Is valid
      * Validates that field type class actually exist.
      *
@@ -83,7 +95,7 @@ class FieldTypeValidator extends AbstractValidator
         $this->setValue($fieldTypeClass);
 
         $factory = 'ShiftContentNew\Type\Field\FieldFactory';
-        $factory = $this->getLocator()->get($factory);
+        $factory = $this->sm->get($factory);
         $types = $factory->getFieldTypes();
 
         $isConfigured = false;
@@ -112,29 +124,7 @@ class FieldTypeValidator extends AbstractValidator
 
 
 
-    /**
-     * Set locator
-     * Sets service locator instance.
-     *
-     * @param \Zend\Di\Di $locator
-     * @return \ShiftContentNew\Type\Field\Validator\FieldSettingValidator
-     */
-    public function setLocator(Locator $locator)
-    {
-        $this->locator = $locator;
-        return $this;
-    }
 
-
-    /**
-     * Get locator
-     * Returns service locator instance.
-     * @return \Zend\Di\Di
-     */
-    public function getLocator()
-    {
-        return $this->locator;
-    }
 
 
 

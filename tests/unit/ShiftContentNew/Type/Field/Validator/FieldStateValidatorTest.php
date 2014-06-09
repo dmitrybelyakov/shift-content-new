@@ -68,7 +68,7 @@ class FieldStateValidatorTest extends TestCase
     public function throwExceptionWhenValidatingFieldOfBadType()
     {
         $field = array();
-        $validator = new FieldStateValidator;
+        $validator = new FieldStateValidator($this->sm());
         $validator->isValid($field);
     }
 
@@ -102,7 +102,7 @@ class FieldStateValidatorTest extends TestCase
         $field->setFieldType(null);
 
         $validator = 'ShiftContentNew\Type\Field\Validator\FieldStateValidator';
-        $validator = $this->getLocator()->get($validator);
+        $validator = $this->sm($validator);
         $this->assertFalse($validator->isValid($field));
 
         $errors = $validator->getMessages();

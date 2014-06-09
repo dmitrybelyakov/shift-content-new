@@ -67,11 +67,8 @@ class AttributeStateValidatorTest extends TestCase
         $class = 'ShiftContentNew\Type\Field\Attribute\Validator';
         $class .= '\AttributeStateValidator';
 
-        $validator = $this->sm()->get($class);
+        $validator = $this->sm($class);
         $this->assertInstanceOf($class, $validator);
-
-        //assert locator injected
-        $this->assertNotNull($validator->sm());
     }
 
 
@@ -159,7 +156,7 @@ class AttributeStateValidatorTest extends TestCase
 
         $class = 'ShiftContentNew\Type\Field\Attribute\Validator';
         $class .= '\AttributeStateValidator';
-        $validator = $this->getLocator()->get($class);
+        $validator = $this->sm($class);
         $this->assertFalse($validator->isValid($attribute));
 
         $errors = $validator->getMessages();
@@ -188,7 +185,7 @@ class AttributeStateValidatorTest extends TestCase
 
         $class = 'ShiftContentNew\Type\Field\Attribute\Validator';
         $class .= '\AttributeStateValidator';
-        $validator = $this->getLocator()->get($class);
+        $validator = $this->sm($class);
         $this->assertFalse($validator->isValid($attribute));
 
         $errors = $validator->getMessages();

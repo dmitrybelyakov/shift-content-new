@@ -26,7 +26,7 @@
 namespace ShiftContentNew\Type\Field\Attribute\Validator;
 use Zend\Validator\AbstractValidator;
 
-use Zend\Di\Di as Locator;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * Attribute state validator
@@ -42,10 +42,10 @@ class AttributeStateValidator extends AbstractValidator
 {
 
     /**
-     * Service locator instance
-     * @var \Zend\Di\Di
+     * Service manager instance
+     * @var \Zend\ServiceManager\ServiceManager
      */
-    protected $locator;
+    protected $sm;
 
 
     /**
@@ -77,6 +77,18 @@ class AttributeStateValidator extends AbstractValidator
 
 
     /**
+     * Set service manager
+     * Sets service manager instance
+     * @param \Zend\ServiceManager\ServiceManager $sm
+     * @return void
+     */
+    public function setServiceManager(ServiceManager $sm)
+    {
+        $this->sm = $sm;
+    }
+
+
+    /**
      * Is valid
      * Validates field attribute type to return a boolean result.
      *
@@ -96,10 +108,9 @@ class AttributeStateValidator extends AbstractValidator
             return false;
         }
 
-
         //get config from factory
         $factory = 'ShiftContentNew\Type\Field\Attribute\AttributeFactory';
-        $factory = $this->getLocator()->get($factory);
+        $factory = $this->sm->get($factory);
         $config = $factory->getTypeByClassName($className);
         if(empty($config))
         {
@@ -132,31 +143,6 @@ class AttributeStateValidator extends AbstractValidator
         return true;
     }
 
-
-    /**
-     * Set locator
-     * Allows you to inject arbitrary locator.
-     *
-     * @param \Zend\Di\Di $locator
-     * @return
-     *  \ShiftContentNew\Type\Field\Attribute\Validator\AttributeStateValidator
-     */
-    public function setLocator(Locator $locator)
-    {
-        $this->locator = $locator;
-        return $this;
-    }
-
-
-    /**
-     * Get locator
-     * Returns service locator instance.
-     * @return \Zend\Di\Di
-     */
-    public function getLocator()
-    {
-        return $this->locator;
-    }
 
 
 

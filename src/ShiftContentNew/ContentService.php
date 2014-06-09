@@ -24,7 +24,7 @@
  */
 namespace ShiftContentNew;
 
-use Zend\Di\Di as Locator;
+use Zend\ServiceManager\ServiceManager;
 use ShiftContentNew\Item\ItemRepository;
 
 
@@ -38,10 +38,10 @@ use ShiftContentNew\Item\ItemRepository;
 class ContentService
 {
     /**
-     * Service locator instance
-     * @var \Zend\Di\Di
+     * Service manager instance
+     * @var \Zend\ServiceManager\ServiceManager
      */
-    protected $locator;
+    protected $sm;
 
 
     /**
@@ -56,12 +56,12 @@ class ContentService
      * Instantiates content service.
      * Requires an instance of service locator.
      *
-     * @param \Zend\Di\Di $locator
+     * @param \Zend\ServiceManager\ServiceManager $sm
      * @return void
      */
-    public function __construct(Locator $locator)
+    public function __construct(ServiceManager $sm)
     {
-        $this->locator = $locator;
+        $this->sm = $sm;
     }
 
 
@@ -90,7 +90,7 @@ class ContentService
     {
         if(!$this->repository)
         {
-            $em = $this->locator->get('ShiftDoctrine\Container')->getEntityManager();
+            $em = $this->sm->get('Doctrine')->getEntityManager();
             $this->repository = $em->getRepository('ShiftContentNew\Item\Item');
         }
 

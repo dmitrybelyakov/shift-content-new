@@ -26,7 +26,7 @@
 namespace ShiftContentNew\Type\Validator;
 use Zend\Validator\AbstractValidator;
 
-use Zend\Di\Di as Locator;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * Unique content type name validator
@@ -41,10 +41,10 @@ class UniqueNameValidator extends AbstractValidator
 {
 
     /**
-     * Service locator instance
-     * @var \Zend\Di\Di
+     * Service manager instance
+     * @var \Zend\ServiceManager\ServiceManager
      */
-    protected $locator;
+    protected $sm;
 
     /**
      * Error message container
@@ -65,6 +65,19 @@ class UniqueNameValidator extends AbstractValidator
     protected $messageTemplates = array(
         self::NAME_NOT_UNIQUE => "Such content type already exists"
     );
+
+    /**
+     * Set service manager
+     * Sets service manager instance
+     *
+     * @param \Zend\ServiceManager\ServiceManager $sm
+     * @return \ShiftContentNew\Type\Validator\UniqueNameValidator
+     */
+    public function setServiceManager(ServiceManager $sm)
+    {
+        $this->sm = $sm;
+        return $this;
+    }
 
 
     /**
@@ -87,7 +100,7 @@ class UniqueNameValidator extends AbstractValidator
             return true;
         }
 
-        $service = $this->locator->get('ShiftContentNew\Type\TypeService');
+        $service = $this->sm->get('ShiftContentNew\Type\TypeService');
         $type = $service->getTypeByName($name);
 
 
@@ -99,21 +112,6 @@ class UniqueNameValidator extends AbstractValidator
         $this->error(self::NAME_NOT_UNIQUE);
         return false;
     }
-
-
-    /**
-     * Set locator
-     * Sets service locator instance.
-     *
-     * @param \Zend\Di\Di $locator
-     * @return \ShiftContentNew\Type\Validator\UniqueName
-     */
-    public function setLocator(Locator $locator)
-    {
-        $this->locator = $locator;
-        return $this;
-    }
-
 
 
 

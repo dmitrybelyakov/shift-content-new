@@ -25,9 +25,8 @@
  */
 namespace ShiftContentNew\FieldType;
 
-use Zend\Di\Di as Locator;
+use Zend\ServiceManager\ServiceManager;
 use ShiftContentNew\Module;
-use ShiftContentNew\FieldType\AbstractFieldType;
 use ShiftContentNew\Exception\ConfigurationException;
 
 /**
@@ -43,10 +42,10 @@ class FieldTypeFactory
 {
 
     /**
-     * Service locator instance
-     * @var \Zend\Di\Di
+     * Service manager instance
+     * @var \Zend\ServiceManager\ServiceManager
      */
-    protected $locator;
+    protected $sm;
 
     /**
      * Module configuration
@@ -57,12 +56,14 @@ class FieldTypeFactory
 
     /**
      * Construct
-     * Instantiates field type factory. Requires an instance of service locator.
+     * Instantiates field type factory. Requires an instance of service manager.
+     *
+     * @param \Zend\ServiceManager\ServiceManager $sm
      * @return void
      */
-    public function __construct(Locator $locator)
+    public function __construct(ServiceManager $sm)
     {
-        $this->locator = $locator;
+        $this->sm = $sm;
     }
 
 
@@ -183,8 +184,8 @@ class FieldTypeFactory
         if(!$class)
             return;
 
-        $class = ltrim($class, '\\'); //important to get from locator
-        $settingsValidator = $this->locator->newInstance($class);
+        $class = ltrim($class, '\\'); //important to get from sm
+        $settingsValidator = $this->sm->get($class);
 
         if(!$settingsValidator instanceof $type)
         {

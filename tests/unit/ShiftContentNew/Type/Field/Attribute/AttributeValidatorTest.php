@@ -133,8 +133,9 @@ class AttributeValidatorTest extends TestCase
 
 
     /**
-     * Test that we can validate attribute stat and fail if it is
+     * Test that we can validate attribute state and fail if it is
      * misconfigured (entity state validation fails)
+     *
      * @test
      */
     public function canValidateAndFailStateCheck()
@@ -152,9 +153,15 @@ class AttributeValidatorTest extends TestCase
         $errors = $result->getErrors();
 
         $this->assertFalse($result->isValid());
-        $this->assertTrue(isset(
-            $errors['stateErrors']['attributeConfig']['optionsMisconfigured']
+
+        //var_dump($errors);
+
+        $this->assertTrue(array_key_exists(
+            'optionsMisconfigured', $errors['stateErrors']['attributeConfig']
         ));
+        $this->assertNotNull(
+            $errors['stateErrors']['attributeConfig']['optionsMisconfigured']
+        );
     }
 
 

@@ -167,9 +167,20 @@ class TypeServiceTest extends TestCase
      */
     public function returnErrorsIfTypeFailsValidationOnSave()
     {
-        $service = new TypeService($this->sm());
-        $result = $service->saveType(new Type);
-        $this->assertInstanceOf('ShiftCommon\Model\Validation\Result', $result);
+        //mock validator
+        $result = Mockery::mock('ShiftCommon\Model\Validation\Result');
+        $result->shouldReceive('isValid')->andReturn(false);
+        $validator = Mockery::mock('ShiftContent\Type\TypeValidator');
+        $validator->shouldReceive('validate')->andReturn($result);
+
+        //mock service manager
+        $sm = Mockery::mock('Zend\ServiceManager\ServiceManager');
+        $sm->shouldReceive('get')
+            ->with('ShiftContentNew\Type\TypeValidator')
+            ->andReturn($validator);
+
+        $service = new TypeService($sm);
+        $this->assertEquals($result, $service->saveType(new Type));
     }
 
 
@@ -179,6 +190,18 @@ class TypeServiceTest extends TestCase
      */
     public function canSaveValidType()
     {
+        //mock validator
+        $result = Mockery::mock('ShiftCommon\Model\Validation\Result');
+        $result->shouldReceive('isValid')->andReturn(true);
+        $validator = Mockery::mock('ShiftContent\Type\TypeValidator');
+        $validator->shouldReceive('validate')->andReturn($result);
+
+        //mock service manager
+        $sm = Mockery::mock('Zend\ServiceManager\ServiceManager');
+        $sm->shouldReceive('get')
+            ->with('ShiftContentNew\Type\TypeValidator')
+            ->andReturn($validator);
+
         $saveResult = 'type saved';
         $type = new Type();
         $type->setName('A content type');
@@ -186,7 +209,7 @@ class TypeServiceTest extends TestCase
         $repo = Mockery::mock('ShiftContentNew\Type\TypeRepository');
         $repo->shouldReceive('save')->andReturn($saveResult);
 
-        $service = new TypeService($this->sm());
+        $service = new TypeService($sm);
         $service->setRepository($repo);
         $result = $service->saveType($type);
         $this->assertEquals($saveResult, $result);

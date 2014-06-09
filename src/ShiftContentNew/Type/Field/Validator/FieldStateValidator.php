@@ -26,7 +26,7 @@
 namespace ShiftContentNew\Type\Field\Validator;
 use Zend\Validator\AbstractValidator;
 
-use Zend\Di\Di as Locator;
+use Zend\ServiceManager\ServiceManager;
 use ShiftContentNew\Type\Field\Field;
 use ShiftContentNew\Exception\ConfigurationException;
 
@@ -43,10 +43,10 @@ use ShiftContentNew\Exception\ConfigurationException;
 class FieldStateValidator extends AbstractValidator
 {
     /**
-     * Service locator instance
-     * @var \Zend\Di\Di
+     * Service manager instance
+     * @var \Zend\ServiceManager\ServiceManager
      */
-    protected $locator;
+    protected $sm;
 
     /**
      * Error message container
@@ -71,6 +71,19 @@ class FieldStateValidator extends AbstractValidator
             "Field misconfigured. Please create fields with FieldFactory",
     );
 
+    /**
+     * Set service manager
+     * Sets service manager instance.
+     *
+     * @param \Zend\ServiceManager\ServiceManager $sm
+     * @return \ShiftContentNew\Type\Field\Validator\FieldStateValidator
+     */
+    public function setServiceManager(ServiceManager $sm)
+    {
+        $this->sm = $sm;
+        return $this;
+    }
+
 
     /**
      * Is valid
@@ -94,7 +107,7 @@ class FieldStateValidator extends AbstractValidator
         $this->setValue($field);
 
         $factory = 'ShiftContentNew\Type\Field\FieldFactory';
-        $factory = $this->getLocator()->get($factory);
+        $factory = $this->sm->get($factory);
 
         //check type
         $typeClass = $field->getFieldType();
@@ -121,29 +134,7 @@ class FieldStateValidator extends AbstractValidator
 
 
 
-    /**
-     * Set locator
-     * Sets service locator instance.
-     *
-     * @param \Zend\Di\Di $locator
-     * @return \ShiftContentNew\Type\Field\Validator\FieldSettingValidator
-     */
-    public function setLocator(Locator $locator)
-    {
-        $this->locator = $locator;
-        return $this;
-    }
 
-
-    /**
-     * Get locator
-     * Returns service locator instance.
-     * @return \Zend\Di\Di
-     */
-    public function getLocator()
-    {
-        return $this->locator;
-    }
 
 
 

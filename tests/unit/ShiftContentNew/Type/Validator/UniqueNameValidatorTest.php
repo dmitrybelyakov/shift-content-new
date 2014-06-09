@@ -73,15 +73,15 @@ class UniqueNameValidatorTest extends TestCase
             ->with($name)
             ->andReturn($foundType);
 
-        //mock locator
-        $locator = Mockery::mock('Zend\Di\Di');
-        $locator->shouldReceive('get')
+        //mock service manager
+        $sm = Mockery::mock('Zend\ServiceManager\ServiceManager');
+        $sm->shouldReceive('get')
             ->with('ShiftContentNew\Type\TypeService')
             ->andReturn($service);
 
         //validate
         $validator = new UniqueNameValidator;
-        $validator->setLocator($locator);
+        $validator->setServiceManager($sm);
         $this->assertFalse($validator->isValid($name));
     }
 
@@ -98,15 +98,15 @@ class UniqueNameValidatorTest extends TestCase
         $service = Mockery::mock('ShiftContentNew\Type\TypeService');
         $service->shouldReceive('getTypeByName')->with($name);
 
-        //mock locator
-        $locator = Mockery::mock('Zend\Di\Di');
-        $locator->shouldReceive('get')
+        //mock service manager
+        $sm = Mockery::mock('Zend\ServiceManager\ServiceManager');
+        $sm->shouldReceive('get')
             ->with('ShiftContentNew\Type\TypeService')
             ->andReturn($service);
 
         //validate
         $validator = new UniqueNameValidator;
-        $validator->setLocator($locator);
+        $validator->setServiceManager($sm);
         $this->assertTrue($validator->isValid($name));
     }
 
@@ -133,15 +133,15 @@ class UniqueNameValidatorTest extends TestCase
             ->with($name)
             ->andReturn($foundType);
 
-        //mock locator
-        $locator = Mockery::mock('Zend\Di\Di');
-        $locator->shouldReceive('get')
+        //mock service manager
+        $sm = Mockery::mock('Zend\ServiceManager\ServiceManager');
+        $sm->shouldReceive('get')
             ->with('ShiftContentNew\Type\TypeService')
             ->andReturn($service);
 
         //validate
         $validator = new UniqueNameValidator;
-        $validator->setLocator($locator);
+        $validator->setServiceManager($sm);
         $this->assertTrue($validator->isValid($name, $editedType));
     }
 

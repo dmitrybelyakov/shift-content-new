@@ -25,7 +25,7 @@
  */
 namespace ShiftContentNew\Type;
 
-use Zend\Di\Di as Locator;
+use Zend\ServiceManager\ServiceManager;
 use ShiftContentNew\Type\TypeService;
 
 /**
@@ -39,10 +39,10 @@ use ShiftContentNew\Type\TypeService;
 class TypeApiService
 {
     /**
-     * Service locator instance
-     * @var \Zend\Di\Di
+     * Service manager instance
+     * @var \Zend\ServiceManager\ServiceManager
      */
-    protected $locator;
+    protected $sm;
 
     /**
      * Type service instance
@@ -54,13 +54,13 @@ class TypeApiService
     /**
      * Construct
      * Instantiates content type service. Requires an instance if service
-     * locator to be injected.
+     * manager to be injected.
      *
-     * @param Locator $locator
+     * @param \Zend\ServiceManager\ServiceManager $sm
      */
-    public function __construct(Locator $locator)
+    public function __construct(ServiceManager $sm)
     {
-        $this->locator = $locator;
+        $this->sm = $sm;
     }
 
 
@@ -89,7 +89,7 @@ class TypeApiService
     {
         $service = 'ShiftContentNew\Type\TypeService';
         if(!$this->typeService)
-            $this->typeService = $this->locator->get($service);
+            $this->typeService = $this->sm->get($service);
 
         return $this->typeService;
     }

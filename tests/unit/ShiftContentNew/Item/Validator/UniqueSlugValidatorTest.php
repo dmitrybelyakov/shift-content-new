@@ -60,10 +60,10 @@ class UniqueSlugValidatorTest extends TestCase
      */
     public function canInjectServiceLocator()
     {
-        $locator = Mockery::mock('Zend\Di\Di');
+        $sm = Mockery::mock('Zend\ServiceManager\ServiceManager');
         $validator = new UniqueSlugValidator;
-        $validator->setLocator($locator);
-        $this->assertEquals($locator, $validator->getLocator());
+        $validator->setServiceManager($sm);
+        $this->assertEquals($sm, $validator->getServiceManager());
     }
 
 
@@ -88,7 +88,7 @@ class UniqueSlugValidatorTest extends TestCase
     public function obtainContentServiceFromLocatorIfNoneInjected()
     {
         $validator = new UniqueSlugValidator;
-        $validator->setLocator($this->sm());
+        $validator->setServiceManager($this->sm());
         $contentService = $validator->getContentService();
         $this->assertInstanceOf(
             'ShiftContentNew\ContentService',

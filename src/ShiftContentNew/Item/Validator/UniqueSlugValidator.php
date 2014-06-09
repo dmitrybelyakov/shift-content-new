@@ -26,7 +26,7 @@
 namespace ShiftContentNew\Item\Validator;
 use Zend\Validator\AbstractValidator;
 
-use Zend\Di\Di as Locator;
+use Zend\ServiceManager\ServiceManager;
 use ShiftContentNew\ContentService;
 use ShiftContentNew\Item\Item;
 
@@ -42,10 +42,10 @@ use ShiftContentNew\Item\Item;
 class UniqueSlugValidator extends AbstractValidator
 {
     /**
-     * Service locator instance
-     * @var \Zend\Di\Di
+     * Service manager instance
+     * @var \Zend\ServiceManager\ServiceManager
      */
-    protected $locator;
+    protected $sm;
 
     /**
      * Content service instance
@@ -103,14 +103,14 @@ class UniqueSlugValidator extends AbstractValidator
 
     /**
      * Set locator
-     * Sets service locator instance.
+     * Sets service manager instance.
      *
-     * @param \Zend\Di\Di $locator
+     * @param \Zend\ServiceManager\ServiceManager $sm
      * @return \ShiftContentNew\Item\Validator\UniqueSlugValidator
      */
-    public function setLocator(Locator $locator)
+    public function setServiceManager(ServiceManager $sm)
     {
-        $this->locator = $locator;
+        $this->sm = $sm;
         return $this;
     }
 
@@ -120,9 +120,9 @@ class UniqueSlugValidator extends AbstractValidator
      * Returns currently injected service locator.
      * @return \Zend\Di\Di
      */
-    public function getLocator()
+    public function getServiceManager()
     {
-        return $this->locator;
+        return $this->sm;
     }
 
     /**
@@ -147,9 +147,9 @@ class UniqueSlugValidator extends AbstractValidator
      */
     public function getContentService()
     {
-        $serviceName = 'ShiftContentNew\ContentService';
+        $service = 'ShiftContentNew\ContentService';
         if(!$this->contentService)
-            $this->contentService = $this->getLocator()->get($serviceName);
+            $this->contentService = $this->getServiceManager()->get($service);
 
         return $this->contentService;
     }

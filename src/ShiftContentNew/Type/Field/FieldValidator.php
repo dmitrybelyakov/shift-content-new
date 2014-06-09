@@ -30,7 +30,7 @@ use ShiftCommon\Model\Entity\EntityValidator;
 use Zend\Filter\StripTags;
 use Zend\Filter\StringTrim;
 
-use Zend\Validator\Alnum;
+use Zend\i18n\Validator\Alnum;
 use Zend\Validator\StringLength;
 use Zend\Validator\NotEmpty;
 use ShiftContentNew\Type\Field\ContextValidator\UniqueNameValidator;

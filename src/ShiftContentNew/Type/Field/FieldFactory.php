@@ -25,10 +25,9 @@
  */
 namespace ShiftContentNew\Type\Field;
 
-use Zend\Di\Di as Locator;
+use Zend\ServiceManager\ServiceManager;
 use ShiftContentNew\Module;
 use ShiftContentNew\Exception\ConfigurationException;
-use ShiftContentNew\Type\Field\Field;
 use ShiftContentNew\FieldType\FieldTypeFactory;
 
 
@@ -45,10 +44,10 @@ class FieldFactory
 {
 
     /**
-     * Service locator instance
-     * @var \Zend\Di\Di
+     * Service manager instance
+     * @var \Zend\ServiceManager\ServiceManager
      */
-    protected $locator;
+    protected $sm;
 
     /**
      * Content module configuration
@@ -65,14 +64,14 @@ class FieldFactory
 
     /**
      * Construct
-     * Instantiates field factory. Requires an instance of service locator.
+     * Instantiates field factory. Requires an instance of service manager.
      *
-     * @param \Zend\Di\Di $locator
+     * @param \Zend\ServiceManager\ServiceManager $sm
      * @return void
      */
-    public function __construct(Locator $locator)
+    public function __construct(ServiceManager $sm)
     {
-        $this->locator = $locator;
+        $this->sm = $sm;
     }
 
 
@@ -129,7 +128,7 @@ class FieldFactory
     {
         if(!$this->fieldTypeFactory)
         {
-            $this->fieldTypeFactory = $this->locator->get(
+            $this->fieldTypeFactory = $this->sm->get(
                 'ShiftContentNew\FieldType\FieldTypeFactory'
             );
         }

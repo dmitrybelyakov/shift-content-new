@@ -25,11 +25,7 @@
  */
 namespace ShiftContentNew\Type;
 
-use Zend\Di\Di as Locator;
-use ShiftContentNew\Type\Type;
-use ShiftContentNew\Type\TypeRepository;
-use ShiftContentNew\Type\Field\Field;
-use ShiftContentNew\FieldType\FieldTypeFactory;
+use Zend\ServiceManager\ServiceManager;
 
 /**
  * Content type service
@@ -42,10 +38,10 @@ use ShiftContentNew\FieldType\FieldTypeFactory;
 class TypeService
 {
     /**
-     * Service locator instance
-     * @var \Zend\Di\Di
+     * Service manager instance
+     * @var \Zend\ServiceManager\ServiceManager
      */
-    protected $locator;
+    protected $sm;
 
     /**
      * Type repository instance
@@ -64,13 +60,13 @@ class TypeService
     /**
      * Construct
      * Instantiates content type service. Requires an instance if service
-     * locator to be injected.
+     * manager to be injected.
      *
-     * @param Locator $locator
+     * @param \Zend\ServiceManager\ServiceManager $sm
      */
-    public function __construct(Locator $locator)
+    public function __construct(ServiceManager $sm)
     {
-        $this->locator = $locator;
+        $this->sm = $sm;
     }
 
 
@@ -123,7 +119,7 @@ class TypeService
     public function validateTypeAggregate(Type $type)
     {
         $validator = 'ShiftContentNew\Type\TypeValidator';
-        $validator = $this->locator->newInstance($validator);
+        $validator = $this->sm->get($validator);
         $result = $validator->validate($type);
         return $result;
     }
@@ -195,7 +191,7 @@ class TypeService
     {
         if(!$this->repository)
         {
-            $em = $this->locator->get('ShiftDoctrine\Container')->getEntityManager();
+            $em = $this->sm->get('Doctrine')->getEntityManager();
             $this->repository = $em->getRepository('ShiftContentNew\Type\Type');
         }
 

@@ -11,7 +11,7 @@ return array(
     'Alnum' => array(
         'name' => 'Alphabetic and numbers',
         'description' => 'This filter allows only whitespace and characters',
-        'class' => 'Zend\Filter\Alnum',
+        'class' => 'Zend\I18n\Filter\Alnum',
         'options' => array(
             'allowWhitespace' => array('name' => 'Allow whitespaces', 'type' => 'bool')
         )
@@ -20,7 +20,7 @@ return array(
     'Alpha' => array(
         'name' => 'Alphabetic and numbers',
         'description' => 'This filter allows only whitespace and characters',
-        'class' => 'Zend\Filter\Alnum',
+        'class' => 'Zend\I18n\Filter\Alnum',
         'options' => array(
             'allowWhitespace' => array('name' => 'Allow whitespaces', 'type' => 'bool')
         )
@@ -105,7 +105,7 @@ return array(
     'Alnum' => array(
         'name' => 'Alphabetic and numbers',
         'description' => 'Checks that input contains only alphabetic characters and numbers',
-        'class' => 'Zend\Validator\Alnum',
+        'class' => 'Zend\I18n\Validator\Alnum',
         'options' => array(
             'allowWhitespace' => array('name' => 'Allow whitespaces', 'type' => 'bool')
         )
@@ -114,7 +114,7 @@ return array(
     'Alpha' => array(
         'name' => 'Alphabetic',
         'description' => 'Checks that input contains only alphabetic characters',
-        'class' => 'Zend\Validator\Alpha',
+        'class' => 'Zend\I18n\Validator\Alpha',
         'options' => array(
             'allowWhitespace' => array('name' => 'Allow whitespaces', 'type' => 'bool')
         )

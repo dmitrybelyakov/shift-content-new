@@ -25,10 +25,9 @@
  */
 namespace ShiftContentNew\Item;
 
-use Zend\Di\Di as Locator;
+use Zend\ServiceManager\ServiceManager;
 use ShiftContentNew\Type\Type;
 use ShiftContentNew\Type\TypeService;
-use ShiftContentNew\Item\Item;
 use ShiftContentNew\FieldType\FieldTypeFactory;
 use ShiftContentNew\Exception\DomainException;
 
@@ -44,10 +43,10 @@ use ShiftContentNew\Exception\DomainException;
 class ItemFactory
 {
     /**
-     * Service locator instance
-     * @var \Zend\Di\Di
+     * Service manager instance
+     * @var \Zend\ServiceManager\ServiceManager
      */
-    protected $locator;
+    protected $sm;
 
     /**
      * Content type service instance
@@ -64,14 +63,14 @@ class ItemFactory
 
     /**
      * Construct
-     * Instantiates factory service. Requires an instance of service locator.
+     * Instantiates factory service. Requires an instance of service manager.
      *
-     * @param \Zend\Di\Di $locator
+     * @param \Zend\ServiceManager\ServiceManager $sm
      * @return void
      */
-    public function __construct(Locator $locator)
+    public function __construct(ServiceManager $sm)
     {
-        $this->locator = $locator;
+        $this->sm = $sm;
     }
 
 
@@ -91,7 +90,7 @@ class ItemFactory
     /**
      * Get type service
      * Checks if we already have a type service injected and returns that.
-     * Otherwise obtains an instance from locator.
+     * Otherwise obtains an instance from service manager.
      *
      * @return null|\ShiftContentNew\Type\TypeService
      */
@@ -99,7 +98,7 @@ class ItemFactory
     {
         if(!$this->typeService)
         {
-            $this->typeService = $this->locator->get(
+            $this->typeService = $this->sm->get(
                 'ShiftContentNew\Type\TypeService'
             );
         }
@@ -112,7 +111,7 @@ class ItemFactory
      * Set field type factory
      * Allows you to inject arbitrary field type factory into service.
      *
-     * @param \ShiftContentNew\FieldTypeFactory $fieldTypeFactory
+     * @param \ShiftContentNew\FieldType\FieldTypeFactory $fieldTypeFactory
      * @return \ShiftContentNew\Item\ItemFactory
      */
     public function setFieldTypeFactory(FieldTypeFactory $fieldTypeFactory)
@@ -124,7 +123,7 @@ class ItemFactory
     /**
      * Get field type factory
      * Checks if we already have field type factory injected and returns that.
-     * Otherwise obtains an instance from locator.
+     * Otherwise obtains an instance from service manager.
      *
      * @return null|\ShiftContentNew\Type\TypeService
      */
@@ -132,7 +131,7 @@ class ItemFactory
     {
         if(!$this->fieldTypeFactory)
         {
-            $this->fieldTypeFactory = $this->locator->get(
+            $this->fieldTypeFactory = $this->sm->get(
                 'ShiftContentNew\FieldType\FieldTypeFactory'
             );
         }
@@ -230,7 +229,7 @@ class ItemFactory
 
         //create base validator
         $itemValidator = 'ShiftContentNew\Item\ItemValidator';
-        $itemValidator = $this->locator->newInstance($itemValidator);
+        $itemValidator = $this->sm->newInstance($itemValidator);
 
         //now add validators for custom properties
         foreach($type->getFields() as $field)
@@ -243,7 +242,7 @@ class ItemFactory
             $filters = $field->getFilters();
             foreach($filters as $config)
             {
-                $filter = $this->locator->newInstance(
+                $filter = $this->sm->get(
                     $config->getClassName()
                 );
 
@@ -267,7 +266,7 @@ class ItemFactory
             foreach($validators as $config)
             {
 
-                $validator = $this->locator->newInstance(
+                $validator = $this->sm->get(
                     $config->getClassName()
                 );
 

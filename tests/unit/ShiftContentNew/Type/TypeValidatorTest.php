@@ -65,8 +65,25 @@ class TypeValidatorTest extends TestCase
      */
     public function canValidateTypeAndPass()
     {
+        $validator = 'ShiftContentNew\Type\Validator\UniqueNameValidator';
+        $validator = Mockery::mock($validator);
+        $validator->shouldReceive('isValid')->andReturn(true);
+
+        $sm = Mockery::mock('Zend\ServiceManager\ServiceManager');
+        $sm->shouldReceive('has')
+            ->with('ShiftContentNew\Type\Validator\UniqueNameValidator')
+            ->andReturn(true);
+        $sm->shouldReceive('get')
+            ->with('ShiftContentNew\Type\Validator\UniqueNameValidator')
+            ->andReturn($validator);
+        $sm->shouldReceive('get')
+            ->with('ShiftContentNew\Type\Field\FieldValidator')
+            ->andReturn(
+                $this->sm('ShiftContentNew\Type\Field\FieldValidator')
+            );
+
         $type = new Type(array('name' => 'A test type'));
-        $validator = new TypeValidator($this->sm());
+        $validator = new TypeValidator($sm);
         $result = $validator->validate($type);
         $this->assertTrue($result->isValid());
     }
@@ -78,8 +95,25 @@ class TypeValidatorTest extends TestCase
      */
     public function canValidateTypeAndFail()
     {
+        $validator = 'ShiftContentNew\Type\Validator\UniqueNameValidator';
+        $validator = Mockery::mock($validator);
+        $validator->shouldReceive('isValid')->andReturn(true);
+
+        $sm = Mockery::mock('Zend\ServiceManager\ServiceManager');
+        $sm->shouldReceive('has')
+            ->with('ShiftContentNew\Type\Validator\UniqueNameValidator')
+            ->andReturn(true);
+        $sm->shouldReceive('get')
+            ->with('ShiftContentNew\Type\Validator\UniqueNameValidator')
+            ->andReturn($validator);
+        $sm->shouldReceive('get')
+            ->with('ShiftContentNew\Type\Field\FieldValidator')
+            ->andReturn(
+                $this->sm('ShiftContentNew\Type\Field\FieldValidator')
+            );
+
         $type = new Type;
-        $validator = new TypeValidator($this->sm());
+        $validator = new TypeValidator($sm);
         $result = $validator->validate($type);
         $this->assertFalse($result->isValid());
 
