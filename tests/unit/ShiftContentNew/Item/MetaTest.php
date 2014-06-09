@@ -67,6 +67,7 @@ class MetaTest extends TestCase
         //prepare data for testing
         $this->data = array(
             'publicationDate' => '12-12-2012',
+            'lastUpdated' => '12-12-2012',
             'title' => 'Test item title',
             'slug' => 'test-item'
         );
@@ -234,6 +235,115 @@ class MetaTest extends TestCase
         );
 
     }
+
+    /**
+     * Test that we set last updated to creation time when instantiating
+     * @test
+     */
+    public function setLastUpdatedAtCreationTime()
+    {
+        $item = new Item;
+        $this->assertEquals(
+            'UTC',
+            $item->getLastUpdated()->getTimezone()->getName()
+        );
+    }
+
+
+    /**
+     * Tess that we are able to set last updated date on an item
+     * @test
+     */
+    public function canSetLastUpdatedDateAsString()
+    {
+        $date = '12-12-2012 12:12:12';
+        $item = new Item;
+        $item->setLastUpdated($date);
+        $this->assertEquals(
+            'UTC',
+            $item->getLastUpdated()->getTimezone()->getName()
+        );
+    }
+
+
+    /**
+     * Test that we convert last updated date to UTC if it's not
+     * @test
+     */
+    public function convertLastUpdatedToUtcUponSetting()
+    {
+        $date = new \DateTime('now', new \DateTimeZone('Europe/Moscow'));
+        $item = new Item;
+        $item->setLastUpdated($date);
+        $this->assertEquals(
+            'UTC',
+            $item->getLastUpdated()->getTimezone()->getName()
+        );
+    }
+
+
+    /**
+     * Test that we can touch item setting its last updated to now
+     * @test
+     */
+    public function canTouchItem()
+    {
+        $item = new Item;
+        $initial = $item->getLastUpdated();
+        sleep(1);
+
+        $item->touch();
+        $this->assertNotEquals($initial, $item->getLastUpdated());
+    }
+
+
+    /**
+     * Test that we are able to set item latitude
+     * @test
+     */
+    public function canSetLatitude()
+    {
+        $lat = '41.12';
+        $item = new Item;
+        $item->setLatitude($lat);
+        $this->assertEquals($lat, $item->getLatitude());
+    }
+
+
+    /**
+     * Test that we are able to set item longitude
+     * @test
+     */
+    public function canSetLongitude()
+    {
+        $lon = '-71.34';
+        $item = new Item;
+        $item->setLongitude($lon);
+        $this->assertEquals($lon, $item->getLongitude());
+    }
+
+
+    /**
+     * Test that we are able to get geo position if both latitude and
+     * longitude are set.
+     * @test
+     */
+    public function canGetGeoPoint()
+    {
+        $item = new Item;
+        $this->assertNull($item->getGeoPoint());
+
+        $lat = '41.12';
+        $lon = '-71.34';
+
+        $item->setLatitude($lat);
+        $item->setLongitude($lon);
+        $this->assertNotNull($item->getGeoPoint());
+    }
+
+
+
+
 
     /**
      * Test that we can set item title.

@@ -93,7 +93,6 @@ class TypeAggregateValidationTest extends TestCase
      * Test that we are able to validate content type aggregate and pass if
      * it is valid.
      * @test
-     * @group zz
      */
     public function canValidateTypeAggregateAndPass()
     {

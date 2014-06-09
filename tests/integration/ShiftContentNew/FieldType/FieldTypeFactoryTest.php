@@ -23,7 +23,7 @@
 /**
  * @namespace
  */
-namespace ShiftTest\Integration\ShiftContentNew;
+namespace ShiftTest\Integration\ShiftContentNew\FieldType;
 use Mockery;
 use ShiftTest\TestCase;
 
@@ -163,7 +163,9 @@ class FieldTypeFactoryTest extends TestCase
     {
         $type = new Type;
         $factory = new FieldTypeFactory($this->sm());
-        $type->setSettingsValidatorClass('Exception'); //just to test
+        $type->setSettingsValidatorClass(
+            'ShiftContentNew\Type\Validator\UniqueNameValidator' //just to test
+        );
         $factory->getSettingsValidator($type);
     }
 

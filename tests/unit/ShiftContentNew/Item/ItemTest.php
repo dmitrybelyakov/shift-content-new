@@ -39,7 +39,6 @@ use ShiftContentNew\FieldValue\String;
  * @subpackage  Tests
  *
  * @group       unit
- * @group contentUpdate
  */
 class ItemTest extends TestCase
 {
@@ -66,6 +65,7 @@ class ItemTest extends TestCase
         //prepare data for testing
         $this->data = array(
             'publicationDate' => '12-12-2012',
+            'lastUpdated' => '12-12-2012',
             'title' => 'Test item title',
             'slug' => 'test-item'
         );

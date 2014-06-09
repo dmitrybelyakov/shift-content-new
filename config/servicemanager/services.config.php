@@ -19,6 +19,7 @@ return array(
             'ShiftContentNew\Type\Validator\UniqueNameValidator' => false,
             'ShiftContentNew\FieldType\File\FileSettingsValidator' => false,
             'ShiftContentNew\Type\Field\Validator\FieldTypeValidator' => false,
+            'ShiftContentNew\Item\ItemValidator' => false,
         ),
 
 
@@ -99,6 +100,14 @@ return array(
             },
             'ShiftContentNew\Type\Field\FieldFactory' => function($sm) {
                 $service = new \ShiftContentNew\Type\Field\FieldFactory($sm);
+                return $service;
+            },
+            'ShiftContentNew\Item\ItemFactory' => function($sm) {
+                $service = new \ShiftContentNew\Item\ItemFactory($sm);
+                return $service;
+            },
+            'ShiftContentNew\Item\ItemValidator' => function($sm) {
+                $service = new \ShiftContentNew\Item\ItemValidator($sm);
                 return $service;
             },
 

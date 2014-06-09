@@ -102,14 +102,14 @@ abstract class Meta
 
     /**
      * Latitude
-     * @ORM\Column(type="string", length=20, nullable=false)
+     * @ORM\Column(type="string", length=20, nullable=true)
      * @var \DateTime
      */
     protected $latitude;
 
     /**
      * Longitude
-     * @ORM\Column(type="string", length=20, nullable=false)
+     * @ORM\Column(type="string", length=20, nullable=true)
      * @var \DateTime
      */
     protected $longitude;
@@ -159,6 +159,7 @@ abstract class Meta
     {
         $now = new \DateTime('now', new \DateTimeZone('UTC'));
         $this->created = $now;
+        $this->lastUpdated = $now;
         $this->tags = new ArrayCollection;
         $this->categories = new ArrayCollection;
         $this->fromArray($data);
@@ -416,6 +417,117 @@ abstract class Meta
 
         $this->publicationDate = $publicationDate;
         return $this;
+    }
+
+
+    /**
+     * Get last updated date
+     * @return \DateTime
+     */
+    public function getLastUpdated()
+    {
+        return $this->lastUpdated;
+    }
+
+
+    /**
+     * Set last updated date
+     * @param \DateTime|string $publicationDate
+     * @return \ShiftContentNew\Item\Meta
+     */
+    public function setLastUpdated($updated)
+    {
+        if(is_string($updated))
+            $updated = new \DateTime($updated, new \DateTimeZone('UTC'));
+
+        //check timezone
+        if($updated instanceof \DateTime)
+        {
+            if('UTC' != $updated->getTimezone()->getName())
+                $updated->setTimezone(new \DateTimeZone('UTC'));
+        }
+
+        $this->lastUpdated = $updated;
+        return $this;
+    }
+
+
+    /**
+     * Touch
+     * Updates last updated date setting it to now
+     * @return \ShiftContentNew\Item\Meta
+     */
+    public function touch()
+    {
+        $now = new \DateTime('now', new \DateTimeZone('UTC'));
+        $this->lastUpdated = $now;
+        return $this;
+    }
+
+
+    /**
+     * Set latitude
+     * Sets item creation location latitude.
+     *
+     * @param string $lat
+     * @return \ShiftContentNew\Item\Meta
+     */
+    public function setLatitude($lat)
+    {
+        $this->latitude = $lat;
+        return $this;
+    }
+
+
+    /**
+     * Get latitude
+     * Returns current item latitude.
+     * @return string | null
+     */
+    public function getLatitude()
+    {
+        return $this->latitude;
+    }
+
+
+    /**
+     * Set longitude
+     * Sets item creation location longitude.
+     *
+     * @param string $lon
+     * @return \ShiftContentNew\Item\Meta
+     */
+    public function setLongitude($lon)
+    {
+        $this->longitude = $lon;
+        return $this;
+    }
+
+
+    /**
+     * Get longitude
+     * Returns current item longitude.
+     * @return string | null
+     */
+    public function getLongitude()
+    {
+        return $this->longitude;
+    }
+
+
+    /**
+     * Get geo point
+     * Returns geo point in standard format of [latitude,longitude] is
+     * those are set, otherwise returns.
+     * @return string | null
+     */
+    public function getGeoPoint()
+    {
+        if(!$this->latitude || !$this->longitude)
+            return;
+
+        $geoPoint = $this->latitude . ',' . $this->longitude;
+        return $geoPoint;
     }
 
 

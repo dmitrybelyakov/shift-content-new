@@ -25,7 +25,7 @@
  */
 namespace ShiftContentNew\Api;
 
-use ShiftKernel\Controller\Api\AbstractApi as BaseApiController;
+use ShiftKernel\Api\AbstractApi as BaseApi;
 use Zend\View\Model\JsonModel;
 
 
@@ -38,7 +38,7 @@ use Zend\View\Model\JsonModel;
  * @package     ShiftContentNew
  * @subpackage  Api
  */
-abstract class AbstractApi extends BaseApiController
+abstract class AbstractApi extends BaseApi
 {
 
     /**

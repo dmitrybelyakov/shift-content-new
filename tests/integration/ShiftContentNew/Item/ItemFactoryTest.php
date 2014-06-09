@@ -126,7 +126,7 @@ class ItemFactoryTest extends TestCase
     public function canGetServiceFromLocator()
     {
         $factoryName = 'ShiftContentNew\Item\ItemFactory';
-        $factory = $this->sm()->get($factoryName);
+        $factory = $this->sm($factoryName);
         $this->assertInstanceOf($factoryName, $factory);
     }
 
@@ -332,18 +332,20 @@ class ItemFactoryTest extends TestCase
             $field1Filters['Zend\Filter\StringTrim']->getCharList()
         );
 
-        $this->assertTrue(isset($field1Filters['Zend\Filter\Alnum']));
+        $this->assertTrue(isset($field1Filters['Zend\I18n\Filter\Alnum']));
         $this->assertTrue(
-            $field1Filters['Zend\Filter\Alnum']->getAllowWhitespace()
+            $field1Filters['Zend\I18n\Filter\Alnum']->getAllowWhitespace()
         );
 
 
         //check filed1 validators
         $field1Validators = $field1->getValidators();
         $this->assertTrue(isset($field1Validators['Zend\Validator\Digits']));
-        $this->assertTrue(isset($field1Validators['Zend\Validator\Alnum']));
+        $this->assertTrue(isset(
+            $field1Validators['Zend\I18n\Validator\Alnum']
+        ));
         $this->assertFalse(
-            $field1Validators['Zend\Validator\Alnum']->getAllowWhitespace()
+            $field1Validators['Zend\I18n\Validator\Alnum']->getAllowWhitespace()
         );
 
 
@@ -354,9 +356,9 @@ class ItemFactoryTest extends TestCase
             'd,e,f',
             $field2Filters['Zend\Filter\StringTrim']->getCharList()
         );
-        $this->assertTrue(isset($field2Filters['Zend\Filter\Alnum']));
+        $this->assertTrue(isset($field2Filters['Zend\I18n\Filter\Alnum']));
         $this->assertTrue(
-            $field2Filters['Zend\Filter\Alnum']->getAllowWhitespace()
+            $field2Filters['Zend\I18n\Filter\Alnum']->getAllowWhitespace()
         );
 
 
@@ -411,7 +413,7 @@ class ItemFactoryTest extends TestCase
     public function canValidateCustomItemPropertiesAndPass()
     {
         $type = $this->createTypeWithFieldsAndAttributes();
-        $itemFactory = new ItemFactory($this->getLocator());
+        $itemFactory = new ItemFactory($this->sm());
 
         $item = $itemFactory->createItemOfType($type, array(
             'publicationDate' => new \DateTime('now', new \DateTimeZone('UTC')),

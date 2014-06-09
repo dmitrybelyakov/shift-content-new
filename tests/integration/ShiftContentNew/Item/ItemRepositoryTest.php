@@ -122,6 +122,7 @@ class ItemRepositoryTest extends TestCase
     {
         $item = new Item;
         $item->setPublicationDate(new \DateTime);
+        $item->setLastUpdated(new \DateTime);
         $item->setTitle('Example item');
         $item->setSlug('test-slug');
 

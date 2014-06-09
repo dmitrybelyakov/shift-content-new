@@ -24,7 +24,10 @@ return array(
                     'metadataDrivers' => array(
                         'default' => array(
                             'mappingDirs' => array(
-                                'shiftcontentnew' => __DIR__ . '/../src/ShiftContentNew',
+                                'shiftcontentnew.items' => __DIR__ . '/../src/ShiftContentNew/Item',
+                                'shiftcontentnew.type' => __DIR__ . '/../src/ShiftContentNew/Type',
+                                'shiftcontentnew.field.types' => __DIR__ . '/../src/ShiftContentNew/FieldType',
+                                'shiftcontentnew.field.values' => __DIR__ . '/../src/ShiftContentNew/FieldValue',
                             )
                         )
                     )

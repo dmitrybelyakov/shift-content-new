@@ -30,6 +30,7 @@ use ShiftContentNew\Type\Type;
 use ShiftContentNew\Type\TypeService;
 use ShiftContentNew\FieldType\FieldTypeFactory;
 use ShiftContentNew\Exception\DomainException;
+use ShiftContentNew\Exception\ConfigurationException;
 
 /**
  * Item factory
@@ -229,7 +230,7 @@ class ItemFactory
 
         //create base validator
         $itemValidator = 'ShiftContentNew\Item\ItemValidator';
-        $itemValidator = $this->sm->newInstance($itemValidator);
+        $itemValidator = $this->sm->get($itemValidator);
 
         //now add validators for custom properties
         foreach($type->getFields() as $field)
@@ -242,9 +243,23 @@ class ItemFactory
             $filters = $field->getFilters();
             foreach($filters as $config)
             {
-                $filter = $this->sm->get(
-                    $config->getClassName()
-                );
+                $className = $config->getClassName();
+                if($this->sm->has($className))
+                    $filter = $this->sm->get($className);
+                else
+                {
+                    try
+                    {
+                        $filter = new $className;
+                    }
+                    catch(\Exception $e)
+                    {
+                        $error = "Service manager was unable to create ";
+                        $error .= "filter '$className'. Direct ";
+                        $error .= "instantiation failed as well.";
+                        throw new ConfigurationException($error);
+                    }
+                }
 
                 $filterOptions = $config->getOptionValues();
                 foreach($filterOptions as $variable => $value)
@@ -265,10 +280,23 @@ class ItemFactory
             $validators = $field->getValidators();
             foreach($validators as $config)
             {
-
-                $validator = $this->sm->get(
-                    $config->getClassName()
-                );
+                $className = $config->getClassName();
+                if($this->sm->has($className))
+                    $validator = $this->sm->get($className);
+                else
+                {
+                    try
+                    {
+                        $validator = new $className;
+                    }
+                    catch(\Exception $e)
+                    {
+                        $error = "Service manager was unable to create ";
+                        $error .= "validator '$className'. Direct ";
+                        $error .= "instantiation failed as well.";
+                        throw new ConfigurationException($error);
+                    }
+                }
 
                 $validatorOptions = $config->getOptionValues();
                 foreach($validatorOptions as $variable => $value)
